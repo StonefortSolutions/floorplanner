@@ -1,6 +1,12 @@
-import configJson from "./auth_config.json";
+import { createBrowserHistory } from "history";
 
-export function getConfig() {
+const configJson = {
+  domain: "dev-teymek2ygmid864g.us.auth0.com",
+  clientId: "zQGvpn5bmCFr77k5gcmwX3aTFkmdg2az",
+  audience: "default",
+};
+
+export const getConfig = () => {
   // Configure the audience here. By default, it will take whatever is in the config
   // (specified by the `audience` key) unless it's the default value of "YOUR_API_IDENTIFIER" (which
   // is what you get sometimes by using the Auth0 sample download tool from the quickstart page, if you
@@ -17,4 +23,12 @@ export function getConfig() {
     clientId: configJson.clientId,
     ...(audience ? { audience } : null),
   };
-}
+};
+
+export const history = createBrowserHistory();
+
+export const onRedirectCallback = (appState) => {
+  history.push(
+    appState && appState.returnTo ? appState.returnTo : window.location.pathname
+  );
+};
