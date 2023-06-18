@@ -27,16 +27,16 @@ DATABASE_URL=
 ### Folder Structure
 
     .
-    ├── /dist                      # Prod React Bundle
-    ├── /public                    # Shared static files (favicon)
+    ├── /dist                     # Prod React Bundle
+    ├── /public                   # Shared static files (favicon)
     ├── /src
-       ├── /server                 # Express Backend
-         ├── /db                  # Sequelize Models and Relationships
-         └── /api                 # API Routes
-       ├── /client                 # React Frontend
-         ├── /assets              # Static Assets
-         ├── /components          # React UI Components
-         ├── /pages               # Page Components (Routes)
-         ├── /store               # Redux Store and Thunks
-         ├── router.jsx          # React Router
-         └── main.jsx            # App Providers
+       ├── /server                # Express Backend
+         ├── /db                    # Sequelize Models and Relationships
+         └── /api                   # API Routes
+       ├── /client                # React Frontend
+         ├── /assets                    # Static Assets
+         ├── /components                # React UI Components
+         ├── /pages                     # Page Components (Routes)
+         ├── /store                     # Redux Store and Thunks
+         ├── router.jsx             # React Router
+         └── main.jsx               # App Providers
