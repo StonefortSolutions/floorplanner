@@ -1,17 +1,14 @@
 const express = require("express");
 const app = express.Router();
-const { checkJwt } = require("../utils.js");
+const { checkJwt } = require("../utils");
+const { Examples } = require("../db");
 
 module.exports = app;
 
-app.get("/", checkJwt, (req, res, next) => {
-  console.log("HERE");
-  console.log(req);
-  console.log(req.body);
+app.get("/", checkJwt, async (req, res, next) => {
   try {
-    res.send({
-      msg: "Your access token was successfully validated!",
-    });
+    const examples = await Examples.findAll();
+    res.send(examples);
   } catch (ex) {
     next(ex);
   }
