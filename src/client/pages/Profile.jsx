@@ -1,9 +1,18 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchExamples } from "../store";
 
 function Profile() {
-  const { user, isAuthenticated } = useAuth0();
+  const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    (async () => {
+      const token = await getAccessTokenSilently();
+      dispatch(fetchExamples(token));
+    })();
+  }, []);
+
   const { examples } = useSelector((state) => state.examples);
 
   if (!isAuthenticated) return <div>Loading...</div>;
@@ -14,10 +23,14 @@ function Profile() {
       <img src={picture} alt={name} className="rounded-full h-10 w-10" />
       <h2>{name}</h2>
       <p>{email}</p>
-      <h3>Examples from Redux</h3>
-      {examples.map((example) => (
-        <div key={example.id}>{example.name}</div>
-      ))}
+      <h3>Examples from Database</h3>
+      <ul className="list-disc list-inside">
+        {examples.map((example) => (
+          <li className="" key={example.id}>
+            {example.text}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
