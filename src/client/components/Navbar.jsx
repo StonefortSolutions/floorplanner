@@ -8,6 +8,14 @@ const navItems = [
     name: "Profile",
     href: "/profile",
   },
+  {
+    name: "Dashboard",
+    href: "/dashboard",
+  },
+  {
+    name: "Editor",
+    href: "/editor",
+  },
 ];
 
 function Navbar() {
@@ -16,7 +24,7 @@ function Navbar() {
   return (
     <header className="absolute inset-x-0 top-0 z-50">
       <nav
-        className="flex items-center justify-between p-6 lg:px-8"
+        className="flex items-center justify-between p-6 lg:px-8 shadow-md dark:bg-gray-900"
         aria-label="Global"
       >
         <div className="flex lg:flex-1">
@@ -51,7 +59,7 @@ function Navbar() {
           ))}
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          {isAuthenticated ? (
+          {user ? (
             <button
               className="text-sm font-semibold leading-6 text-gray-900 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-300"
               onClick={() => logout()}
@@ -60,7 +68,7 @@ function Navbar() {
                 <img
                   src={user.picture}
                   alt={user.name}
-                  className="rounded-full h-10 w-10"
+                  className="rounded-full h-8 w-8"
                 />
               ) : (
                 <span className="sr-only">Log out</span>
@@ -119,14 +127,14 @@ function Navbar() {
                 {isAuthenticated ? (
                   <a
                     href="#"
-                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    className=" block rounded-lg px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                   >
                     Log out
                   </a>
                 ) : (
                   <a
                     href="#"
-                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    className=" block rounded-lg px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                   >
                     Log in
                   </a>
