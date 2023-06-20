@@ -5,8 +5,8 @@ function Editor() {
   return (
     <div>
       <div className="flex flex-col md:flex-row">
-        <ApplicationSidebar />
-        <div className="min-h-full min-w-full bg-green-500"></div>
+        <ApplicationSidebar className="border-r" />
+        <div className="min-w-[400px] min-h-[400px] flex-1 bg-green-500"></div>
       </div>
     </div>
   );

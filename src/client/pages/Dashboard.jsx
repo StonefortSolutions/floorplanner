@@ -37,16 +37,14 @@ function Dashboard() {
   const { toast } = useToast();
   const testToast = () => {
     toast({
-      title: "Test Toast",
       description: "This is a test toast",
-      duration: 5000,
     });
   };
   return (
     <div className="p-4">
       <div className="flex flex-col md:flex-row">
         <UserDashboardSidebar />
-        <div className="flex-1">
+        <div className="flex-1 lg:border-l lg:px-2">
           <h1 className="text-2xl font-semibold tracking-tight">Dashboard</h1>
           <p className="mt-2 text-gray-600 dark:text-gray-400">
             Welcome to your dashboard. Here you can view your floorplans, create
