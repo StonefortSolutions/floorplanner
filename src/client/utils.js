@@ -1,4 +1,6 @@
 import { createBrowserHistory } from "history";
+import { clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 const configJson = {
   domain: "dev-teymek2ygmid864g.us.auth0.com",
@@ -31,4 +33,8 @@ export const onRedirectCallback = (appState) => {
   history.push(
     appState && appState.returnTo ? appState.returnTo : window.location.pathname
   );
+};
+
+export const cn = (...inputs) => {
+  return twMerge(clsx(inputs));
 };

@@ -1,10 +1,12 @@
 import React from "react";
+import ApplicationSidebar from "../components/ApplicationSidebar";
 import Edditor3d from "../components/edditor3d/main";
 
 function Home() {
   return (
     <>
-      <div className="text-gray-700 dark:text-gray-200">Home</div>
+      <div className="">Home</div>;
+      <ApplicationSidebar/>
       <Edditor3d/>
     </>
   );
