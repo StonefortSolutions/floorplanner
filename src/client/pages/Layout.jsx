@@ -7,7 +7,7 @@ function Layout() {
   return (
     <div className="">
       <Navbar />
-      <div className="py-24 sm:py-32 transition-all">
+      <div className="py-24 transition-all p-2">
         <Outlet />
         <Toaster />
       </div>
