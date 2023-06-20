@@ -8,6 +8,8 @@ import {
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import Layout from "./pages/Layout";
+import Dashboard from "./pages/Dashboard";
+import Editor from "./pages/Editor";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +24,14 @@ const router = createBrowserRouter([
       {
         path: "/profile",
         element: <Profile />,
+      },
+      {
+        path: "/dashboard",
+        element: <Dashboard />,
+      },
+      {
+        path: "/editor",
+        element: <Editor />,
       },
     ],
   },

@@ -4,9 +4,9 @@ import { Outlet } from "react-router-dom";
 
 function Layout() {
   return (
-    <div className="flex flex-col min-h-screen bg-gray-100 dark:bg-gray-800">
+    <div className="">
       <Navbar />
-      <div className="mx-auto max-w-2xl py-24 sm:py-32 transition-all">
+      <div className="py-24 sm:py-32 transition-all">
         <Outlet />
       </div>
     </div>

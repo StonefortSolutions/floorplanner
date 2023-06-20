@@ -8,6 +8,14 @@ const navItems = [
     name: "Profile",
     href: "/profile",
   },
+  {
+    name: "Dashboard",
+    href: "/dashboard",
+  },
+  {
+    name: "Editor",
+    href: "/editor",
+  },
 ];
 
 function Navbar() {
