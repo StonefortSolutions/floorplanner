@@ -11,6 +11,14 @@ import { Button } from "../components/ui/Button";
 import { PencilIcon } from "lucide-react";
 import { XCircleIcon } from "lucide-react";
 import { useToast } from "../hooks/useToast";
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "../components/ui/Dialog";
 
 const exampleFloorplans = [
   {
@@ -62,10 +70,25 @@ function Dashboard() {
                   </CardContent>
                   <CardFooter>
                     <div className="flex flex-row justify-between w-full">
-                      <Button variant="destructive" size="sm">
-                        <XCircleIcon className="mr-2 h-4 w-4" />
-                        Delete
-                      </Button>
+                      <Dialog>
+                        <DialogTrigger>
+                          <Button variant="destructive" size="sm">
+                            <XCircleIcon className="mr-2 h-4 w-4" />
+                            Delete
+                          </Button>
+                        </DialogTrigger>
+                        <DialogContent>
+                          <DialogHeader>
+                            <DialogTitle>
+                              Are you sure absolutely sure?
+                            </DialogTitle>
+                            <DialogDescription>
+                              This action cannot be undone.
+                            </DialogDescription>
+                          </DialogHeader>
+                        </DialogContent>
+                      </Dialog>
+
                       <Button
                         variant="secondary"
                         size="sm"
