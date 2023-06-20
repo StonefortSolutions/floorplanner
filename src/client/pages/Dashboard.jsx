@@ -9,6 +9,8 @@ import {
 } from "../components/ui/Card";
 import { Button } from "../components/ui/Button";
 import { PencilIcon } from "lucide-react";
+import { XCircleIcon } from "lucide-react";
+import { useToast } from "../hooks/useToast";
 
 const exampleFloorplans = [
   {
@@ -22,7 +24,16 @@ const exampleFloorplans = [
     description: "This is my second floorplan",
   },
 ];
+
 function Dashboard() {
+  const { toast } = useToast();
+  const testToast = () => {
+    toast({
+      title: "Test Toast",
+      description: "This is a test toast",
+      duration: 5000,
+    });
+  };
   return (
     <div className="p-4">
       <div className="flex flex-col md:flex-row">
@@ -50,10 +61,20 @@ function Dashboard() {
                     <CardDescription>{floorplan.description}</CardDescription>
                   </CardContent>
                   <CardFooter>
-                    <Button variant="secondary" size="sm">
-                      <PencilIcon className="mr-2 h-4 w-4" />
-                      Edit
-                    </Button>
+                    <div className="flex flex-row justify-between w-full">
+                      <Button variant="destructive" size="sm">
+                        <XCircleIcon className="mr-2 h-4 w-4" />
+                        Delete
+                      </Button>
+                      <Button
+                        variant="secondary"
+                        size="sm"
+                        onClick={() => testToast()}
+                      >
+                        <PencilIcon className="mr-2 h-4 w-4" />
+                        Edit
+                      </Button>
+                    </div>
                   </CardFooter>
                 </Card>
               ))}
