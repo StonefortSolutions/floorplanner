@@ -4,18 +4,24 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchExamples } from "../store";
 
 function Profile() {
-  const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
+  const { user, isAuthenticated, getAccessTokenSilently, isLoading, error } = useAuth0();
+   if (isLoading) {
+    return <div>Loading...</div>;
+  }
+  if (error) {
+    return <div>Oops... {error.message}</div>;
+  }
+
   const dispatch = useDispatch();
-  useEffect(() => {
-    (async () => {
+  const fetchStuff = async () => {
       const token = await getAccessTokenSilently();
       dispatch(fetchExamples(token));
-    })();
+  };
+  useEffect(() => {
+    fetchStuff();
   }, []);
-
+  if (!isAuthenticated) return <div>Log in to view profile</div>;
   const { examples } = useSelector((state) => state.examples);
-
-  if (!isAuthenticated) return <div>Loading...</div>;
   const { name, picture, email } = user;
   return (
     <div>
