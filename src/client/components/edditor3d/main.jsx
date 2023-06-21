@@ -31,7 +31,7 @@ const Editor3d = () => {
       <Canvas
         id="canvas1"
         camera={is2D ? camera2D : camera3D}
-        className="border-8 border-red-400"
+        className="border-8 border-primary-forground"
         frameloop="demand"
       >
         <OrbitControls enableZoom={!is2D} />
