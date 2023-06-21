@@ -26,8 +26,8 @@ const Editor3d = () => {
   }, []);
 
   return (
-    <div id="edditor" className="">
-      <button onClick={() => setIs2D(!is2D)}>toggle perspective</button>
+    //stop canvas from growing and resizing
+    <div id="edditor" className="leading-none h-[98%]">
       <Canvas
         id="canvas1"
         camera={is2D ? camera2D : camera3D}
@@ -42,6 +42,7 @@ const Editor3d = () => {
         <SnapPoints />
         <ItemRenderer />
       </Canvas>
+      <button onClick={() => setIs2D(!is2D)}>toggle perspective</button>
     </div>
   );
 };
