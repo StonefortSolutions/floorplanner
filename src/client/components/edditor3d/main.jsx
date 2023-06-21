@@ -26,7 +26,6 @@ const Editor3d = () => {
   }, []);
 
   return (
-    //stop canvas from growing and resizing
     <div id="edditor" className="leading-none h-[98%]">
       <Canvas
         id="canvas1"
