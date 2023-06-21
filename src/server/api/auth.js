@@ -18,6 +18,15 @@ app.get("/", ClerkExpressRequireAuth({}), async (req, res, next) => {
   }
 });
 
+app.post("/postregistration", async (req, res, next) => {
+  console.log("postregistration", req.body);
+  try {
+    res.send(req.body);
+  } catch (ex) {
+    next(ex);
+  }
+});
+
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(401).send({ error: "Unauthenticated!" });
