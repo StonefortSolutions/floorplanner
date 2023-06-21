@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
 import { MenuIcon, XIcon } from "lucide-react";
 import { Dialog } from "@headlessui/react";
-import { useAuth0 } from "@auth0/auth0-react";
+import {
+  SignedIn,
+  SignedOut,
+  UserButton,
+  SignInButton,
+} from "@clerk/clerk-react";
+import imgUrl from "../assets/logo.png";
 
 const navItems = [
   {
@@ -20,7 +26,6 @@ const navItems = [
 
 function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
   return (
     <header className="absolute inset-x-0 top-0 z-50">
       <nav
@@ -30,11 +35,7 @@ function Navbar() {
         <div className="flex lg:flex-1">
           <a href="/" className="-m-1.5 p-1.5">
             <span className="sr-only">Capstone</span>
-            <img
-              className="h-8 w-auto"
-              src="https://ksr-ugc.imgix.net/assets/003/488/267/210c162995de80609124abf81047bca7_original.png?ixlib=rb-4.0.2&w=700&fit=max&v=1427136681&auto=format&frame=1&q=92&s=eb4411c5e9d3557ffa64598ac3b238a6"
-              alt="logo"
-            />
+            <img className="h-8 w-auto" src={imgUrl} alt="logo" />
           </a>
         </div>
         <div className="flex lg:hidden">
@@ -59,29 +60,12 @@ function Navbar() {
           ))}
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          {user ? (
-            <button
-              className="text-sm font-semibold leading-6 text-gray-900 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-300"
-              onClick={() => logout()}
-            >
-              {user.picture ? (
-                <img
-                  src={user.picture}
-                  alt={user.name}
-                  className="rounded-full h-8 w-8"
-                />
-              ) : (
-                <span className="sr-only">Log out</span>
-              )}
-            </button>
-          ) : (
-            <button
-              onClick={() => loginWithRedirect()}
-              className="text-sm font-semibold leading-6 text-gray-900 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-300"
-            >
-              Log in <span aria-hidden="true">&rarr;</span>
-            </button>
-          )}
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
+          <SignedOut>
+            <SignInButton />
+          </SignedOut>
         </div>
       </nav>
       <Dialog
@@ -124,21 +108,12 @@ function Navbar() {
                 ))}
               </div>
               <div className="py-6">
-                {isAuthenticated ? (
-                  <a
-                    href="#"
-                    className=" block rounded-lg px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                  >
-                    Log out
-                  </a>
-                ) : (
-                  <a
-                    href="#"
-                    className=" block rounded-lg px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                  >
-                    Log in
-                  </a>
-                )}
+                <SignedIn>
+                  <UserButton />
+                </SignedIn>
+                <SignedOut>
+                  <SignInButton />
+                </SignedOut>
               </div>
             </div>
           </div>

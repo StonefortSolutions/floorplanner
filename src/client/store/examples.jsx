@@ -1,20 +1,12 @@
-import { useAuth0 } from "@auth0/auth0-react";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 const initialState = {
   examples: [],
 };
 
-export const fetchExamples = createAsyncThunk(
-  "fetchExamples",
-  async (token) => {
-    const response = await fetch("/api/auth", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    return await response.json();
-  }
-);
+export const fetchExamples = createAsyncThunk("fetchExamples", async () => {
+  const response = await fetch("/api/auth");
+  return await response.json();
+});
 
 const examplesSlice = createSlice({
   name: "examples",

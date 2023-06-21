@@ -3,11 +3,7 @@ const express = require("express");
 const ViteExpress = require("vite-express");
 const app = express();
 const port = process.env.PORT || 3000;
-const { verifyAuthSetup, checkJwt } = require("./utils");
 const { syncAndSeed } = require("./db/index");
-
-//AUTH0 CONFIG
-verifyAuthSetup();
 
 //MIDDLEWARE
 app.use(express.json());

@@ -1,5 +1,5 @@
 {
-  "domain": "dev-teymek2ygmid864g.us.auth0.com",
-  "clientId": "zQGvpn5bmCFr77k5gcmwX3aTFkmdg2az",
-  "audience": "default"
+  "domain": "floorplanner.us.auth0.com",
+  "clientId": "Xej6BUmM6iEhGx9jmUV1RNfSvdKuqG3r",
+  "audience": "https://floorplanner.us.auth0.com/api/v2/"
 }
