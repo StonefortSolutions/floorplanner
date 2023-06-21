@@ -3,7 +3,8 @@ import { setSelectedPoint } from "../../../store/selectedPoint"
 import { useThree } from "@react-three/fiber"
 import { createWall } from "../modules/createWall"
 import { useState } from "react";
-
+import { addToScene } from "../../../store/scene";
+import { v4 as uuidv4 } from "uuid"
 
 const SnapPoints = () => {
   const dispatch = useDispatch()
@@ -16,6 +17,7 @@ const SnapPoints = () => {
     const clickHandler = (x,y) => {
       if(selectedPoint.x !== null  && (x === selectedPoint.x || y === selectedPoint.y)){
         scene.add(createWall(selectedPoint,{x,y}))
+        dispatch(addToScene({id: uuidv4(),itemId: 'wall', transform: {pt1:selectedPoint, pt2: {x,y}}}))
         dispatch(setSelectedPoint({x:null,y:null}))
       }else{
         dispatch(setSelectedPoint({x,y}))

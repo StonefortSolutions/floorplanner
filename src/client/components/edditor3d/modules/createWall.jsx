@@ -3,7 +3,7 @@ import { useThree } from "@react-three/fiber"
 
 //(b2 + c2 − a2) / 2bc
 
-export const createWall = (pt1,pt2) => {
+export const createWall = (pt1,pt2,id) => {
   //const pt3 = {x:pt1.x + 1,y:pt1.y};
   const centerX = (Math.abs(pt1.x + pt2.x)/2) - 25
   const centerY = (Math.abs(pt1.y + pt2.y)/2) - 25
@@ -21,6 +21,7 @@ export const createWall = (pt1,pt2) => {
   wall.translateX(centerX +.5)
   wall.translateZ(centerY+.5)
   wall.translateY(4);
+  wall.name = id;
   if(pt1.y === pt2.y){
     wall.rotateY(Math.PI / 2)
   }
