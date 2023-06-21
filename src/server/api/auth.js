@@ -9,7 +9,7 @@ module.exports = app;
 app.get("/", ClerkExpressRequireAuth({}), async (req, res, next) => {
   try {
     if (!req.auth.userId && !req.auth.sessionId) {
-      res.send(401).send("Unauthenticated!");
+      res.status(401).send({ error: "Unauthenticated!" });
     }
     const examples = await Examples.findAll();
     res.send(examples);
@@ -20,5 +20,5 @@ app.get("/", ClerkExpressRequireAuth({}), async (req, res, next) => {
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(401).send("Unauthenticated!");
+  res.status(401).send({ error: "Unauthenticated!" });
 });
