@@ -11,10 +11,11 @@ import { Switch } from "./ui/Switch";
 import { Label } from "./ui/Label";
 import { saveScene } from "../store/scene";
 import { useDispatch, useSelector } from "react-redux"
+import { setAction } from "../store/currentAction";
 
 function ApplicationSidebar({ className }) {
   const dispatch = useDispatch()
-  const scene = useSelector(state => state.scene)
+  const state = useSelector(state => state)
   return (
     <div className={cn("pb-12", className)}>
       <div className="space-y-4 py-4">
@@ -27,11 +28,17 @@ function ApplicationSidebar({ className }) {
               variant="secondary"
               size="sm"
               className="w-full justify-start"
+              onClick={()=>dispatch(setAction('wall'))}
             >
               <PencilIcon className="mr-2 h-4 w-4" />
               Walls
             </Button>
-            <Button variant="ghost" size="sm" className="w-full justify-start">
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="w-full justify-start"
+              onClick={()=>dispatch(setAction('delete'))}
+            >
               <EraserIcon className="mr-2 h-4 w-4" />
               Eraser
             </Button>
@@ -39,7 +46,7 @@ function ApplicationSidebar({ className }) {
               <ArmchairIcon className="mr-2 h-4 w-4" />
               Furniture
             </Button>
-            <Button onClick={()=>dispatch(saveScene(scene))} variant="ghost" size="sm" className="w-full justify-start">
+            <Button onClick={()=>dispatch(saveScene(state.scene))} variant="ghost" size="sm" className="w-full justify-start">
               Save
             </Button>
           </div>

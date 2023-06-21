@@ -7,8 +7,8 @@ import SnapPoints from './components/SnapPoints';
 import * as THREE from 'three'
 import { useDispatch, useSelector } from "react-redux"
 import { loadScene } from '../../store/scene';
-import { rebuildScene } from './modules/loader';
-import StartingScene from './components/StartingScene';
+import RayCaster from './components/RayCaster';
+import ItemRenderer from './components/ItemRenderer';
 
 const Editor3d = () => {
   const [is2D, setIs2D] = useState(true)
@@ -19,22 +19,11 @@ const Editor3d = () => {
   camera3D.translateY(50);
   camera3D.translateZ(50);
 
-  const sceneState = useSelector(state => state.scene);
-
   const dispatch = useDispatch()
-  const [loaded, setLoaded] = useState(false);
-  const [StartingSceneArray, setStartingSceneArray] = useState([])
 
   useEffect(()=>{
     dispatch(loadScene())
   },[])
-
-  useEffect(()=>{
-    if(!loaded && sceneState !== null){
-      setStartingSceneArray(rebuildScene(sceneState));
-      setLoaded(true);
-    }
-  },[sceneState])
 
   return(
     <div id="edditor" className='w-[600px] h-[600px]'>
@@ -45,13 +34,13 @@ const Editor3d = () => {
         className='border-8 border-red-400'
         frameloop="demand"
       >
-        <OrbitControls enableZoom={true} />
+        <OrbitControls enableZoom={!is2D} />
         <ambientLight intensity={0.5} />
         <directionalLight position={[-2, 10, 2]} intensity={1} />
         <Ground/>
         <Grid/>
         <SnapPoints/>
-        <StartingScene startingScene={StartingSceneArray}/>
+        <ItemRenderer/>
       </Canvas>
     </div>
   );
