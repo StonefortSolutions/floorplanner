@@ -22,7 +22,11 @@ export const loadScene = createAsyncThunk('loadScene', async() => {
 const scene = createSlice({
   name: "scene",
   initialState,
-  reducers: {},
+  reducers: {
+    deleteFromScene(state,action){
+      return state.filter((item)=>{return item.id !== action.payload})
+    }
+  },
   extraReducers: (builder) => {
     builder.addCase(createScene.fulfilled, (state, action) => {
       return action.payload;
@@ -38,5 +42,7 @@ const scene = createSlice({
     })
   },
 });
+
+export const {deleteFromScene} = scene.actions
 
 export default scene.reducer;
