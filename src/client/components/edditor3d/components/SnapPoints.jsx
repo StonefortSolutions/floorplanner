@@ -5,10 +5,10 @@ import { createWall } from "../modules/createWall"
 import { useState } from "react";
 import { addToScene } from "../../../store/scene";
 import { v4 as uuidv4 } from "uuid"
+import store from "../../../store"
 
 const SnapPoints = () => {
   const dispatch = useDispatch()
-  const {scene} = useThree()
   const {selectedPoint} = useSelector((state => state))
 
   const snapPoint = (x,y) => {
@@ -16,9 +16,12 @@ const SnapPoints = () => {
     const [selected,setSelected] = useState(false)
     const clickHandler = (x,y) => {
       if(selectedPoint.x !== null  && (x === selectedPoint.x || y === selectedPoint.y)){
-        scene.add(createWall(selectedPoint,{x,y}))
-        dispatch(addToScene({id: uuidv4(),itemId: 'wall', transform: {pt1:selectedPoint, pt2: {x,y}}}))
-        dispatch(setSelectedPoint({x:null,y:null}))
+        const currentAction = store.getState().currentAction
+        if(currentAction === 'wall'){
+          dispatch(addToScene({id: uuidv4(),itemId: 'wall', transform: {pt1:selectedPoint, pt2: {x,y}}}))
+          dispatch(setSelectedPoint({x:null,y:null}))
+        }
+        
       }else{
         dispatch(setSelectedPoint({x,y}))
         setSelected(true);
