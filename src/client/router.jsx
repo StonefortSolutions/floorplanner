@@ -28,11 +28,19 @@ function ClerkProviderWithRoutes({ publishableKey }) {
 
           <Route
             path="/sign-in/*"
-            element={<SignIn routing="path" path="/sign-in" />}
+            element={
+              <div className="h-screen flex items-center justify-center">
+                <SignIn routing="path" path="/sign-in" />
+              </div>
+            }
           />
           <Route
             path="/sign-up/*"
-            element={<SignUp routing="path" path="/sign-up" />}
+            element={
+              <div className="h-screen flex items-center justify-center">
+                <SignUp routing="path" path="/sign-up" />
+              </div>
+            }
           />
           <Route
             path="/dashboard"

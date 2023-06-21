@@ -33,9 +33,15 @@ function Navbar() {
         aria-label="Global"
       >
         <div className="flex lg:flex-1">
-          <a href="/" className="-m-1.5 p-1.5">
-            <span className="sr-only">Capstone</span>
-            <img className="h-8 w-auto" src={imgUrl} alt="logo" />
+          <a
+            href="/"
+            className="-m-1.5 p-1.5 flex flex-row justify-center align-middle items-center content-center"
+          >
+            <span className="sr-only">FloorPlanner</span>
+            <img className="h-10 w-auto" src={imgUrl} alt="logo" />
+            <span className="ml-2 text-lg font-bold text-primary">
+              FloorPlanner
+            </span>
           </a>
         </div>
         <div className="flex lg:hidden">
