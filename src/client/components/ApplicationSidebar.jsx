@@ -9,8 +9,12 @@ import {
 import { cn } from "../utils";
 import { Switch } from "./ui/Switch";
 import { Label } from "./ui/Label";
+import { saveScene } from "../store/scene";
+import { useDispatch, useSelector } from "react-redux"
 
 function ApplicationSidebar({ className }) {
+  const dispatch = useDispatch()
+  const scene = useSelector(state => state.scene)
   return (
     <div className={cn("pb-12", className)}>
       <div className="space-y-4 py-4">
@@ -34,6 +38,9 @@ function ApplicationSidebar({ className }) {
             <Button variant="ghost" size="sm" className="w-full justify-start">
               <ArmchairIcon className="mr-2 h-4 w-4" />
               Furniture
+            </Button>
+            <Button onClick={()=>dispatch(saveScene(scene))} variant="ghost" size="sm" className="w-full justify-start">
+              Save
             </Button>
           </div>
         </div>
