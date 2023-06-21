@@ -69,7 +69,7 @@ function Dashboard() {
                   <CardFooter>
                     <div className="flex flex-row justify-between w-full">
                       <Dialog>
-                        <DialogTrigger>
+                        <DialogTrigger asChild>
                           <Button variant="destructive" size="sm">
                             <XCircleIcon className="mr-2 h-4 w-4" />
                             Delete
