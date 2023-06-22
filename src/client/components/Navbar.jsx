@@ -1,46 +1,47 @@
 import { useEffect, useState } from "react";
 import { MenuIcon, XIcon } from "lucide-react";
 import { Dialog } from "@headlessui/react";
-import { useAuth0 } from "@auth0/auth0-react";
+import {
+  SignedIn,
+  SignedOut,
+  UserButton,
+  SignInButton,
+} from "@clerk/clerk-react";
+import imgUrl from "../assets/logo.png";
+import AccountButton from "./ui/AccountButton";
+import { Button } from "./ui/Button";
 
 const navItems = [
   {
-    name: "Profile",
+    name: "Testing",
     href: "/profile",
-  },
-  {
-    name: "Dashboard",
-    href: "/dashboard",
-  },
-  {
-    name: "Editor",
-    href: "/editor",
   },
 ];
 
 function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
   return (
     <header className="absolute inset-x-0 top-0 z-50">
       <nav
-        className="flex items-center justify-between p-6 lg:px-8 shadow-md dark:bg-gray-900"
+        className="flex items-center justify-between p-6 lg:px-8 shadow-md bg-secondary"
         aria-label="Global"
       >
         <div className="flex lg:flex-1">
-          <a href="/" className="-m-1.5 p-1.5">
-            <span className="sr-only">Capstone</span>
-            <img
-              className="h-8 w-auto"
-              src="https://ksr-ugc.imgix.net/assets/003/488/267/210c162995de80609124abf81047bca7_original.png?ixlib=rb-4.0.2&w=700&fit=max&v=1427136681&auto=format&frame=1&q=92&s=eb4411c5e9d3557ffa64598ac3b238a6"
-              alt="logo"
-            />
+          <a
+            href="/"
+            className="-m-1.5 p-1.5 flex flex-row justify-center align-middle items-center content-center"
+          >
+            <span className="sr-only">FloorPlanner</span>
+            <img className="h-10 w-auto" src={imgUrl} alt="logo" />
+            <span className="ml-2 text-lg font-bold text-primary">
+              FloorPlanner
+            </span>
           </a>
         </div>
         <div className="flex lg:hidden">
           <button
             type="button"
-            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
+            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-primary"
             onClick={() => setMobileMenuOpen(true)}
           >
             <span className="sr-only">Open main menu</span>
@@ -59,29 +60,9 @@ function Navbar() {
           ))}
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          {user ? (
-            <button
-              className="text-sm font-semibold leading-6 text-gray-900 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-300"
-              onClick={() => logout()}
-            >
-              {user.picture ? (
-                <img
-                  src={user.picture}
-                  alt={user.name}
-                  className="rounded-full h-8 w-8"
-                />
-              ) : (
-                <span className="sr-only">Log out</span>
-              )}
-            </button>
-          ) : (
-            <button
-              onClick={() => loginWithRedirect()}
-              className="text-sm font-semibold leading-6 text-gray-900 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-300"
-            >
-              Log in <span aria-hidden="true">&rarr;</span>
-            </button>
-          )}
+          <div className="flex flex-row gap-x-4">
+            <AccountButton />
+          </div>
         </div>
       </nav>
       <Dialog
@@ -91,19 +72,15 @@ function Navbar() {
         onClose={setMobileMenuOpen}
       >
         <div className="fixed inset-0 z-50" />
-        <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+        <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-secondary px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-between">
             <a href="/" className="-m-1.5 p-1.5">
-              <span className="sr-only">Capstone</span>
-              <img
-                className="h-8 w-auto"
-                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                alt=""
-              />
+              <span className="sr-only">FloorPlanner</span>
+              <img className="h-8 w-auto" src={imgUrl} alt="floorplanner" />
             </a>
             <button
               type="button"
-              className="-m-2.5 rounded-md p-2.5 text-gray-700"
+              className="-m-2.5 rounded-md p-2.5 text-primary"
               onClick={() => setMobileMenuOpen(false)}
             >
               <span className="sr-only">Close menu</span>
@@ -117,28 +94,14 @@ function Navbar() {
                   <a
                     key={item.name}
                     href={item.href}
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-primary"
                   >
-                    {item.name}
+                    <Button variant="ghost">{item.name}</Button>
                   </a>
                 ))}
               </div>
               <div className="py-6">
-                {isAuthenticated ? (
-                  <a
-                    href="#"
-                    className=" block rounded-lg px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                  >
-                    Log out
-                  </a>
-                ) : (
-                  <a
-                    href="#"
-                    className=" block rounded-lg px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                  >
-                    Log in
-                  </a>
-                )}
+                <AccountButton />
               </div>
             </div>
           </div>

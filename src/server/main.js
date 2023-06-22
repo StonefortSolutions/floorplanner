@@ -3,15 +3,11 @@ const express = require("express");
 const ViteExpress = require("vite-express");
 const app = express();
 const port = process.env.PORT || 3000;
-const { verifyAuthSetup, checkJwt } = require("./utils");
 const { syncAndSeed } = require("./db/index");
 const path = require('path')
 
 //Static Files
 app.use(express.static(path.join(__dirname, '..','..',"public",'furniture')));
-
-//AUTH0 CONFIG
-verifyAuthSetup();
 
 //MIDDLEWARE
 app.use(express.json());
