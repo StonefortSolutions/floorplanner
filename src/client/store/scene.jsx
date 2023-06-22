@@ -16,7 +16,10 @@ export const addToScene = createAsyncThunk('addToScene', async(payload)=>{
 
 export const loadScene = createAsyncThunk('loadScene', async() => {
   const scene = window.localStorage.getItem('scene');
-  return JSON.parse(scene);
+  if(scene){
+    return JSON.parse(scene)
+  }
+  return [];
 })
 
 const scene = createSlice({
