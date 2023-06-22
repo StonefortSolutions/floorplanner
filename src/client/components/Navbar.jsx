@@ -8,19 +8,13 @@ import {
   SignInButton,
 } from "@clerk/clerk-react";
 import imgUrl from "../assets/logo.png";
+import AccountButton from "./ui/AccountButton";
+import { Button } from "./ui/Button";
 
 const navItems = [
   {
-    name: "Profile",
+    name: "Testing",
     href: "/profile",
-  },
-  {
-    name: "Dashboard",
-    href: "/dashboard",
-  },
-  {
-    name: "Editor",
-    href: "/editor",
   },
 ];
 
@@ -47,7 +41,7 @@ function Navbar() {
         <div className="flex lg:hidden">
           <button
             type="button"
-            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
+            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-primary"
             onClick={() => setMobileMenuOpen(true)}
           >
             <span className="sr-only">Open main menu</span>
@@ -66,12 +60,9 @@ function Navbar() {
           ))}
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <SignedIn>
-            <UserButton />
-          </SignedIn>
-          <SignedOut>
-            <SignInButton />
-          </SignedOut>
+          <div className="flex flex-row gap-x-4">
+            <AccountButton />
+          </div>
         </div>
       </nav>
       <Dialog
@@ -81,19 +72,15 @@ function Navbar() {
         onClose={setMobileMenuOpen}
       >
         <div className="fixed inset-0 z-50" />
-        <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+        <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-secondary px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-between">
             <a href="/" className="-m-1.5 p-1.5">
-              <span className="sr-only">Capstone</span>
-              <img
-                className="h-8 w-auto"
-                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                alt=""
-              />
+              <span className="sr-only">FloorPlanner</span>
+              <img className="h-8 w-auto" src={imgUrl} alt="floorplanner" />
             </a>
             <button
               type="button"
-              className="-m-2.5 rounded-md p-2.5 text-gray-700"
+              className="-m-2.5 rounded-md p-2.5 text-primary"
               onClick={() => setMobileMenuOpen(false)}
             >
               <span className="sr-only">Close menu</span>
@@ -107,19 +94,14 @@ function Navbar() {
                   <a
                     key={item.name}
                     href={item.href}
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-primary hover:bg-gray-50"
                   >
                     {item.name}
                   </a>
                 ))}
               </div>
               <div className="py-6">
-                <SignedIn>
-                  <UserButton />
-                </SignedIn>
-                <SignedOut>
-                  <SignInButton />
-                </SignedOut>
+                <AccountButton />
               </div>
             </div>
           </div>

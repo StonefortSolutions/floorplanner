@@ -11,8 +11,10 @@
   "dependencies": {
     "@clerk/clerk-react": "^4.20.5",
     "@clerk/clerk-sdk-node": "^4.10.12",
+    "@clerk/themes": "^1.7.5",
     "@headlessui/react": "^1.7.15",
     "@radix-ui/react-dialog": "^1.0.4",
+    "@radix-ui/react-dropdown-menu": "^2.0.5",
     "@radix-ui/react-label": "^2.0.2",
     "@radix-ui/react-scroll-area": "^1.0.4",
     "@radix-ui/react-slot": "^1.0.2",
