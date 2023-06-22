@@ -1,10 +1,16 @@
 import React from "react";
-import { PencilIcon, ArmchairIcon, Clock10Icon, StarIcon } from "lucide-react";
+import {
+  PencilIcon,
+  ArmchairIcon,
+  Clock10Icon,
+  StarIcon,
+  SparklesIcon,
+} from "lucide-react";
 
 function Landing() {
   return (
     <>
-      <div className="flex flex-col items-center justify-center">
+      <div className="flex flex-col items-center justify-center p-8">
         <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
           Welcome to FloorPlanner
         </h1>
@@ -19,7 +25,7 @@ function Landing() {
           effortlessly sketch and visualize stunning 3D floor plans, providing
           you with a powerful toolset to transform your concepts into reality.
         </p>
-        <p className="leading-7 [&:not(:first-child)]:mt-6">
+        <p className="leading-7 [&:not(:first-child)]:mt-6 mb-4">
           With FloorPlanner, the possibilities are endless. Whether you're
           working on a residential home, office building, or any other
           architectural project, our intuitive interface and cutting-edge
@@ -32,7 +38,7 @@ function Landing() {
         <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
           Why choose FloorPlanner?
           {/* Tailwind Grid 2x4 on large, single column on mobile */}
-          <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 mt-4">
             <div className="flex flex-col items-center justify-center bg-secondary p-2 rounded-lg border">
               <div className="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-gradient-to-tr from-orange-400 to-pink-500">
                 <PencilIcon className="h-8 w-8 text-white" />
@@ -45,29 +51,26 @@ function Landing() {
                 you can get started right away.
               </p>
             </div>
-            <div className="flex flex-col items-center justify-center bg-secondary p-2 rounded-lg border">
-              <div className="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-gradient-to-tr from-orange-400 to-pink-500">
-                <ArmchairIcon className="h-8 w-8 text-white" />
+            <div className="relative lg:max-w-5xl lg:mx-auto">
+              <div className="absolute -inset-2">
+                <div
+                  className="w-full h-full mx-auto opacity-30 blur-lg filter"
+                  style={{
+                    background:
+                      "linear-gradient(90deg, #44ff9a -0.55%, #44b0ff 22.86%, #8b44ff 48.36%, #ff6644 73.33%, #ebff70 99.34%)",
+                  }}
+                />
               </div>
-              <h4 className="text-xl font-semibold tracking-tight">
-                Versatile
-              </h4>
-              <p className="leading-7 font-thin p-2">
-                FloorPlanner is perfect for any project, from residential homes
-                to commercial buildings.
-              </p>
-            </div>
-            <div className="flex flex-col items-center justify-center bg-secondary p-2 rounded-lg border">
-              <div className="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-gradient-to-tr from-orange-400 to-pink-500">
-                <Clock10Icon className="h-8 w-8 text-white" />
+              <div className="flex flex-col items-center justify-center bg-secondary p-2 rounded-lg border">
+                <div className="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-gradient-to-tr from-orange-400 to-pink-500">
+                  <SparklesIcon className="h-8 w-8 text-white" />
+                </div>
+                <h4 className="text-xl font-semibold tracking-tight">Fancy</h4>
+                <p className="leading-7 font-thin p-2">
+                  FloorPlanner is designed to be intuitive and user-friendly, so
+                  you can get started right away.
+                </p>
               </div>
-              <h4 className="text-xl font-semibold tracking-tight">
-                Efficient
-              </h4>
-              <p className="leading-7 font-thin p-2">
-                FloorPlanner is designed to be intuitive and user-friendly, so
-                you can get started right away.
-              </p>
             </div>
             <div className="flex flex-col items-center justify-center bg-secondary p-2 rounded-lg border">
               <div className="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-gradient-to-tr from-orange-400 to-pink-500">
