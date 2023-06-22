@@ -17,6 +17,9 @@ import {
   TooltipTrigger,
   TooltipContent,
 } from "../ui/Tooltip";
+import Effects from './components/Effects';
+import modelFetcher from './modules/modelFetcher';
+import {Suspense} from 'react'
 
 const Editor3d = () => {
   const [is2D, setIs2D] = useState(true);
@@ -41,13 +44,14 @@ const Editor3d = () => {
         className="border-8 border-primary-forground"
         frameloop="demand"
       >
-        <OrbitControls enableZoom={!is2D} />
+        <OrbitControls enable={!is2D} />
         <ambientLight intensity={0.5} />
         <directionalLight position={[-2, 10, 2]} intensity={1} />
-        <Ground />
-        <Grid />
-        <SnapPoints />
-        <ItemRenderer />
+        <Ground/>
+        <Grid/>
+        <SnapPoints/>
+        <ItemRenderer/>
+        <Effects/>
       </Canvas>
       <TooltipProvider>
         <Tooltip>

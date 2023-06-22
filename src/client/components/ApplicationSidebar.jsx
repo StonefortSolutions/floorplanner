@@ -46,6 +46,9 @@ function ApplicationSidebar({ className }) {
               <ArmchairIcon className="mr-2 h-4 w-4" />
               Furniture
             </Button>
+            <Button onClick={()=>dispatch(setAction('placeItem'))} variant="ghost" size="sm" className="w-full justify-start">
+              Place Item
+            </Button>
             <Button onClick={()=>dispatch(saveScene(state.scene))} variant="ghost" size="sm" className="w-full justify-start">
               Save
             </Button>

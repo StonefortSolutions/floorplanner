@@ -4,6 +4,10 @@ const ViteExpress = require("vite-express");
 const app = express();
 const port = process.env.PORT || 3000;
 const { syncAndSeed } = require("./db/index");
+const path = require('path')
+
+//Static Files
+app.use(express.static(path.join(__dirname, '..','..',"public",'furniture')));
 
 //MIDDLEWARE
 app.use(express.json());
