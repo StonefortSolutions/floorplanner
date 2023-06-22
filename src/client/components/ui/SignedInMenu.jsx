@@ -12,9 +12,9 @@ import { useNavigate } from "react-router-dom";
 
 function SignedInMenu() {
   const { openUserProfile, session, user } = useClerk();
+  const isUserAdmin = user?.publicMetadata?.isAdmin;
   const navigate = useNavigate();
   const isDark = document.documentElement.classList.contains("dark");
-  const isUserAdmin = user.publicMetadata.isAdmin;
 
   return (
     <SignedIn>
