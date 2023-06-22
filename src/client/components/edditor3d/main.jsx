@@ -11,6 +11,12 @@ import RayCaster from "./components/RayCaster";
 import ItemRenderer from "./components/ItemRenderer";
 import { Button } from "../ui/Button";
 import { GlobeIcon, GridIcon } from "lucide-react";
+import {
+  Tooltip,
+  TooltipProvider,
+  TooltipTrigger,
+  TooltipContent,
+} from "../ui/Tooltip";
 
 const Editor3d = () => {
   const [is2D, setIs2D] = useState(true);
@@ -43,13 +49,22 @@ const Editor3d = () => {
         <SnapPoints />
         <ItemRenderer />
       </Canvas>
-      <Button
-        variant="outline"
-        className="absolute bottom-0 right-0 m-4 p-2"
-        onClick={() => setIs2D(!is2D)}
-      >
-        {is2D ? <GlobeIcon size={24} /> : <GridIcon size={24} />}
-      </Button>
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button
+              variant="outline"
+              className="absolute bottom-0 right-0 m-4 p-2"
+              onClick={() => setIs2D(!is2D)}
+            >
+              {is2D ? <GlobeIcon size={24} /> : <GridIcon size={24} />}
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>{is2D ? "View 3D Perspective" : "View Top Down Perspective"}</p>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
     </div>
   );
 };
