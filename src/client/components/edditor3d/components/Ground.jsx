@@ -1,13 +1,20 @@
-import React, { useRef } from 'react';
+import React, { useRef } from "react";
+import { DoubleSide } from "three";
 
-const Ground = (props) => {
+/**
+ * Creates a ground plane with material
+ * @param {number} {size}
+ * @returns {mesh}
+ */
+const Ground = ({ size }) => {
   const mesh = useRef();
   return (
     <mesh ref={mesh} rotation={[-Math.PI / 2, 0, 0]}>
-      <planeGeometry args = {[50,50]} />
-      <meshStandardMaterial color = {0x77ff00}/>
+      <planeGeometry args={[size, size]} />
+      <meshBasicMaterial color={0x00ff00} side={DoubleSide} />
+      {/* <meshStandardMaterial color={0x77ff00} /> */}
     </mesh>
   );
-}
+};
 
-export default Ground
+export default Ground;

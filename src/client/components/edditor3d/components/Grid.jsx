@@ -1,6 +1,11 @@
-const Grid = () => {
-  return(
-    <gridHelper args = {[50,50,0xffffff,0xffffff]}/>
-  )
-}
-export default Grid
+/**
+ * Description
+ * @param {number} {size
+ * @param {import("@react-three/fiber").Color} colorCenterLine
+ * @param {import("@react-three/fiber").Color} colorGrid}
+ * @returns {gridHelper}
+ */
+const Grid = ({ size, colorCenterLine, colorGrid }) => {
+  return <gridHelper args={[size, size, colorCenterLine, colorGrid]} />;
+};
+export default Grid;
