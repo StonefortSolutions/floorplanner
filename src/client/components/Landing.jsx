@@ -15,7 +15,7 @@ function Landing() {
       <div className="flex flex-col items-center justify-center p-8">
         <a href="/sign-up">
           <Badge variant="default" className="mb-4">
-            Get started for free
+            Get started for FREE
             <ArrowRightIcon className="h-4 w-4 ml-1" />
           </Badge>
         </a>
