@@ -44,7 +44,7 @@ const Editor3d = () => {
         className="border-8 border-primary-forground"
         frameloop="demand"
       >
-        <OrbitControls enableZoom={!is2D} />
+        <OrbitControls enable={!is2D} />
         <ambientLight intensity={0.5} />
         <directionalLight position={[-2, 10, 2]} intensity={1} />
         <Ground/>
