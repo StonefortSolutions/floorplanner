@@ -13,6 +13,7 @@ import Profile from "./pages/Profile";
 import Layout from "./pages/Layout";
 import Dashboard from "./pages/Dashboard";
 import Editor from "./pages/Editor";
+import AdminDashboard from "./pages/AdminDashboard";
 
 function ClerkProviderWithRoutes({ publishableKey }) {
   const navigate = useNavigate();
@@ -74,6 +75,19 @@ function ClerkProviderWithRoutes({ publishableKey }) {
               <>
                 <SignedIn>
                   <Profile />
+                </SignedIn>
+                <SignedOut>
+                  <RedirectToSignIn />
+                </SignedOut>
+              </>
+            }
+          />
+          <Route
+            path="/admin"
+            element={
+              <>
+                <SignedIn>
+                  <AdminDashboard />
                 </SignedIn>
                 <SignedOut>
                   <RedirectToSignIn />
