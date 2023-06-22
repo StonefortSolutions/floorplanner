@@ -1,7 +1,5 @@
 import { useDispatch, useSelector } from "react-redux"
 import { setSelectedPoint } from "../../../store/selectedPoint"
-import { useThree } from "@react-three/fiber"
-import { createWall } from "../modules/createWall"
 import { useState } from "react";
 import { addToScene } from "../../../store/scene";
 import { v4 as uuidv4 } from "uuid"
@@ -14,16 +12,17 @@ const SnapPoints = () => {
   const snapPoint = (x,y) => {
     const [hovered,setHovered] = useState(false);
     const [selected,setSelected] = useState(false)
-    const clickHandler = (x,y) => {
+    const clickHandler = async (x,y) => {
+      dispatch(await setSelectedPoint({x,y}))
+      const {currentAction,selectedModel} = store.getState()
       if(selectedPoint.x !== null  && (x === selectedPoint.x || y === selectedPoint.y)){
-        const currentAction = store.getState().currentAction
         if(currentAction === 'wall'){
           dispatch(addToScene({id: uuidv4(),itemId: 'wall', transform: {pt1:selectedPoint, pt2: {x,y}}}))
-          dispatch(setSelectedPoint({x:null,y:null}))
+          dispatch(await setSelectedPoint({x:null,y:null}))
         }
-        
+      }else if(currentAction === 'placeItem' && selectedModel !== '' && selectedPoint.x !== null){
+        dispatch(addToScene({id: uuidv4(),itemId: selectedModel, transform: {position:selectedPoint}}))
       }else{
-        dispatch(setSelectedPoint({x,y}))
         setSelected(true);
       }
     }

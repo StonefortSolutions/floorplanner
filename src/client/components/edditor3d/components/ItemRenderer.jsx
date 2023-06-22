@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux"
+import { useSelector } from "react-redux"
 import { rebuildScene } from "../modules/loader"
 
 const ItemRenderer = () => {

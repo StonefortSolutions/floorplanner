@@ -1,5 +1,5 @@
 import React, {useState, useRef, useEffect} from 'react'
-import { Canvas } from '@react-three/fiber';
+import { Canvas, useThree } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import Ground from './components/Ground'
 import Grid from './components/Grid';
@@ -9,6 +9,10 @@ import { useDispatch, useSelector } from "react-redux"
 import { loadScene } from '../../store/scene';
 import RayCaster from './components/RayCaster';
 import ItemRenderer from './components/ItemRenderer';
+import Effects from './components/Effects';
+import modelFetcher from './modules/modelFetcher';
+import {Suspense} from 'react'
+
 
 const Editor3d = () => {
   const [is2D, setIs2D] = useState(true)
@@ -41,6 +45,7 @@ const Editor3d = () => {
         <Grid/>
         <SnapPoints/>
         <ItemRenderer/>
+        <Effects/>
       </Canvas>
     </div>
   );
