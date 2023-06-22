@@ -1,11 +1,11 @@
 import React from "react";
 import ApplicationSidebar from "../components/ApplicationSidebar";
+import Landing from "../components/Landing";
 
 function Home() {
   return (
     <>
-      <div className="">Home</div>
-      <ApplicationSidebar/>
+      <Landing />
     </>
   );
 }

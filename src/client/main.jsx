@@ -1,26 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { RouterProvider } from "react-router-dom";
+import { BrowserRouter, RouterProvider } from "react-router-dom";
 import router from "./router";
 import store from "./store";
 import "./index.css";
 import { Provider } from "react-redux";
-import { Auth0Provider } from "@auth0/auth0-react";
-import { getConfig, onRedirectCallback } from "./utils";
+import { ClerkProvider } from "@clerk/clerk-react";
+import ClerkProviderWithRoutes from "./router";
 
-// Please see https://auth0.github.io/auth0-react/interfaces/Auth0ProviderOptions.html
-// for a full list of the available properties on the provider
-const config = getConfig();
-
-const providerConfig = {
-  domain: config.domain,
-  clientId: config.clientId,
-  onRedirectCallback,
-  authorizationParams: {
-    redirect_uri: window.location.origin,
-    ...(config.audience ? { audience: config.audience } : null),
-  },
-};
+const clerkPubKey = "pk_test_ZnJlc2gtbW9sbHktNDguY2xlcmsuYWNjb3VudHMuZGV2JA";
 
 if (
   localStorage.theme === "dark" ||
@@ -34,10 +22,10 @@ if (
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <Auth0Provider {...providerConfig}>
-      <Provider store={store}>
-        <RouterProvider router={router} />
-      </Provider>
-    </Auth0Provider>
+    <Provider store={store}>
+      <BrowserRouter>
+        <ClerkProviderWithRoutes publishableKey={clerkPubKey} />
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>
 );
