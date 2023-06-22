@@ -23,7 +23,7 @@ function Navbar() {
   return (
     <header className="absolute inset-x-0 top-0 z-50">
       <nav
-        className="flex items-center justify-between p-6 lg:px-8 shadow-md dark:bg-gray-900"
+        className="flex items-center justify-between p-6 lg:px-8 shadow-md bg-secondary"
         aria-label="Global"
       >
         <div className="flex lg:flex-1">
@@ -94,9 +94,9 @@ function Navbar() {
                   <a
                     key={item.name}
                     href={item.href}
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-primary hover:bg-gray-50"
+                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-primary"
                   >
-                    {item.name}
+                    <Button variant="ghost">{item.name}</Button>
                   </a>
                 ))}
               </div>

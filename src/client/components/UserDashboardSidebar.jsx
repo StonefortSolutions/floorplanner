@@ -5,6 +5,8 @@ import {
   Clock10Icon,
   StarIcon,
   PlusCircleIcon,
+  GemIcon,
+  CreditCardIcon,
 } from "lucide-react";
 import { Button } from "./ui/Button";
 import { cn } from "../utils";
@@ -29,6 +31,11 @@ function UserDashboardSidebar({ className }) {
             </Button>
           </a>
         </div>
+      </div>
+      <div className="py-4 space-y-4">
+        <h2 className="relative px-6 text-lg font-semibold tracking-tight">
+          Featured Templates
+        </h2>
       </div>
       <div className="space-y-4 py-4">
         <div className="px-4 py-2">
@@ -56,10 +63,31 @@ function UserDashboardSidebar({ className }) {
             </Button>
           </div>
         </div>
+
         <div className="py-2">
           <h2 className="relative px-6 text-lg font-semibold tracking-tight">
-            Featured Templates
+            My Subscription
           </h2>
+          <div className="px-4 py-2">
+            <div className="space-y-1">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="w-full justify-start"
+              >
+                <GemIcon className="mr-2 h-4 w-4" />
+                Upgrade
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="w-full justify-start"
+              >
+                <CreditCardIcon className="mr-2 h-4 w-4" />
+                Billing
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

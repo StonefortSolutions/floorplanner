@@ -9,6 +9,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadScene } from "../../store/scene";
 import RayCaster from "./components/RayCaster";
 import ItemRenderer from "./components/ItemRenderer";
+import { Button } from "../ui/Button";
+import { GlobeIcon, GridIcon } from "lucide-react";
 
 const Editor3d = () => {
   const [is2D, setIs2D] = useState(true);
@@ -26,7 +28,7 @@ const Editor3d = () => {
   }, []);
 
   return (
-    <div id="edditor" className="leading-none h-[98%]">
+    <div id="edditor" className="leading-none h-[98%] relative">
       <Canvas
         id="canvas1"
         camera={is2D ? camera2D : camera3D}
@@ -41,7 +43,13 @@ const Editor3d = () => {
         <SnapPoints />
         <ItemRenderer />
       </Canvas>
-      <button onClick={() => setIs2D(!is2D)}>toggle perspective</button>
+      <Button
+        variant="outline"
+        className="absolute bottom-0 right-0 m-4 p-2"
+        onClick={() => setIs2D(!is2D)}
+      >
+        {is2D ? <GlobeIcon size={24} /> : <GridIcon size={24} />}
+      </Button>
     </div>
   );
 };
