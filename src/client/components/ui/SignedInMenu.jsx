@@ -6,12 +6,15 @@ import {
   DropdownMenuWithIcon,
   DropdownMenuLabel,
 } from "./DropdownMenu";
-import { UserIcon, LogOutIcon } from "lucide-react";
+import { UserIcon, LogOutIcon, LockIcon } from "lucide-react";
 import { dark } from "@clerk/themes";
+import { useNavigate } from "react-router-dom";
 
 function SignedInMenu() {
-  const { openUserProfile, session } = useClerk();
+  const { openUserProfile, session, user } = useClerk();
+  const navigate = useNavigate();
   const isDark = document.documentElement.classList.contains("dark");
+  const isUserAdmin = user.publicMetadata.isAdmin;
 
   return (
     <SignedIn>
@@ -28,6 +31,14 @@ function SignedInMenu() {
           >
             <span>Profile</span>
           </DropdownMenuWithIcon>
+          {isUserAdmin && (
+            <DropdownMenuWithIcon
+              Icon={LockIcon}
+              onClick={() => navigate("/admin")}
+            >
+              <span>Admin</span>
+            </DropdownMenuWithIcon>
+          )}
           <SignOutButton signOutOptions={{ sessionId: session?.id }}>
             <DropdownMenuWithIcon Icon={LogOutIcon}>
               <span>Sign Out</span>
