@@ -5,12 +5,20 @@ import {
   Clock10Icon,
   StarIcon,
   SparklesIcon,
+  ArrowRightIcon,
 } from "lucide-react";
+import { Badge } from "./ui/Badge";
 
 function Landing() {
   return (
     <>
       <div className="flex flex-col items-center justify-center p-8">
+        <a href="/sign-up">
+          <Badge variant="default" className="mb-4">
+            Get started for free
+            <ArrowRightIcon className="h-4 w-4 ml-1" />
+          </Badge>
+        </a>
         <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
           Welcome to FloorPlanner
         </h1>
