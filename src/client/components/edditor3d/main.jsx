@@ -17,12 +17,12 @@ import {
   TooltipTrigger,
   TooltipContent,
 } from "../ui/Tooltip";
-import Effects from './components/Effects';
-import modelFetcher from './modules/modelFetcher';
-import {Suspense} from 'react'
+import Effects from "./components/Effects";
+import modelFetcher from "./modules/modelFetcher";
 
 const Editor3d = () => {
   const [is2D, setIs2D] = useState(true);
+  const { GRID_SIZE } = useSelector((state) => state.editor);
   const camera2D = new THREE.OrthographicCamera(-50, 50, -50, 50, 0.1, 100);
   camera2D.translateY(50);
   camera2D.zoom = 11.6;
@@ -47,11 +47,15 @@ const Editor3d = () => {
         <OrbitControls enable={!is2D} />
         <ambientLight intensity={0.5} />
         <directionalLight position={[-2, 10, 2]} intensity={1} />
-        <Ground/>
-        <Grid/>
-        <SnapPoints/>
-        <ItemRenderer/>
-        <Effects/>
+        <Ground size={GRID_SIZE} />
+        <Grid
+          size={GRID_SIZE}
+          colorCenterLine={0xffffff}
+          colorGrid={0xffffff}
+        />
+        <SnapPoints size={GRID_SIZE} />
+        <ItemRenderer />
+        {/* <Effects/> */}
       </Canvas>
       <TooltipProvider>
         <Tooltip>

@@ -10,12 +10,12 @@ import { cn } from "../utils";
 import { Switch } from "./ui/Switch";
 import { Label } from "./ui/Label";
 import { saveScene } from "../store/scene";
-import { useDispatch, useSelector } from "react-redux"
-import { setAction } from "../store/currentAction";
+import { useDispatch, useSelector } from "react-redux";
+import { setAction } from "../store/editor";
 
 function ApplicationSidebar({ className }) {
-  const dispatch = useDispatch()
-  const state = useSelector(state => state)
+  const dispatch = useDispatch();
+  const scene = useSelector((state) => state.scene);
   return (
     <div className={cn("pb-12", className)}>
       <div className="space-y-4 py-4">
@@ -28,16 +28,16 @@ function ApplicationSidebar({ className }) {
               variant="secondary"
               size="sm"
               className="w-full justify-start"
-              onClick={()=>dispatch(setAction('wall'))}
+              onClick={() => dispatch(setAction("wall"))}
             >
               <PencilIcon className="mr-2 h-4 w-4" />
               Walls
             </Button>
-            <Button 
-              variant="ghost" 
-              size="sm" 
+            <Button
+              variant="ghost"
+              size="sm"
               className="w-full justify-start"
-              onClick={()=>dispatch(setAction('delete'))}
+              onClick={() => dispatch(setAction("delete"))}
             >
               <EraserIcon className="mr-2 h-4 w-4" />
               Eraser
@@ -46,10 +46,20 @@ function ApplicationSidebar({ className }) {
               <ArmchairIcon className="mr-2 h-4 w-4" />
               Furniture
             </Button>
-            <Button onClick={()=>dispatch(setAction('placeItem'))} variant="ghost" size="sm" className="w-full justify-start">
+            <Button
+              onClick={() => dispatch(setAction("placeItem"))}
+              variant="ghost"
+              size="sm"
+              className="w-full justify-start"
+            >
               Place Item
             </Button>
-            <Button onClick={()=>dispatch(saveScene(state.scene))} variant="ghost" size="sm" className="w-full justify-start">
+            <Button
+              onClick={() => dispatch(saveScene(scene))}
+              variant="ghost"
+              size="sm"
+              className="w-full justify-start"
+            >
               Save
             </Button>
           </div>
