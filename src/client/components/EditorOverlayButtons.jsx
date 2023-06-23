@@ -23,8 +23,7 @@ function EditorOverlayButtons({ is2D, setIs2D }) {
   const { undoItems, redoItems } = useSelector((state) => state.itemHistory);
   const scene = useSelector((state) => state.scene);
 
-  //use effect on scene, if scene changes, push to undo list
-  //use effect on undo list, if undo list changes, push to redo list
+  //this needs to be refactored
   useEffect(() => {
     if (scene.length > 0) {
       if (!canUndo) {
