@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { addUndoItem } from "./itemHistory";
 const initialState = "";
 
 export const createScene = createAsyncThunk("createScene", async (payload) => {
@@ -31,6 +32,12 @@ const scene = createSlice({
         return item.id !== action.payload;
       });
     },
+    undoLastAction(state, action) {
+      const newScene = [...state];
+      const lastItem = newScene.pop();
+      addUndoItem(lastItem);
+      return newScene;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(createScene.fulfilled, (state, action) => {
@@ -48,6 +55,6 @@ const scene = createSlice({
   },
 });
 
-export const { deleteFromScene } = scene.actions;
+export const { deleteFromScene, undoLastAction } = scene.actions;
 
 export default scene.reducer;
