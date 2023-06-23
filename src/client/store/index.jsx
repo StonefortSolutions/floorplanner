@@ -5,7 +5,8 @@ import scene from "./scene";
 import selectedPoint from "./selectedPoint";
 import selectedModel from "./selectedModel";
 import currentAction from "./currentAction";
-import editor from "./editor";
+import grid from "./grid";
+import itemHistory from "./itemHistory";
 
 const store = configureStore({
   reducer: {
@@ -14,7 +15,8 @@ const store = configureStore({
     selectedPoint,
     selectedModel,
     currentAction,
-    editor,
+    grid,
+    itemHistory,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 });
@@ -22,3 +24,8 @@ const store = configureStore({
 export default store;
 export * from "./examples";
 export * from "./scene";
+export * from "./selectedPoint";
+export * from "./selectedModel";
+export * from "./currentAction";
+export * from "./grid";
+export * from "./itemHistory";

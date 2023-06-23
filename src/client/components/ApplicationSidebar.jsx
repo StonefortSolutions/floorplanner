@@ -1,21 +1,20 @@
 import React from "react";
 import { Button } from "./ui/Button";
-import {
-  PlayCircleIcon,
-  PencilIcon,
-  ArmchairIcon,
-  EraserIcon,
-} from "lucide-react";
+import { PencilIcon, ArmchairIcon, EraserIcon, SaveIcon } from "lucide-react";
 import { cn } from "../utils";
 import { Switch } from "./ui/Switch";
 import { Label } from "./ui/Label";
 import { saveScene } from "../store/scene";
 import { useDispatch, useSelector } from "react-redux";
 import { setAction } from "../store/currentAction";
+import { setGridVisible } from "../store/grid";
 
 function ApplicationSidebar({ className }) {
   const dispatch = useDispatch();
   const scene = useSelector((state) => state.scene);
+  const currentAction = useSelector((state) => state.currentAction);
+  const { GRID_SIZE, GRID_VISIBLE } = useSelector((state) => state.grid);
+
   return (
     <div className={cn("pb-12", className)}>
       <div className="space-y-4 py-4">
@@ -25,7 +24,7 @@ function ApplicationSidebar({ className }) {
           </h2>
           <div className="space-y-1">
             <Button
-              variant="secondary"
+              variant={currentAction === "wall" ? "secondary" : "ghost"}
               size="sm"
               className="w-full justify-start"
               onClick={() => dispatch(setAction("wall"))}
@@ -34,7 +33,7 @@ function ApplicationSidebar({ className }) {
               Walls
             </Button>
             <Button
-              variant="ghost"
+              variant={currentAction === "delete" ? "secondary" : "ghost"}
               size="sm"
               className="w-full justify-start"
               onClick={() => dispatch(setAction("delete"))}
@@ -42,17 +41,14 @@ function ApplicationSidebar({ className }) {
               <EraserIcon className="mr-2 h-4 w-4" />
               Eraser
             </Button>
-            <Button variant="ghost" size="sm" className="w-full justify-start">
-              <ArmchairIcon className="mr-2 h-4 w-4" />
-              Furniture
-            </Button>
             <Button
-              onClick={() => dispatch(setAction("placeItem"))}
-              variant="ghost"
+              variant={currentAction === "placeItem" ? "secondary" : "ghost"}
               size="sm"
               className="w-full justify-start"
+              onClick={() => dispatch(setAction("placeItem"))}
             >
-              Place Item
+              <ArmchairIcon className="mr-2 h-4 w-4" />
+              Furniture
             </Button>
             <Button
               onClick={() => dispatch(saveScene(scene))}
@@ -60,6 +56,7 @@ function ApplicationSidebar({ className }) {
               size="sm"
               className="w-full justify-start"
             >
+              <SaveIcon className="mr-2 h-4 w-4" />
               Save
             </Button>
           </div>
@@ -71,14 +68,18 @@ function ApplicationSidebar({ className }) {
           <div className="px-4 py-2">
             <div className="space-y-1">
               <span className="block px-4 py-2">
-                Length: <span className="font-semibold">10m</span>
+                Length: <span className="font-semibold">{GRID_SIZE} units</span>
               </span>
               <span className="block px-4 py-2">
-                Height: <span className="font-semibold">10m</span>
+                Height: <span className="font-semibold">{GRID_SIZE} units</span>
               </span>
               <span className="block px-4 py-2">
                 <div className="flex items-center space-x-2">
-                  <Switch id="show-grid" />
+                  <Switch
+                    id="show-grid"
+                    checked={GRID_VISIBLE}
+                    onClick={() => dispatch(setGridVisible(!GRID_VISIBLE))}
+                  />
                   <Label htmlFor="show-grid">Show Grid</Label>
                 </div>
               </span>
