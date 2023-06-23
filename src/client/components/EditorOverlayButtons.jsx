@@ -42,41 +42,43 @@ function EditorOverlayButtons({ is2D, setIs2D }) {
   return (
     <TooltipProvider>
       <div className="absolute bottom-0 right-0 m-4 p-2">
-        <div className="flex flex-col gap-2">
-          <div className="flex flex-row gap-1">
-            {scene.length > 0 && (
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button
-                    variant="outline"
-                    className=""
-                    onClick={() => handleUndo()}
-                  >
-                    <UndoIcon size={24} />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>Undo last action</p>
-                </TooltipContent>
-              </Tooltip>
-            )}
-            {redoItems.length > 0 && (
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button
-                    variant="outline"
-                    className=""
-                    onClick={() => handleRedo()}
-                  >
-                    <RedoIcon size={24} />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>Redo last action</p>
-                </TooltipContent>
-              </Tooltip>
-            )}
-          </div>
+        <div className="grid grid-cols-2 grid-rows-2 gap-2">
+          {scene.length > 0 ? (
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant="outline"
+                  className=""
+                  onClick={() => handleUndo()}
+                >
+                  <UndoIcon size={24} />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Undo last action</p>
+              </TooltipContent>
+            </Tooltip>
+          ) : (
+            <span></span>
+          )}
+          {redoItems.length > 0 ? (
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant="outline"
+                  className=""
+                  onClick={() => handleRedo()}
+                >
+                  <RedoIcon size={24} />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Redo last action</p>
+              </TooltipContent>
+            </Tooltip>
+          ) : (
+            <span></span>
+          )}
           <Tooltip>
             <TooltipTrigger asChild>
               <Button
@@ -93,6 +95,7 @@ function EditorOverlayButtons({ is2D, setIs2D }) {
               </p>
             </TooltipContent>
           </Tooltip>
+          <span></span>
         </div>
       </div>
     </TooltipProvider>
