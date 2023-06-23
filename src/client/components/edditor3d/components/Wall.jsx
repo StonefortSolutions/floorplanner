@@ -3,7 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { deleteFromScene } from "../../../store/scene";
 
 function Wall({ point1, point2, id }) {
-  const { currentAction, GRID_SIZE } = useSelector((state) => state.editor);
+  const { GRID_SIZE } = useSelector((state) => state.editor);
+  const  currentAction  = useSelector(state => state.currentAction)
   const dispatch = useDispatch();
   const onClick = (e) => {
     if (currentAction === "delete") {

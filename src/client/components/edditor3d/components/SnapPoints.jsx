@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
-import { setSelectedPoint } from "../../../store/editor";
 import { useState } from "react";
 import { addToScene } from "../../../store/scene";
 import { v4 as uuidv4 } from "uuid";
+import {setSelectedPoint} from "../../../store/selectedPoint";
 
 /**
  *
@@ -11,9 +11,9 @@ import { v4 as uuidv4 } from "uuid";
  */
 const SnapPoints = ({ size }) => {
   const dispatch = useDispatch();
-  const { selectedPoint, selectedModel, currentAction } = useSelector(
-    (state) => state.editor
-  );
+  const selectedModel = useSelector(state => state.selectedModel);
+  const selectedPoint = useSelector(state => state.selectedPoint);
+  const currentAction = useSelector(state => state.currentAction)
   const midSize = Math.floor(size / 2) - 0.5;
 
   const snapPoint = (x, y) => {
