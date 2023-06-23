@@ -19,28 +19,16 @@ import {
 
 function EditorOverlayButtons({ is2D, setIs2D }) {
   const dispatch = useDispatch();
-  const [canUndo, setCanUndo] = useState(false);
   const { undoItems, redoItems } = useSelector((state) => state.itemHistory);
   const scene = useSelector((state) => state.scene);
 
-  //this needs to be refactored
-  useEffect(() => {
-    if (scene.length > 0) {
-      if (!canUndo) {
-        setCanUndo(true);
-      }
-    }
-  }, [scene]);
-
+  //todo refactor for only undo items after load, not entire scene
   if (!scene) return null;
 
   const handleUndo = () => {
     if (scene.length > 0) {
       dispatch(addRedoItem(scene[scene.length - 1]));
       dispatch(undoLastAction());
-      if (scene.length === 0) {
-        setCanUndo(false);
-      }
     }
   };
 
@@ -56,7 +44,7 @@ function EditorOverlayButtons({ is2D, setIs2D }) {
       <div className="absolute bottom-0 right-0 m-4 p-2">
         <div className="flex flex-col gap-2">
           <div className="flex flex-row gap-1">
-            {canUndo && (
+            {scene.length > 0 && (
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button
