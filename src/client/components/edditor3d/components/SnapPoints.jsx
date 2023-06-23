@@ -37,14 +37,13 @@ const SnapPoints = ({ size }) => {
         }
       } else if (
         currentAction === "placeItem" &&
-        selectedModel !== "" &&
-        selectedPoint.x !== null
+        selectedModel !== "" 
       ) {
         dispatch(
           addToScene({
             id: uuidv4(),
             itemId: selectedModel,
-            transform: { position: selectedPoint },
+            transform: { position: {x,y} },
           })
         );
       } else {
