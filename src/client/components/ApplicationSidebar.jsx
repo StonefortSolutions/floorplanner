@@ -11,7 +11,7 @@ import { Switch } from "./ui/Switch";
 import { Label } from "./ui/Label";
 import { saveScene } from "../store/scene";
 import { useDispatch, useSelector } from "react-redux";
-import { setAction } from "../store/editor";
+import { setAction } from "../store/currentAction";
 
 function ApplicationSidebar({ className }) {
   const dispatch = useDispatch();

@@ -1,6 +1,6 @@
 import { furnitureNames } from "./data/furnitureName";
 import { useDispatch } from "react-redux";
-import { setSelectedModel } from "../store/editor";
+import { setModel } from "../store/selectedModel";
 import {
   Card,
   CardContent,
@@ -30,7 +30,7 @@ const ModelSelector = () => {
             <CardFooter>
               <Button
                 variant="outline"
-                onClick={() => dispatch(setSelectedModel(name))}
+                onClick={() => dispatch(setModel(name))}
               >
                 Select
               </Button>
