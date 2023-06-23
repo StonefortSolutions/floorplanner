@@ -3,7 +3,6 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import Ground from "./components/Ground";
 import Grid from "./components/Grid";
-import SnapPoints from "./components/SnapPoints";
 import * as THREE from "three";
 import { useDispatch, useSelector } from "react-redux";
 import { loadScene } from "../../store/scene";
@@ -11,13 +10,12 @@ import RayCaster from "./components/RayCaster";
 import ItemRenderer from "./components/ItemRenderer";
 
 import Effects from "./components/Effects";
-import modelFetcher from "./modules/modelFetcher";
+import Cursor from "./components/Cursor";
 import EditorOverlayButtons from "../EditorOverlayButtons";
 
 const Editor3d = () => {
   const [is2D, setIs2D] = useState(true);
-  const { GRID_SIZE, GRID_VISIBLE, COLOR_GRID, COLOR_CENTER_LINE } =
-    useSelector((state) => state.grid);
+  const { GRID_SIZE, GRID_VISIBLE, COLOR_GRID, COLOR_CENTER_LINE } = useSelector((state) => state.grid);
   const camera2D = new THREE.OrthographicCamera(-50, 50, -50, 50, 0.1, 100);
   camera2D.translateY(50);
   camera2D.zoom = 11.6;
@@ -50,8 +48,9 @@ const Editor3d = () => {
             colorGrid={COLOR_GRID}
           />
         )}
-        <SnapPoints size={GRID_SIZE} />
         <ItemRenderer />
+        <RayCaster camera={is2D ? camera2D : camera3D}/>
+        <Cursor/>
         {/* <Effects/> */}
       </Canvas>
       <EditorOverlayButtons is2D={is2D} setIs2D={setIs2D} />
