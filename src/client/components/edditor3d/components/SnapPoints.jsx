@@ -11,9 +11,9 @@ import {setSelectedPoint} from "../../../store/selectedPoint";
  */
 const SnapPoints = ({ size }) => {
   const dispatch = useDispatch();
-  const { selectedModel, currentAction, selectedPoint } = useSelector(
-    (state) => state
-  );
+  const selectedModel = useSelector(state => state.selectedModel);
+  const selectedPoint = useSelector(state => state.selectedPoint);
+  const currentAction = useSelector(state => state.currentAction)
   const midSize = Math.floor(size / 2) - 0.5;
 
   const snapPoint = (x, y) => {
