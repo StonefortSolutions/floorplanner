@@ -1,22 +1,29 @@
-import axios from "axios";
-import { Suspense, useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { Loader } from "@react-three/drei";
-import { useLoader } from "@react-three/fiber";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import {useSelector} from 'react-redux'
+import {useEffect} from 'react'
 
-const ModelFetcher = ({ name, position }) => {
+const ItemPreview = ({position}) => {
+  const currentAction = useSelector(state => state.currentAction);
+  const currentModel = useSelector(state => state.currentModel)
+  const [visibe, setVisible] = useState(false);
   const { GRID_SIZE } = useSelector((state) => state.editor);
   const midSize = Math.floor(GRID_SIZE / 2);
   const [model, setModel] = useState(<Loader />);
   const [data, setData] = useState("");
   const loader = new GLTFLoader();
+
+  useEffect(()=>{
+    if(currentAction === 'placeItem'){
+      setVisible(true)
+    }else{
+      setVisible(false)
+    }
+  },[currentAction])
   useEffect(() => {
     async function getData() {
-      loader.load(`/${name}.glb`, (data) => setData(data));
+      loader.load(`/${currentModel}.glb`, (data) => setData(data));
     }
     getData();
-  }, []);
+  }, [currentModel]);
   useEffect(() => {
     if (data !== "") {
       setModel(
@@ -29,6 +36,6 @@ const ModelFetcher = ({ name, position }) => {
     }
   }, [data]);
   return model;
-};
+}
 
-export default ModelFetcher;
+export default ItemPreview

@@ -3,7 +3,6 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import Ground from "./components/Ground";
 import Grid from "./components/Grid";
-import SnapPoints from "./components/SnapPoints";
 import * as THREE from "three";
 import { useDispatch, useSelector } from "react-redux";
 import { loadScene } from "../../store/scene";
@@ -18,7 +17,7 @@ import {
   TooltipContent,
 } from "../ui/Tooltip";
 import Effects from "./components/Effects";
-import modelFetcher from "./modules/modelFetcher";
+import Cursor from "./components/Cursor";
 
 const Editor3d = () => {
   const [is2D, setIs2D] = useState(true);
@@ -53,8 +52,9 @@ const Editor3d = () => {
           colorCenterLine={0xffffff}
           colorGrid={0xffffff}
         />
-        <SnapPoints size={GRID_SIZE} />
         <ItemRenderer />
+        <RayCaster camera={is2D ? camera2D : camera3D}/>
+        <Cursor/>
         {/* <Effects/> */}
       </Canvas>
       <TooltipProvider>
