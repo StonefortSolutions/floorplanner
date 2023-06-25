@@ -9,6 +9,7 @@ const path = require('path')
 //Static Files
 app.use(express.static(path.join(__dirname, '..','..',"public",'furniture')));
 app.use('/ItemPictures',express.static(path.join(__dirname, "..", "..", "public", "ItemPictures")));
+app.use("/environment",express.static(path.join(__dirname, "..", "..", "public", "environment")));
 
 //MIDDLEWARE
 app.use(express.json());

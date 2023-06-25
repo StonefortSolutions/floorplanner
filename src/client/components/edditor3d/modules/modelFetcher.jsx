@@ -6,7 +6,7 @@ import { useLoader } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
 const ModelFetcher = ({ name, position }) => {
-  const { GRID_SIZE } = useSelector((state) => state.editor);
+  const { GRID_SIZE } = useSelector((state) => state.grid);
   const midSize = Math.floor(GRID_SIZE / 2);
   const [model, setModel] = useState(<Loader />);
   const [data, setData] = useState("");
@@ -23,7 +23,7 @@ const ModelFetcher = ({ name, position }) => {
         <primitive
           object={data.scene}
           scale={[10, 10, 10]}
-          position={[position.x - midSize, 0, position.y - midSize]}
+          position={[position.x, 1.5, position.y]}
         />
       );
     }

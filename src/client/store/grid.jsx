@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  GRID_SIZE: 50,
+  GRID_SIZE: 100,
   GRID_VISIBLE: true,
   COLOR_GRID: 0xffffff,
   COLOR_CENTER_LINE: 0xffffff,
