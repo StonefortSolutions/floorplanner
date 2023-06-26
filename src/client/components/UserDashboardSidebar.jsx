@@ -10,14 +10,14 @@ import {
 } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Button } from "./ui/Button";
+import { Popover, PopoverTrigger, PopoverContent } from "./ui/Popover";
 import { cn } from "../utils";
 
-function UserDashboardSidebar({ className }) {
+function SidebarContent() {
   const navigate = useNavigate();
   const location = useLocation();
-
   return (
-    <div className={cn("pb-12", className)}>
+    <>
       <div className="space-y-4 py-4">
         <div className="px-4 py-2">
           <a href="/editor">
@@ -27,7 +27,7 @@ function UserDashboardSidebar({ className }) {
               className="w-full justify-start"
             >
               <PlusCircleIcon className="mr-2 h-4 w-4" />
-              Create New
+              Create New Floorplan
             </Button>
           </a>
         </div>
@@ -93,7 +93,33 @@ function UserDashboardSidebar({ className }) {
           </div>
         </div>
       </div>
-    </div>
+    </>
+  );
+}
+
+function UserDashboardSidebar({ className }) {
+  return (
+    <>
+      <div className={cn("pb-12 md:hidden", className)}>
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button
+              variant="outline"
+              size="sm"
+              className="w-full justify-center"
+            >
+              Dashboard Menu
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent align="center">
+            <SidebarContent className="w-full" />
+          </PopoverContent>
+        </Popover>
+      </div>
+      <div className={cn("pb-12 hidden md:block", className)}>
+        <SidebarContent />
+      </div>
+    </>
   );
 }
 
