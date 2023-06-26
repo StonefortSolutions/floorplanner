@@ -16,6 +16,7 @@ app.use(express.json());
 
 //API
 app.use("/api/auth", require("./api/auth"));
+app.use("/api/floorplan", require("./api/floorplan"));
 
 ViteExpress.listen(app, port, async () => {
   try {
