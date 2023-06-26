@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Button } from "./ui/Button";
+import { Popover, PopoverTrigger, PopoverContent } from "./ui/Popover";
 import { cn } from "../utils";
 
 function UserDashboardSidebar({ className }) {
@@ -17,83 +18,175 @@ function UserDashboardSidebar({ className }) {
   const location = useLocation();
 
   return (
-    <div className={cn("pb-12", className)}>
-      <div className="space-y-4 py-4">
-        <div className="px-4 py-2">
-          <a href="/editor">
+    <>
+      <div className={cn("pb-12 md:hidden", className)}>
+        <Popover>
+          <PopoverTrigger asChild>
             <Button
-              variant="default"
+              variant="outline"
               size="sm"
-              className="w-full justify-start"
+              className="w-full justify-center"
             >
-              <PlusCircleIcon className="mr-2 h-4 w-4" />
-              Create New
+              Dashboard Menu
             </Button>
-          </a>
-        </div>
+          </PopoverTrigger>
+          <PopoverContent align="center">
+            <div className="space-y-4 py-4">
+              <div className="px-4 py-2">
+                <a href="/editor">
+                  <Button
+                    variant="default"
+                    size="sm"
+                    className="w-full justify-start"
+                  >
+                    <PlusCircleIcon className="mr-2 h-4 w-4" />
+                    Create New Floorplan
+                  </Button>
+                </a>
+              </div>
+            </div>
+            <div className="py-4 space-y-4">
+              <h2 className="relative px-6 text-lg font-semibold tracking-tight">
+                Featured Templates
+              </h2>
+            </div>
+            <div className="space-y-4 py-4">
+              <div className="px-4 py-2">
+                <h2 className="mb-2 px-2 text-lg font-semibold tracking-tight">
+                  My Floorplans
+                </h2>
+                <div className="space-y-1">
+                  <Button
+                    variant={
+                      location.pathname === "/dashboard" ? "secondary" : "ghost"
+                    }
+                    size="sm"
+                    className="w-full justify-start"
+                    onClick={() => navigate(`/dashboard`)}
+                  >
+                    <Clock10Icon className="mr-2 h-4 w-4" />
+                    Recent
+                  </Button>
+                  <Button
+                    variant={
+                      location.pathname === "/dashboard/favorites"
+                        ? "secondary"
+                        : "ghost"
+                    }
+                    size="sm"
+                    className="w-full justify-start"
+                    onClick={() => navigate(`/dashboard/favorites`)}
+                  >
+                    <StarIcon className="mr-2 h-4 w-4" />
+                    Favorites
+                  </Button>
+                </div>
+              </div>
+
+              <div className="py-2">
+                <h2 className="relative px-6 text-lg font-semibold tracking-tight">
+                  My Subscription
+                </h2>
+                <div className="px-4 py-2">
+                  <div className="space-y-1">
+                    <Button
+                      variant={
+                        location.pathname === "/dashboard/pricing"
+                          ? "secondary"
+                          : "ghost"
+                      }
+                      size="sm"
+                      className="w-full justify-start"
+                      onClick={() => navigate(`/dashboard/pricing`)}
+                    >
+                      <CreditCardIcon className="mr-2 h-4 w-4" />
+                      Subscription
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </PopoverContent>
+        </Popover>
       </div>
-      <div className="py-4 space-y-4">
-        <h2 className="relative px-6 text-lg font-semibold tracking-tight">
-          Featured Templates
-        </h2>
-      </div>
-      <div className="space-y-4 py-4">
-        <div className="px-4 py-2">
-          <h2 className="mb-2 px-2 text-lg font-semibold tracking-tight">
-            My Floorplans
-          </h2>
-          <div className="space-y-1">
-            <Button
-              variant={
-                location.pathname === "/dashboard" ? "secondary" : "ghost"
-              }
-              size="sm"
-              className="w-full justify-start"
-              onClick={() => navigate(`/dashboard`)}
-            >
-              <Clock10Icon className="mr-2 h-4 w-4" />
-              Recent
-            </Button>
-            <Button
-              variant={
-                location.pathname === "/dashboard/favorites"
-                  ? "secondary"
-                  : "ghost"
-              }
-              size="sm"
-              className="w-full justify-start"
-              onClick={() => navigate(`/dashboard/favorites`)}
-            >
-              <StarIcon className="mr-2 h-4 w-4" />
-              Favorites
-            </Button>
+      <div className={cn("pb-12 hidden md:block", className)}>
+        <div className="space-y-4 py-4">
+          <div className="px-4 py-2">
+            <a href="/editor">
+              <Button
+                variant="default"
+                size="sm"
+                className="w-full justify-start"
+              >
+                <PlusCircleIcon className="mr-2 h-4 w-4" />
+                Create New Floorplan
+              </Button>
+            </a>
           </div>
         </div>
-
-        <div className="py-2">
+        <div className="py-4 space-y-4 border-t">
           <h2 className="relative px-6 text-lg font-semibold tracking-tight">
-            My Subscription
+            Featured Templates
           </h2>
+        </div>
+        <div className="space-y-4 py-4 border-t">
           <div className="px-4 py-2">
+            <h2 className="mb-2 px-2 text-lg font-semibold tracking-tight">
+              My Floorplans
+            </h2>
             <div className="space-y-1">
               <Button
                 variant={
-                  location.pathname === "/dashboard/pricing"
+                  location.pathname === "/dashboard" ? "secondary" : "ghost"
+                }
+                size="sm"
+                className="w-full justify-start"
+                onClick={() => navigate(`/dashboard`)}
+              >
+                <Clock10Icon className="mr-2 h-4 w-4" />
+                Recent
+              </Button>
+              <Button
+                variant={
+                  location.pathname === "/dashboard/favorites"
                     ? "secondary"
                     : "ghost"
                 }
                 size="sm"
                 className="w-full justify-start"
-                onClick={() => navigate(`/dashboard/pricing`)}
+                onClick={() => navigate(`/dashboard/favorites`)}
               >
-                <CreditCardIcon className="mr-2 h-4 w-4" />
-                Subscription
+                <StarIcon className="mr-2 h-4 w-4" />
+                Favorites
               </Button>
+            </div>
+          </div>
+
+          <div className="py-2 border-t">
+            <h2 className="relative px-6 text-lg font-semibold tracking-tight">
+              My Subscription
+            </h2>
+            <div className="px-4 py-2">
+              <div className="space-y-1">
+                <Button
+                  variant={
+                    location.pathname === "/dashboard/pricing"
+                      ? "secondary"
+                      : "ghost"
+                  }
+                  size="sm"
+                  className="w-full justify-start"
+                  onClick={() => navigate(`/dashboard/pricing`)}
+                >
+                  <CreditCardIcon className="mr-2 h-4 w-4" />
+                  Subscription
+                </Button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
