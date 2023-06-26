@@ -11,9 +11,11 @@ import {
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import Layout from "./pages/Layout";
-import Dashboard from "./pages/Dashboard";
+import DashboardLayout from "./pages/DashboardLayout";
 import Editor from "./pages/Editor";
 import AdminDashboard from "./pages/AdminDashboard";
+import Pricing from "./components/Pricing";
+import UserDashboardHome from "./components/UserDashboardHome";
 
 function ClerkProviderWithRoutes({ publishableKey }) {
   const navigate = useNavigate();
@@ -44,19 +46,34 @@ function ClerkProviderWithRoutes({ publishableKey }) {
               </div>
             }
           />
-          <Route
-            path="/dashboard"
-            element={
-              <>
-                <SignedIn>
-                  <Dashboard />
-                </SignedIn>
-                <SignedOut>
-                  <RedirectToSignIn />
-                </SignedOut>
-              </>
-            }
-          />
+          <Route path="/dashboard" element={<DashboardLayout />}>
+            <Route
+              path="/dashboard"
+              element={
+                <>
+                  <SignedIn>
+                    <UserDashboardHome />
+                  </SignedIn>
+                  <SignedOut>
+                    <RedirectToSignIn />
+                  </SignedOut>
+                </>
+              }
+            />
+            <Route
+              path="/dashboard/pricing"
+              element={
+                <>
+                  <SignedIn>
+                    <Pricing isDashboard={true} />
+                  </SignedIn>
+                  <SignedOut>
+                    <RedirectToSignIn />
+                  </SignedOut>
+                </>
+              }
+            />
+          </Route>
           {/* <Route
             path="/editor"
             element={

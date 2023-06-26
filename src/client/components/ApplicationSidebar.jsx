@@ -8,12 +8,14 @@ import { saveScene } from "../store/scene";
 import { useDispatch, useSelector } from "react-redux";
 import { setAction } from "../store/currentAction";
 import { setGridVisible } from "../store/grid";
+import { useSaveSceneAtInterval } from "../hooks/useSaveScene";
 
 function ApplicationSidebar({ className }) {
   const dispatch = useDispatch();
   const scene = useSelector((state) => state.scene);
   const currentAction = useSelector((state) => state.currentAction);
   const { GRID_SIZE, GRID_VISIBLE } = useSelector((state) => state.grid);
+  const { isSaving } = useSaveSceneAtInterval(10000);
 
   return (
     <div className={cn("pb-12", className)}>
@@ -108,6 +110,13 @@ function ApplicationSidebar({ className }) {
                     onClick={() => dispatch(setGridVisible(!GRID_VISIBLE))}
                   />
                   <Label htmlFor="show-grid">Show Grid</Label>
+                </div>
+              </span>
+              <span className="block px-4 py-2">
+                <div className="flex items-center space-x-2">
+                  {isSaving && (
+                    <SaveIcon className="mr-2 h-4 w-4 animate-pulse" />
+                  )}
                 </div>
               </span>
             </div>
