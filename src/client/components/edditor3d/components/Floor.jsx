@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteFromScene } from "../../../store/scene";
 
-function Wall({ point1, point2, id, color }) {
+function Floor({ point1, point2, id, color }) {
   const currentAction = useSelector((state) => state.currentAction);
   const dispatch = useDispatch();
   const onClick = (e) => {
@@ -12,27 +12,19 @@ function Wall({ point1, point2, id, color }) {
   };
   const centerX = ((point1.x + point2.x) / 2) + .5;
   const centerY = ((point1.y + point2.y) / 2) + .5;
-  let rotation = 0;
-  if (point1.y === point2.y) {
-    rotation = Math.PI / 2;
-  }
-  const depth =
-    Math.sqrt(
-      Math.abs(
-        Math.pow(point2.x - point1.x, 2) - Math.pow(point2.y - point1.y, 2)
-      )
-    ) + 1;
+  const width = Math.abs(point1.x-point2.x)
+  const depth = Math.abs(point1.y-point2.y)
   return (
     <mesh
-      position={[centerX, 4.5, centerY]}
-      rotation={[0, rotation, 0]}
+      position={[centerX, .55, centerY]}
       onClick={onClick}
+      rotation={[-Math.PI / 2,0,0]}
       key={id}
     >
-      <boxGeometry attach="geometry" args={[1, 8, depth]} />
+      <planeGeometry attach="geometry" args={[width + 1, depth + 1]} />
       <meshStandardMaterial color={color} />
     </mesh>
   );
 }
 
-export default Wall;
+export default Floor;

@@ -12,6 +12,8 @@ const RayCaster = ({camera}) => {
   const selectedModel = useSelector(state => state.selectedModel)
   const selectedPoint = useSelector(state => state.selectedPoint)
   const currentAction = useSelector(state => state.currentAction)
+  const selectedColor = useSelector(state => state.selectedColor)
+  const rotation = useSelector(state => state.rotation)
   const dispatch = useDispatch();
   let count = 0;
     
@@ -32,11 +34,25 @@ const RayCaster = ({camera}) => {
           addToScene({
             id: uuidv4(),
             itemId: "wall",
-            transform: { pt1: selectedPoint, pt2: { x, y } },
+            transform: { pt1: selectedPoint, pt2: { x, y }, color: selectedColor },
           })
         );
         dispatch(setSelectedPoint({ x: null, y: null }));
-      } 
+      }
+      else if(x !== selectedPoint.x && y !== selectedPoint.y && currentAction === 'room' && selectedPoint.x !== null){
+        createRoom(selectedPoint,{x,y})
+        dispatch(setSelectedPoint({ x: null, y: null }));
+      }
+      else if(x !== selectedPoint.x && y !== selectedPoint.y && currentAction === 'floor' && selectedPoint.x !== null){
+        dispatch(
+          addToScene({
+            id: uuidv4(),
+            itemId:"floor",
+            transform: { pt1: selectedPoint, pt2: { x, y }, color: selectedColor },
+          })
+        )
+        dispatch(setSelectedPoint({ x: null, y: null }));
+      }
       else if (
         currentAction === "placeItem" &&
         selectedModel !== "" 
@@ -45,7 +61,7 @@ const RayCaster = ({camera}) => {
           addToScene({
             id: uuidv4(),
             itemId: selectedModel,
-            transform: { position: {x:x,y:y} },
+            transform: { position: {x:x,y:y}, rotation: rotation },
           })
         );
       }
@@ -53,6 +69,44 @@ const RayCaster = ({camera}) => {
         dispatch(setSelectedPoint({x,y}))
       }
     }
+  }
+
+  const createRoom = (pt1,pt2) => {
+    dispatch(
+      addToScene({
+        id: uuidv4(),
+        itemId: "wall",
+        transform: { pt1: pt1, pt2: { x: pt1.x, y: pt2.y }, color: selectedColor },
+      })
+    );
+    dispatch(
+      addToScene({
+        id: uuidv4(),
+        itemId: "wall",
+        transform: { pt1: pt1, pt2: { x: pt2.x, y: pt1.y }, color: selectedColor },
+      })
+    );
+    dispatch(
+      addToScene({
+        id: uuidv4(),
+        itemId: "wall",
+        transform: { pt1: pt2, pt2: { x: pt1.x, y: pt2.y }, color: selectedColor },
+      })
+    );
+    dispatch(
+      addToScene({
+        id: uuidv4(),
+        itemId: "wall",
+        transform: { pt1: pt2, pt2: { x: pt2.x, y: pt1.y  }, color: selectedColor },
+      })
+    );
+    dispatch(
+      addToScene({
+        id: uuidv4(),
+        itemId:"floor",
+        transform: { pt1, pt2, color: selectedColor },
+      })
+    )
   }
 
   const canvas = document.getElementById('canvas1')

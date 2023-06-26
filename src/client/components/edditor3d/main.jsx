@@ -40,7 +40,7 @@ const Editor3d = () => {
         className="border-8 border-primary-forground"
         frameloop="demand"
       >
-        <OrbitControls enabled={true} enableRotate={currentAction === 'orbit' && !is2D}/>
+        <OrbitControls enabled={true} enableRotate={currentAction === 'orbit' && !is2D} enableZoom={currentAction !== 'placeItem'}/>
         <Sky/>
         <Island/>
         {/* <Sky 

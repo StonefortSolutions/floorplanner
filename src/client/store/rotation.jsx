@@ -6,7 +6,12 @@ const rotation = createSlice({
   initialState,
   reducers: {
     rotate(state, action){
-      return state + action.payload;
+      if(Math.abs(state + action.payload) > 6){
+        return 0
+      }else{
+        return state + action.payload;
+      }
+      
     }
   },
 });

@@ -5,9 +5,8 @@ import { Loader } from "@react-three/drei";
 import { useLoader } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
-const ModelFetcher = ({ name, position }) => {
-  const { GRID_SIZE } = useSelector((state) => state.grid);
-  const midSize = Math.floor(GRID_SIZE / 2);
+const ModelFetcher = ({ name, position, rotation }) => {
+  console.log(rotation);
   const [model, setModel] = useState(<Loader />);
   const [data, setData] = useState("");
   const loader = new GLTFLoader();
@@ -24,6 +23,7 @@ const ModelFetcher = ({ name, position }) => {
           object={data.scene}
           scale={[10, 10, 10]}
           position={[position.x, 1.5, position.y]}
+          rotation={rotation}
         />
       );
     }
