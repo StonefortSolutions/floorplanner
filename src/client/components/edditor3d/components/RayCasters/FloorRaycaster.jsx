@@ -32,7 +32,6 @@ const FloorRayCaster = ({camera}) => {
     raycaster.setFromCamera( pointer, camera );
     const groundIntersect = raycaster.intersectObjects( scene.children ).filter(object => object.object.name === 'ground')[0];
     if(groundIntersect){
-      console.log('ran')
       let currentX = Math.floor(groundIntersect.point.x);
       let currentY = Math.floor(groundIntersect.point.z);
       const centerX = ((downPoint.x + currentX) / 2) + .5;

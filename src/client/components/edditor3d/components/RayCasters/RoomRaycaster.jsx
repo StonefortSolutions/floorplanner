@@ -20,7 +20,6 @@ const RoomRayCaster = ({camera}) => {
     const centerY = ((pt1.y + pt2.y) / 2) + .5;
     const width = Math.abs(pt1.x-pt2.x)
     const depth = Math.abs(pt1.y-pt2.y)
-    console.log(centerX,centerY,width,depth)
     return( 
       <mesh
         position={[centerX, .55, centerY]}
