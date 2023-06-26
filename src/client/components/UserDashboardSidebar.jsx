@@ -15,11 +15,7 @@ import { cn } from "../utils";
 function UserDashboardSidebar({ className }) {
   const navigate = useNavigate();
   const location = useLocation();
-  const [active, setActive] = React.useState(location.pathname || "/");
 
-  const handleSetActive = (value) => {
-    setActive(value);
-  };
   return (
     <div className={cn("pb-12", className)}>
       <div className="space-y-4 py-4">
@@ -48,17 +44,21 @@ function UserDashboardSidebar({ className }) {
           </h2>
           <div className="space-y-1">
             <Button
-              variant={active === "/dashboard" ? "secondary" : "ghost"}
+              variant={
+                location.pathname === "/dashboard" ? "secondary" : "ghost"
+              }
               size="sm"
               className="w-full justify-start"
-              onClick={() => navigate(`/dashboard/`)}
+              onClick={() => navigate(`/dashboard`)}
             >
               <Clock10Icon className="mr-2 h-4 w-4" />
               Recent
             </Button>
             <Button
               variant={
-                active === "/dashboard/favorites" ? "secondary" : "ghost"
+                location.pathname === "/dashboard/favorites"
+                  ? "secondary"
+                  : "ghost"
               }
               size="sm"
               className="w-full justify-start"
@@ -78,7 +78,9 @@ function UserDashboardSidebar({ className }) {
             <div className="space-y-1">
               <Button
                 variant={
-                  active === "/dashboard/pricing" ? "secondary" : "ghost"
+                  location.pathname === "/dashboard/pricing"
+                    ? "secondary"
+                    : "ghost"
                 }
                 size="sm"
                 className="w-full justify-start"
