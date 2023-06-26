@@ -1,15 +1,23 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, RouterProvider } from "react-router-dom";
-import router from "./router";
+import { BrowserRouter } from "react-router-dom";
 import store from "./store";
 import "./index.css";
 import { Provider } from "react-redux";
-import { ClerkProvider } from "@clerk/clerk-react";
 import ClerkProviderWithRoutes from "./router";
 
 const clerkPubKey = "pk_test_ZnJlc2gtbW9sbHktNDguY2xlcmsuYWNjb3VudHMuZGV2JA";
 
+//Clerk Vite production bugfix
+if (
+  typeof global === "undefined" &&
+  typeof window !== "undefined" &&
+  !window.global
+) {
+  window.global = window;
+}
+
+//dark mode
 if (
   localStorage.theme === "dark" ||
   (!("theme" in localStorage) &&
