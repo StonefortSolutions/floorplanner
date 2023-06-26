@@ -9,7 +9,7 @@
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\""
   },
   "dependencies": {
-    "@clerk/clerk-react": "4.18.0",
+    "@clerk/clerk-react": "^4.20.5",
     "@clerk/clerk-sdk-node": "^4.10.12",
     "@clerk/themes": "^1.7.5",
     "@headlessui/react": "^1.7.15",
@@ -21,10 +21,10 @@
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-switch": "^1.0.3",
     "@radix-ui/react-toast": "^1.1.4",
-    "@react-three/postprocessing": "^2.14.11",
     "@radix-ui/react-tooltip": "^1.0.6",
     "@react-three/drei": "^9.77.0",
     "@react-three/fiber": "^8.13.3",
+    "@react-three/postprocessing": "^2.14.11",
     "@reduxjs/toolkit": "^1.9.5",
     "axios": "^1.4.0",
     "class-variance-authority": "^0.6.0",
