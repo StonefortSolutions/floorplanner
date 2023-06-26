@@ -12,7 +12,6 @@ const Sky = () => {
     getData();
   }, []);
   useEffect(() => {
-    console.log(data);
     if (data !== "") {
       setModel(
         <primitive

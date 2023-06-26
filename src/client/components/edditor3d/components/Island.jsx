@@ -12,7 +12,6 @@ const Island = () => {
     getData();
   }, []);
   useEffect(() => {
-    console.log(data);
     if (data !== "") {
       setModel(
         <primitive

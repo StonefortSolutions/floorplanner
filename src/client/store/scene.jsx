@@ -7,7 +7,6 @@ export const createScene = createAsyncThunk("createScene", async (payload) => {
 });
 
 export const saveScene = createAsyncThunk("saveScene", async (payload) => {
-  console.log(payload);
   window.localStorage.setItem("scene", JSON.stringify(payload));
 });
 

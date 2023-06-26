@@ -1,12 +1,13 @@
 import {useSelector, useDispatch} from 'react-redux'
 import {useEffect, useState} from 'react'
-import {Loader} from '@react-three/drei'
+import { v4 as uuidv4 } from "uuid";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import * as THREE from 'three'
 import { useThree } from "@react-three/fiber"
-import { rotate } from '../../../store/rotation';
+import { rotate } from '../../../../store/rotation';
+import { addToScene } from "../../../../store/scene";
 
-const ItemPreview = ({camera}) => {
+const ItemRayCaster = ({camera}) => {
   const currentAction = useSelector(state => state.currentAction);
   const selectedModel = useSelector(state => state.selectedModel)
   const rotation = useSelector(state => state.rotation);
@@ -23,9 +24,11 @@ const ItemPreview = ({camera}) => {
     if(currentAction === 'placeItem' && selectedModel !== ''){
       canvas.onmousemove = onPointerMove
       canvas.onwheel = onWheel
+      canvas.onclick = onMouseClick
     }else{
       canvas.onmousemove = null
       canvas.onwheel = null
+      canvas.onclick = null
     }
   },[currentAction,selectedModel,data, camera, rotation])
 
@@ -59,11 +62,23 @@ const ItemPreview = ({camera}) => {
     }else{
       dispatch(rotate(Math.PI/-2))
     }
-    console.log("ran")
-    console.log(event);
+  }
+
+  const onMouseClick = () => {
+    pointer.x = ( event.offsetX / size.width ) * 2 - 1;
+	  pointer.y = - ( event.offsetY / size.height ) * 2 + 1;
+    raycaster.setFromCamera( pointer, camera );
+    const groundIntersect = raycaster.intersectObjects( scene.children ).filter(object => object.object.name === 'ground')[0];
+    dispatch(
+      addToScene({
+        id: uuidv4(),
+        itemId: selectedModel,
+        transform: { position: {x:Math.floor(groundIntersect.point.x),y:Math.floor(groundIntersect.point.z)}, rotation: rotation },
+      })
+    );
   }
 
   return model;
 }
 
-export default ItemPreview
+export default ItemRayCaster
