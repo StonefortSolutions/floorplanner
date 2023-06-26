@@ -1,4 +1,8 @@
-# G1 Capstone
+# FloorPlanner
+
+Create your dream home floor plan in 3D. Build rooms, add furniture.
+
+Try us out at: https://capstone-production-e9d2.up.railway.app/
 
 ## Getting Started
 
@@ -8,6 +12,10 @@
 DATABASE_USER=
 DATABASE_PASSWORD=
 DATABASE_URL=
+REACT_APP_CLERK_PUBLISHABLE_KEY=
+CLERK_SECRET_KEY=
+STRIPE_SECRET_KEY=
+STRIPE_PUBLISHABLE_KEY=
 ```
 
 - Install Dependencies
@@ -20,7 +28,7 @@ DATABASE_URL=
 
 - React 18 with Redux Toolkit
 - Express
-- Auth0
+- Clerk
 - Vite
 - Tailwind CSS
 
@@ -36,7 +44,15 @@ DATABASE_URL=
        ├── /client                # React Frontend
          ├── /assets                    # Static Assets
          ├── /components                # React UI Components
+          └── /edditor3d                # ThreeJS
+         ├── /hooks                     # Custom Hooks
          ├── /pages                     # Page Components (Routes)
          ├── /store                     # Redux Store and Thunks
          ├── router.jsx             # React Router
          └── main.jsx               # App Providers
+
+### Created By
+
+- Calvin Driesner | @cdriesner
+- Julian Bombard | @jpbombard
+- Scott Weaver | @unmonk
