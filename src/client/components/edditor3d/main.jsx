@@ -40,6 +40,7 @@ const Editor3d = () => {
     canvas.onpointerup = null
     canvas.onpointerdown = null
     canvas.onpointermove = null
+    canvas.onclick = null
   },[currentAction])
 
   return (
