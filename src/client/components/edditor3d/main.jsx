@@ -45,12 +45,9 @@ const Editor3d = () => {
           preserveDrawingBuffer: true,
         }}
       >
-        <OrbitControls
-          enabled={true}
-          enableRotate={currentAction === "orbit" && !is2D}
-        />
-        <Sky />
-        <Island />
+        <OrbitControls enabled={true} enableRotate={currentAction === 'orbit' && !is2D} enableZoom={currentAction !== 'placeItem'}/>
+        <Sky/>
+        <Island/>
         {/* <Sky 
           distance={450000} 
           sunPosition={[3, 0, 7]} 

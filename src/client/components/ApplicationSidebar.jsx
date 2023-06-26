@@ -1,12 +1,6 @@
 import React from "react";
 import { Button } from "./ui/Button";
-import {
-  PencilIcon,
-  ArmchairIcon,
-  EraserIcon,
-  SaveIcon,
-  Rotate3d,
-} from "lucide-react";
+import { PencilIcon, ArmchairIcon, EraserIcon, SaveIcon, Rotate3d, BoxSelect, Building } from "lucide-react";
 import { cn } from "../utils";
 import { Switch } from "./ui/Switch";
 import { Label } from "./ui/Label";
@@ -41,6 +35,15 @@ function ApplicationSidebar({ className }) {
               Orbit
             </Button>
             <Button
+              variant={currentAction === "room" ? "secondary" : "ghost"}
+              size="sm"
+              className="w-full justify-start"
+              onClick={() => dispatch(setAction("room"))}
+            >
+              <Building className="mr-2 h-4 w-4" />
+              Room
+            </Button>
+            <Button
               variant={currentAction === "wall" ? "secondary" : "ghost"}
               size="sm"
               className="w-full justify-start"
@@ -48,6 +51,15 @@ function ApplicationSidebar({ className }) {
             >
               <PencilIcon className="mr-2 h-4 w-4" />
               Walls
+            </Button>
+            <Button
+              variant={currentAction === "floor" ? "secondary" : "ghost"}
+              size="sm"
+              className="w-full justify-start"
+              onClick={() => dispatch(setAction("floor"))}
+            >
+              <BoxSelect className="mr-2 h-4 w-4" />
+              Floor
             </Button>
             <Button
               variant={currentAction === "delete" ? "secondary" : "ghost"}
