@@ -1,7 +1,7 @@
 import React from "react";
 import ApplicationSidebar from "../components/ApplicationSidebar";
 import Editor3d from "../components/edditor3d/main";
-import ModelSelector from "../components/ModelSelector";
+import RightSideBar from "../components/RightSideBar";
 
 function Editor() {
   return (
@@ -10,7 +10,7 @@ function Editor() {
       <div className="min-w-[200px] min-h-[200px] flex-1 bg-secondary border p-2">
         <Editor3d />
       </div>
-      <ModelSelector className="border-r flex"/>
+      <RightSideBar className="border-r flex"/>
     </div>
   );
 }
