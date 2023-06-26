@@ -1,5 +1,6 @@
 const conn = require("./conn");
 const Examples = require("./examples");
+const Floorplan = require("./floorplan")
 
 const seed = async () => {
   return Promise.all([
@@ -16,4 +17,5 @@ const syncAndSeed = async () => {
 module.exports = {
   syncAndSeed,
   Examples,
+  Floorplan
 };
