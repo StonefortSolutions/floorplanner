@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-//set local storage at an interval
+
 function useSaveSceneAtInterval(time) {
-  const [error, setError] = useState(null);
   const [isSaving, setIsSaving] = useState(false);
   const scene = useSelector((state) => state.scene);
 
@@ -17,7 +16,7 @@ function useSaveSceneAtInterval(time) {
     return () => clearInterval(interval);
   }, []);
 
-  return { error, isSaving };
+  return { isSaving };
 }
 
 export { useSaveSceneAtInterval };
