@@ -8,11 +8,15 @@ import {
   GemIcon,
   CreditCardIcon,
 } from "lucide-react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Button } from "./ui/Button";
 import { cn } from "../utils";
 
 function UserDashboardSidebar({ className }) {
-  const [active, setActive] = React.useState("recent");
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [active, setActive] = React.useState(location.pathname || "/");
+
   const handleSetActive = (value) => {
     setActive(value);
   };
@@ -44,19 +48,21 @@ function UserDashboardSidebar({ className }) {
           </h2>
           <div className="space-y-1">
             <Button
-              variant={active === "recent" ? "secondary" : "ghost"}
+              variant={active === "/dashboard" ? "secondary" : "ghost"}
               size="sm"
               className="w-full justify-start"
-              onClick={() => handleSetActive("recent")}
+              onClick={() => navigate(`/dashboard/`)}
             >
               <Clock10Icon className="mr-2 h-4 w-4" />
               Recent
             </Button>
             <Button
-              variant={active === "favorites" ? "secondary" : "ghost"}
+              variant={
+                active === "/dashboard/favorites" ? "secondary" : "ghost"
+              }
               size="sm"
               className="w-full justify-start"
-              onClick={() => handleSetActive("favorites")}
+              onClick={() => navigate(`/dashboard/favorites`)}
             >
               <StarIcon className="mr-2 h-4 w-4" />
               Favorites
@@ -71,20 +77,15 @@ function UserDashboardSidebar({ className }) {
           <div className="px-4 py-2">
             <div className="space-y-1">
               <Button
-                variant="ghost"
+                variant={
+                  active === "/dashboard/pricing" ? "secondary" : "ghost"
+                }
                 size="sm"
                 className="w-full justify-start"
-              >
-                <GemIcon className="mr-2 h-4 w-4" />
-                Upgrade
-              </Button>
-              <Button
-                variant="ghost"
-                size="sm"
-                className="w-full justify-start"
+                onClick={() => navigate(`/dashboard/pricing`)}
               >
                 <CreditCardIcon className="mr-2 h-4 w-4" />
-                Billing
+                Subscription
               </Button>
             </div>
           </div>
