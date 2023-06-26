@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { addUndoItem } from "./itemHistory";
-const initialState = "";
+const initialState = [];
 
 export const createScene = createAsyncThunk("createScene", async (payload) => {
   return payload;
