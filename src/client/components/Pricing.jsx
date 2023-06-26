@@ -27,8 +27,15 @@ const tempPlans = [
 function Pricing({ isDashboard }) {
   return (
     <div className="z-10 min-h-[50vh] w-full px-5 xl:px-0">
-      <h1 className="font-cal text-7xl/[5rem]">Pricing</h1>
+      {isDashboard && <h1 className="font-cal text-7xl/[5rem]">Pricing</h1>}
       <h3 className="text-2xl">Simple Price, No hidden fees, No surprises.</h3>
+
+      <div className="p-3">
+        {/* <h4 className="text-xl tracking-tight">
+          My Subscription: <span className="font-semibold">PREMIUM</span>
+        </h4>
+        <h5 className="text-lg tracking-tight">Expires on: 12/31/2021</h5> */}
+      </div>
       <div className="my-8 grid grid-cols-1 gap-8 md:grid-cols-2">
         {tempPlans.map((plan) => (
           <PricingCard plan={plan} key={plan.name} isDashboard={isDashboard} />

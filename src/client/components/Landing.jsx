@@ -26,7 +26,7 @@ function Landing() {
         <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0">
           Unleash Your Creativity with 3D Floor Plans!
         </h2>
-        <p className="leading-7 [&:not(:first-child)]:mt-6  mb-4 max-w-7xl">
+        <p className="leading-7 [&:not(:first-child)]:mt-6  mb-4 p-8">
           Designing the perfect space starts with a vision. Whether you're an
           architect, interior designer, real estate professional, or simply
           someone with a passion for creating beautiful spaces, FloorPlanner is
@@ -85,7 +85,7 @@ function Landing() {
             </div>
           </div>
         </section>
-        <p className="leading-7 [&:not(:first-child)]:mt-6 mb-8 max-w-7xl">
+        <p className="leading-7 [&:not(:first-child)]:mt-6 mb-8 p-8">
           With FloorPlanner, the possibilities are endless. Whether you're
           working on a residential home, office building, or any other
           architectural project, our intuitive interface and cutting-edge
