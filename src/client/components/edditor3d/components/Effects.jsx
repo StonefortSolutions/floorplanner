@@ -6,14 +6,9 @@ const Effects = ({is2D}) => {
   console.log(scene.children)
   return(
     <EffectComposer multisampling={0} disableNormalPass={true}>
-      {/* <Outline
-        selection={scene.children}
-        visibleEdgeColor={0xFF0000}
-        selectionLayer={3}
-        edgeStrength={.5}
-        blur={true}
-        xRay={true}
-      /> */}
+      <Bloom
+        intensity={.2}
+      />
     </EffectComposer>
   )
 }

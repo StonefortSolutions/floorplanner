@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-const initialState = 'wall';
+const initialState = 'orbit';
 
 const currrentAction = createSlice({
   name: "currentAction",

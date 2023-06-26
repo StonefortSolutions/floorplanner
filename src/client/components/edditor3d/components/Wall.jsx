@@ -11,9 +11,8 @@ function Wall({ point1, point2, id }) {
       dispatch(deleteFromScene(id));
     }
   };
-  const midSize = Math.floor(GRID_SIZE / 2) - 0.5;
-  const centerX = Math.abs(point1.x + point2.x) / 2 - midSize;
-  const centerY = Math.abs(point1.y + point2.y) / 2 - midSize;
+  const centerX = ((point1.x + point2.x) / 2) + .5;
+  const centerY = ((point1.y + point2.y) / 2) + .5;
   let rotation = 0;
   if (point1.y === point2.y) {
     rotation = Math.PI / 2;
@@ -26,7 +25,7 @@ function Wall({ point1, point2, id }) {
     ) + 1;
   return (
     <mesh
-      position={[centerX, 4, centerY]}
+      position={[centerX, 5.5, centerY]}
       rotation={[0, rotation, 0]}
       onClick={onClick}
       key={id}

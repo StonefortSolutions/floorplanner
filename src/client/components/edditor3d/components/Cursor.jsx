@@ -6,7 +6,7 @@ const Cursor = () => {
 
   if(selectedPoint.x !== null){
     return(
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[selectedPoint.x - 24.5 ,.1,selectedPoint.y - 24.5]}>
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[selectedPoint.x + .5,.6,selectedPoint.y + .5]}>
         <planeGeometry args={[1,1]} />
         <meshBasicMaterial color='red' />
       </mesh>

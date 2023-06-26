@@ -16,7 +16,7 @@ export const rebuildScene = (scene) => {
     } else {
       output.push(
         <ModelFetcher
-          key={item.itemId}
+          key={item.id}
           name={item.itemId}
           position={item.transform.position}
         />

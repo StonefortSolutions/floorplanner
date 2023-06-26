@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "./ui/Button";
-import { PencilIcon, ArmchairIcon, EraserIcon, SaveIcon } from "lucide-react";
+import { PencilIcon, ArmchairIcon, EraserIcon, SaveIcon, Rotate3d } from "lucide-react";
 import { cn } from "../utils";
 import { Switch } from "./ui/Switch";
 import { Label } from "./ui/Label";
@@ -23,6 +23,15 @@ function ApplicationSidebar({ className }) {
             Create
           </h2>
           <div className="space-y-1">
+            <Button
+              variant={currentAction === "orbit" ? "secondary" : "ghost"}
+              size="sm"
+              className="w-full justify-start"
+              onClick={() => dispatch(setAction("orbit"))}
+            >
+              <Rotate3d className="mr-2 h-4 w-4" />
+              Orbit
+            </Button>
             <Button
               variant={currentAction === "wall" ? "secondary" : "ghost"}
               size="sm"
