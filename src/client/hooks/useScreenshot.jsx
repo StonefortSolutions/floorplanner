@@ -13,14 +13,13 @@ function screenShotAtIntervals(time) {
 
       const canvas = gl.domElement;
       const img = canvas.toDataURL("image/png");
+
       const testimg = new Image();
       testimg.src = img;
-
       testimg.onload = () => {
         setImage(img);
         setIsLoading(false);
       };
-
       testimg.onerror = (error) => {
         setError(error);
         setIsLoading(false);
@@ -45,7 +44,6 @@ function takeScreenshot() {
 
   React.useEffect(() => {
     if (!isTakingScreenshot) return;
-
     setIsLoading(true);
 
     const canvas = gl.domElement;
@@ -53,19 +51,17 @@ function takeScreenshot() {
 
     const testimg = new Image();
     testimg.src = img;
-
     testimg.onload = () => {
       setImage(img);
       setIsLoading(false);
       setIsTakingScreenshot(false);
     };
-
     testimg.onerror = (error) => {
       setError(error);
       setIsLoading(false);
       setIsTakingScreenshot(false);
     };
-  }, [isTakingScreenshot, canvasRef]);
+  }, [isTakingScreenshot]);
 
   return { image, error, isLoading, takeScreenshot };
 }
