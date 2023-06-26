@@ -9,7 +9,6 @@ function useSaveSceneAtInterval(time) {
   useEffect(() => {
     const interval = setInterval(() => {
       setIsSaving(true);
-      console.log(scene);
       if (scene.length > 0) {
         window.localStorage.setItem("scene", JSON.stringify(scene));
       }
