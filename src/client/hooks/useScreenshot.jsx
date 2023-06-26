@@ -1,13 +1,12 @@
-import React from "react";
+import React, { useEffect, useCallback, useState } from "react";
 import { useThree } from "@react-three/fiber";
 
 function screenShotAtIntervals(time) {
-  const [image, setImage] = React.useState(null);
-  const [error, setError] = React.useState(null);
-  const [isLoading, setIsLoading] = React.useState(false);
-
+  const [image, setImage] = useState(null);
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const { gl } = useThree();
-  React.useEffect(() => {
+  useEffect(() => {
     const interval = setInterval(() => {
       setIsLoading(true);
 
@@ -32,17 +31,17 @@ function screenShotAtIntervals(time) {
 }
 
 function takeScreenshot() {
-  const [image, setImage] = React.useState(null);
-  const [error, setError] = React.useState(null);
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [isTakingScreenshot, setIsTakingScreenshot] = React.useState(false);
+  const [image, setImage] = useState(null);
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isTakingScreenshot, setIsTakingScreenshot] = useState(false);
   const { gl } = useThree();
 
-  const takeScreenshot = React.useCallback(() => {
+  const takeScreenshot = useCallback(() => {
     setIsTakingScreenshot(true);
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!isTakingScreenshot) return;
     setIsLoading(true);
 
