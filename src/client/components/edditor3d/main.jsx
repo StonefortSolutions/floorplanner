@@ -6,15 +6,16 @@ import Grid from "./components/Grid";
 import * as THREE from "three";
 import { useDispatch, useSelector } from "react-redux";
 import { loadScene } from "../../store/scene";
-import RayCaster from "./components/RayCaster";
 import ItemRenderer from "./components/ItemRenderer";
 import Effects from "./components/Effects";
-import Cursor from "./components/Cursor";
 import EditorOverlayButtons from "../EditorOverlayButtons";
-import ItemPreview from "./components/ItemPreview";
 import Sky from "./components/Sky";
 import Island from "./components/Island";
 import Screenshots from "./components/Screenshots";
+import WallRayCaster from "./components/RayCasters/WallRayCaster";
+import FloorRayCaster from "./components/RayCasters/FloorRaycaster";
+import RoomRayCaster from "./components/RayCasters/RoomRaycaster";
+import ItemRayCaster from "./components/RayCasters/ItemRayCaster";
 
 const Editor3d = () => {
   const [is2D, setIs2D] = useState(true);
@@ -34,6 +35,13 @@ const Editor3d = () => {
     dispatch(loadScene());
   }, []);
 
+  useEffect(()=>{
+    const canvas = document.getElementById('canvas1')
+    canvas.onpointerup = null
+    canvas.onpointerdown = null
+    canvas.onpointermove = null
+  },[currentAction])
+
   return (
     <div id="edditor" className="leading-none h-[98%] relative">
       <Canvas
@@ -48,19 +56,8 @@ const Editor3d = () => {
         <OrbitControls enabled={true} enableRotate={currentAction === 'orbit' && !is2D} enableZoom={currentAction !== 'placeItem'}/>
         <Sky/>
         <Island/>
-        {/* <Sky 
-          distance={450000} 
-          sunPosition={[3, 0, 7]} 
-          inclination={50} 
-          azimuth={180} 
-          turbidity={10} 
-          rayleigh={3} 
-          mieCoefficient={.005}
-          mieDirectionalG={.7}
-        /> */}
         <ambientLight intensity={0.1} />
         <pointLight position={[10, 500, 5]} intensity={1} />
-        {/* <directionalLight position={[-2, 10, 2]} intensity={.2} /> */}
         <Ground size={GRID_SIZE} />
         {GRID_VISIBLE && (
           <Grid
@@ -70,9 +67,16 @@ const Editor3d = () => {
           />
         )}
         <ItemRenderer />
-        <RayCaster camera={is2D ? camera2D : camera3D} />
-        <ItemPreview camera={is2D ? camera2D : camera3D} />
-        <Cursor />
+        {currentAction === 'wall'
+          ? <WallRayCaster camera={is2D ? camera2D : camera3D}/>
+          : currentAction === 'floor'
+          ? <FloorRayCaster camera={is2D ? camera2D : camera3D}/>
+          : currentAction === 'room'
+          ? <RoomRayCaster camera={is2D ? camera2D : camera3D}/>
+          : currentAction === 'placeItem'
+          ? <ItemRayCaster camera={is2D ? camera2D : camera3D}/>
+          : null
+        }
         {/* <Effects/> */}
         <Screenshots />
       </Canvas>
