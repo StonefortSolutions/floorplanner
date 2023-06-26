@@ -100,7 +100,7 @@ function SidebarContent() {
 function UserDashboardSidebar({ className }) {
   return (
     <>
-      <div className={cn("pb-12 md:hidden", className)}>
+      <div className={cn("pb-4 md:hidden", className)}>
         <Popover>
           <PopoverTrigger asChild>
             <Button
@@ -116,7 +116,7 @@ function UserDashboardSidebar({ className }) {
           </PopoverContent>
         </Popover>
       </div>
-      <div className={cn("pb-12 hidden md:block", className)}>
+      <div className={cn("hidden md:block", className)}>
         <SidebarContent />
       </div>
     </>

@@ -10,25 +10,37 @@ import {
   CardTitle,
 } from "./ui/Card";
 import { Button } from "./ui/Button";
+import { ScrollArea } from "./ui/Scroll-Area";
 
 const ModelSelector = () => {
   const dispatch = useDispatch();
-  const selectedModel = useSelector(store => store.selectedModel);
+  const selectedModel = useSelector((store) => store.selectedModel);
   return (
-    <div>
-      <h1 className="mb-2 px-2 text-lg font-semibold tracking-tight">
-        furniture
+    <div className="h-[100vh] w-full hidden md:block">
+      <h1 className="mb-2 px-2 text-lg font-semibold tracking-tight text-center">
+        Furniture
       </h1>
-      <div className="overflow-y-scroll overflow-x-hidden flex flex-row flex-wrap lg:w-[500px] lg:h-[700px]">
+      <ScrollArea className="h-[calc(100vh-2rem)] w-full">
         {furnitureNames.map((name) => (
-          <Card className={selectedModel === name ? "w-52 m-2 bg-white bg-opacity-5" : "w-52 m-2"} key={name}>
+          <Card
+            className={
+              selectedModel === name
+                ? "m-2 bg-white bg-opacity-5 w-full"
+                : " m-2"
+            }
+            key={name}
+          >
             <CardHeader>
-              <CardDescription>{name}</CardDescription>
+              <h2 className="text-xl font-bold text-center">{name}</h2>
             </CardHeader>
-            <CardContent>
-              <img src={`/ItemPictures/${name}_SE.png`} />
+            <CardContent className="flex justify-center">
+              <img
+                src={`/ItemPictures/${name}_SE.png`}
+                alt={name}
+                className="w-1/5 h-1/5"
+              />
             </CardContent>
-            <CardFooter>
+            <CardFooter className="flex justify-center">
               <Button
                 variant={selectedModel === name ? "secondary" : "ghost"}
                 onClick={() => dispatch(setModel(name))}
@@ -38,7 +50,7 @@ const ModelSelector = () => {
             </CardFooter>
           </Card>
         ))}
-      </div>
+      </ScrollArea>
     </div>
   );
 };

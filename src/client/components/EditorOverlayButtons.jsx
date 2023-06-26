@@ -41,7 +41,7 @@ function EditorOverlayButtons({ is2D, setIs2D }) {
 
   return (
     <TooltipProvider>
-      <div className="absolute bottom-0 right-0 m-4 p-2">
+      <div className="absolute bottom-1 left-1 :m-4 p-2">
         <div className="grid grid-cols-2 grid-rows-2 gap-2">
           {scene.length > 0 ? (
             <Tooltip>
