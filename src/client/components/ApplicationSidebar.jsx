@@ -1,6 +1,14 @@
 import React from "react";
 import { Button } from "./ui/Button";
-import { PencilIcon, ArmchairIcon, EraserIcon, SaveIcon, Rotate3d, BoxSelect, Building } from "lucide-react";
+import {
+  PencilIcon,
+  ArmchairIcon,
+  EraserIcon,
+  SaveIcon,
+  Rotate3d,
+  BoxSelect,
+  Building,
+} from "lucide-react";
 import { cn } from "../utils";
 import { Switch } from "./ui/Switch";
 import { Label } from "./ui/Label";
@@ -10,10 +18,81 @@ import { setAction } from "../store/currentAction";
 import { setGridVisible } from "../store/grid";
 import { useSaveSceneAtInterval } from "../hooks/useSaveScene";
 
-function ApplicationSidebar({ className }) {
+export function ApplicationButtons({ className }) {
   const dispatch = useDispatch();
   const scene = useSelector((state) => state.scene);
   const currentAction = useSelector((state) => state.currentAction);
+  return (
+    <>
+      <Button
+        variant={currentAction === "orbit" ? "secondary" : "ghost"}
+        size="sm"
+        className="w-full justify-start"
+        onClick={() => dispatch(setAction("orbit"))}
+      >
+        <Rotate3d className="mr-2 h-4 w-4" />
+        Orbit
+      </Button>
+      <Button
+        variant={currentAction === "room" ? "secondary" : "ghost"}
+        size="sm"
+        className="w-full justify-start"
+        onClick={() => dispatch(setAction("room"))}
+      >
+        <Building className="mr-2 h-4 w-4" />
+        Room
+      </Button>
+      <Button
+        variant={currentAction === "wall" ? "secondary" : "ghost"}
+        size="sm"
+        className="w-full justify-start"
+        onClick={() => dispatch(setAction("wall"))}
+      >
+        <PencilIcon className="mr-2 h-4 w-4" />
+        Walls
+      </Button>
+      <Button
+        variant={currentAction === "floor" ? "secondary" : "ghost"}
+        size="sm"
+        className="w-full justify-start"
+        onClick={() => dispatch(setAction("floor"))}
+      >
+        <BoxSelect className="mr-2 h-4 w-4" />
+        Floor
+      </Button>
+      <Button
+        variant={currentAction === "delete" ? "secondary" : "ghost"}
+        size="sm"
+        className="w-full justify-start"
+        onClick={() => dispatch(setAction("delete"))}
+      >
+        <EraserIcon className="mr-2 h-4 w-4" />
+        Eraser
+      </Button>
+      <Button
+        variant={currentAction === "placeItem" ? "secondary" : "ghost"}
+        size="sm"
+        className="w-full justify-start"
+        onClick={() => dispatch(setAction("placeItem"))}
+      >
+        <ArmchairIcon className="mr-2 h-4 w-4" />
+        Furniture
+      </Button>
+      <Button
+        onClick={() => dispatch(saveScene(scene))}
+        variant="ghost"
+        size="sm"
+        className="w-full justify-start"
+      >
+        <SaveIcon className="mr-2 h-4 w-4" />
+        Save
+      </Button>
+    </>
+  );
+}
+
+function ApplicationSidebar({ className }) {
+  const dispatch = useDispatch();
   const { GRID_SIZE, GRID_VISIBLE } = useSelector((state) => state.grid);
   const { isSaving } = useSaveSceneAtInterval(10000);
 
@@ -25,69 +104,7 @@ function ApplicationSidebar({ className }) {
             Create
           </h2>
           <div className="space-y-1">
-            <Button
-              variant={currentAction === "orbit" ? "secondary" : "ghost"}
-              size="sm"
-              className="w-full justify-start"
-              onClick={() => dispatch(setAction("orbit"))}
-            >
-              <Rotate3d className="mr-2 h-4 w-4" />
-              Orbit
-            </Button>
-            <Button
-              variant={currentAction === "room" ? "secondary" : "ghost"}
-              size="sm"
-              className="w-full justify-start"
-              onClick={() => dispatch(setAction("room"))}
-            >
-              <Building className="mr-2 h-4 w-4" />
-              Room
-            </Button>
-            <Button
-              variant={currentAction === "wall" ? "secondary" : "ghost"}
-              size="sm"
-              className="w-full justify-start"
-              onClick={() => dispatch(setAction("wall"))}
-            >
-              <PencilIcon className="mr-2 h-4 w-4" />
-              Walls
-            </Button>
-            <Button
-              variant={currentAction === "floor" ? "secondary" : "ghost"}
-              size="sm"
-              className="w-full justify-start"
-              onClick={() => dispatch(setAction("floor"))}
-            >
-              <BoxSelect className="mr-2 h-4 w-4" />
-              Floor
-            </Button>
-            <Button
-              variant={currentAction === "delete" ? "secondary" : "ghost"}
-              size="sm"
-              className="w-full justify-start"
-              onClick={() => dispatch(setAction("delete"))}
-            >
-              <EraserIcon className="mr-2 h-4 w-4" />
-              Eraser
-            </Button>
-            <Button
-              variant={currentAction === "placeItem" ? "secondary" : "ghost"}
-              size="sm"
-              className="w-full justify-start"
-              onClick={() => dispatch(setAction("placeItem"))}
-            >
-              <ArmchairIcon className="mr-2 h-4 w-4" />
-              Furniture
-            </Button>
-            <Button
-              onClick={() => dispatch(saveScene(scene))}
-              variant="ghost"
-              size="sm"
-              className="w-full justify-start"
-            >
-              <SaveIcon className="mr-2 h-4 w-4" />
-              Save
-            </Button>
+            <ApplicationButtons />
           </div>
         </div>
         <div className="py-2">
