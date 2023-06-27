@@ -43,8 +43,22 @@ const Editor3d = () => {
     canvas.onclick = null;
   }, [currentAction]);
 
+  const currentCursor =
+    currentAction === "placeItem"
+      ? "cursor-grabbing"
+      : currentAction === "orbit" && !is2D
+      ? "cursor-move"
+      : currentAction === "orbit" && is2D
+      ? "cursor-default"
+      : currentAction === "delete"
+      ? "cursor-pointer"
+      : "cursor-crosshair";
+
   return (
-    <div id="edditor" className="leading-none h-[90%] md:h-[98%] relative">
+    <div
+      id="edditor"
+      className={`leading-none h-[90%] md:h-[98%] relative ${currentCursor}`}
+    >
       <Canvas
         id="canvas1"
         camera={is2D ? camera2D : camera3D}
