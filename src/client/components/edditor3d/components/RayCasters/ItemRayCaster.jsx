@@ -64,18 +64,20 @@ const ItemRayCaster = ({camera}) => {
     }
   }
 
-  const onMouseClick = () => {
-    pointer.x = ( event.offsetX / size.width ) * 2 - 1;
-	  pointer.y = - ( event.offsetY / size.height ) * 2 + 1;
-    raycaster.setFromCamera( pointer, camera );
-    const groundIntersect = raycaster.intersectObjects( scene.children ).filter(object => object.object.name === 'ground')[0];
-    dispatch(
-      addToScene({
-        id: uuidv4(),
-        itemId: selectedModel,
-        transform: { position: {x:Math.floor(groundIntersect.point.x),y:Math.floor(groundIntersect.point.z)}, rotation: rotation },
-      })
-    );
+  const onMouseClick = (event) => {
+    if(event.button === 0){
+      pointer.x = ( event.offsetX / size.width ) * 2 - 1;
+	    pointer.y = - ( event.offsetY / size.height ) * 2 + 1;
+      raycaster.setFromCamera( pointer, camera );
+      const groundIntersect = raycaster.intersectObjects( scene.children ).filter(object => object.object.name === 'ground')[0];
+      dispatch(
+        addToScene({
+          id: uuidv4(),
+          itemId: selectedModel,
+          transform: { position: {x:Math.floor(groundIntersect.point.x),y:Math.floor(groundIntersect.point.z)}, rotation: rotation },
+        })
+      );
+    }
   }
 
   return model;
