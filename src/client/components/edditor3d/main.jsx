@@ -35,16 +35,16 @@ const Editor3d = () => {
     dispatch(loadScene());
   }, []);
 
-  useEffect(()=>{
-    const canvas = document.getElementById('canvas1')
-    canvas.onpointerup = null
-    canvas.onpointerdown = null
-    canvas.onpointermove = null
-    canvas.onclick = null
-  },[currentAction])
+  useEffect(() => {
+    const canvas = document.getElementById("canvas1");
+    canvas.onpointerup = null;
+    canvas.onpointerdown = null;
+    canvas.onpointermove = null;
+    canvas.onclick = null;
+  }, [currentAction]);
 
   return (
-    <div id="edditor" className="leading-none h-[98%] relative">
+    <div id="edditor" className="leading-none h-[90%] md:h-[98%] relative">
       <Canvas
         id="canvas1"
         camera={is2D ? camera2D : camera3D}
@@ -68,16 +68,15 @@ const Editor3d = () => {
           />
         )}
         <ItemRenderer />
-        {currentAction === 'wall'
-          ? <WallRayCaster camera={is2D ? camera2D : camera3D}/>
-          : currentAction === 'floor'
-          ? <FloorRayCaster camera={is2D ? camera2D : camera3D}/>
-          : currentAction === 'room'
-          ? <RoomRayCaster camera={is2D ? camera2D : camera3D}/>
-          : currentAction === 'placeItem'
-          ? <ItemRayCaster camera={is2D ? camera2D : camera3D}/>
-          : null
-        }
+        {currentAction === "wall" ? (
+          <WallRayCaster camera={is2D ? camera2D : camera3D} />
+        ) : currentAction === "floor" ? (
+          <FloorRayCaster camera={is2D ? camera2D : camera3D} />
+        ) : currentAction === "room" ? (
+          <RoomRayCaster camera={is2D ? camera2D : camera3D} />
+        ) : currentAction === "placeItem" ? (
+          <ItemRayCaster camera={is2D ? camera2D : camera3D} />
+        ) : null}
         {/* <Effects/> */}
         <Screenshots />
       </Canvas>
