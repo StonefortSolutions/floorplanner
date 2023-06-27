@@ -7,7 +7,7 @@ function Layout() {
   return (
     <div className="flex flex-col h-screen">
       <Navbar className="flex" />
-      <div className="py-24 p-2 flex-1">
+      <div className="mt-24 flex-1">
         <Outlet />
         <Toaster />
       </div>
