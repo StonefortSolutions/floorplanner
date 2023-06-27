@@ -17,11 +17,11 @@ const ModelSelector = () => {
   const dispatch = useDispatch();
   const selectedModel = useSelector((store) => store.selectedModel);
   return (
-    <div className="h-[100vh] w-full hidden md:block">
+    <div className="w-full hidden md:block">
       <h1 className="mb-2 px-2 text-lg font-semibold tracking-tight text-center">
         Furniture
       </h1>
-      <ScrollArea className="h-[calc(100vh-2rem)] w-full">
+      <ScrollArea className="h-[80vh] w-full">
         {furnitureObjects &&
           furnitureObjects.map(({ name, category, previewImage, path }) => (
             <Card
