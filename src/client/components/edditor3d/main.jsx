@@ -46,8 +46,10 @@ const Editor3d = () => {
   const currentCursor =
     currentAction === "placeItem"
       ? "cursor-grabbing"
-      : currentAction === "orbit"
+      : currentAction === "orbit" && !is2D
       ? "cursor-move"
+      : currentAction === "orbit" && is2D
+      ? "cursor-default"
       : currentAction === "delete"
       ? "cursor-pointer"
       : "cursor-crosshair";
