@@ -1,4 +1,3 @@
-import { furnitureNames } from "./data/furnitureName";
 import furnitureObjects from "./data/furnitureObjects";
 import { useDispatch, useSelector } from "react-redux";
 import { setModel } from "../store/selectedModel";
@@ -33,15 +32,17 @@ const ModelSelector = () => {
               }
               key={name}
             >
-              <CardHeader>
+              <CardTitle>
                 <h2 className="text-xl font-bold text-center">{name}</h2>
-              </CardHeader>
-              <div className="flex justify-center my-1">
-                Type:
-                <Badge variant="outline" className="mx-1 ">
-                  {category}
-                </Badge>
-              </div>
+              </CardTitle>
+              <CardDescription>
+                <div className="flex justify-center my-1">
+                  Type:
+                  <Badge variant="outline" className="mx-1 ">
+                    {category}
+                  </Badge>
+                </div>
+              </CardDescription>
               <CardContent className="flex justify-center my-1">
                 <img src={previewImage} alt={name} className="w-1/5 h-1/5" />
               </CardContent>
