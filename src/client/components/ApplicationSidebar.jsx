@@ -91,6 +91,45 @@ export function ApplicationButtons({ className }) {
   );
 }
 
+function ToolTips(){
+  const currentAction = useSelector(state => state.currentAction)
+  const wallFloorRoom = (
+    <p>
+      Click and Drag to add to Scene
+    </p>
+  )
+  const orbit = (
+    <>
+      <p>Scroll to zoom</p>
+      <p>Middle mouse to rotate</p>
+      <p>Right mouse to pan</p>
+    </>
+  )
+  const furniture = (
+    <p>Click to place item</p>
+  )
+  const erase = (
+    <p>click on an item to delete it</p>
+  )
+
+  return (
+    <div>
+      <h1>Help</h1>
+      {
+        currentAction === 'wall' || currentAction === 'floor' || currentAction === 'room'
+        ? wallFloorRoom 
+        : currentAction === 'orbit'
+        ? orbit
+        : currentAction === 'placeItem'
+        ? furniture
+        : currentAction === 'delete'
+        ? erase
+        : null
+      }
+    </div>
+  )
+}
+
 function ApplicationSidebar({ className }) {
   const dispatch = useDispatch();
   const { GRID_SIZE, GRID_VISIBLE } = useSelector((state) => state.grid);
@@ -139,6 +178,7 @@ function ApplicationSidebar({ className }) {
             </div>
           </div>
         </div>
+        <ToolTips/>
       </div>
     </div>
   );

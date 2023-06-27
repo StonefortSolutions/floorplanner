@@ -6,7 +6,7 @@ import MobileBar from "../components/MobileBar";
 
 function Editor() {
   return (
-    <div className="flex flex-col md:flex-row p-2 h-full w-full">
+    <div className="flex flex-col md:flex-row p-2 w-full h-[87vh] overflow-y-hidden">
       <ApplicationSidebar className="border-r md:block w-1/5 hidden" />
       <div className="min-w-[200px] min-h-[200px] flex-1 bg-secondary border p-2">
         <Editor3d />
