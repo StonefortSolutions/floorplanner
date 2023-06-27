@@ -6,7 +6,8 @@
     "dev": "nodemon src/server/main.js -w src/server",
     "start": "NODE_ENV=production node src/server/main.js",
     "build": "vite build",
-    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\""
+    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+    "convertModels": "node convertModelsToObjects.js"
   },
   "dependencies": {
     "@clerk/clerk-react": "^4.20.5",

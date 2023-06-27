@@ -1,8 +1,5 @@
-import axios from "axios";
-import { Suspense, useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useState, useEffect } from "react";
 import { Loader } from "@react-three/drei";
-import { useLoader } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
 const ModelFetcher = ({ name, position, rotation }) => {
