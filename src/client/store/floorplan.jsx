@@ -27,6 +27,18 @@ export const fetchSingleFloorplan = createAsyncThunk(
   }
 );
 
+export const deleteSingleFloorplan = createAsyncThunk(
+  "deleteSingleFloorplan",
+  async (id) => {
+    try {
+      const { data } = await axios.delete(`/api/floorplan${id}`);
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
 const floorplanSlice = createSlice({
   name: "floorplan",
   initialState,
@@ -36,6 +48,9 @@ const floorplanSlice = createSlice({
       state.floorplans = action.payload;
     });
     builder.addCase(fetchSingleFloorplan.fulfilled, (state, action) => {
+      state.singleFloorplan = action.payload;
+    });
+    builder.addCase(deleteSingleFloorplan.fulfilled, (state, action) => {
       state.singleFloorplan = action.payload;
     });
   },
