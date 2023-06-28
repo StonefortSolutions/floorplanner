@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Card,
   CardContent,
@@ -18,6 +18,8 @@ import {
   DialogDescription,
 } from "../components/ui/Dialog";
 import { useToast } from "../hooks/useToast";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchFloorplans } from "../store/floorplan";
 
 const exampleFloorplans = [
   {
@@ -39,6 +41,14 @@ function UserDashboardHome() {
       description: "This is a test toast",
     });
   };
+
+  const { floorplans } = useSelector((state) => state.floorplan);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchFloorplans());
+  }, [dispatch]);
+
   return (
     <div>
       <h1 className="text-2xl font-semibold tracking-tight">Dashboard</h1>
@@ -49,7 +59,7 @@ function UserDashboardHome() {
       <div className="mt-4">
         <h2 className="text-lg font-semibold tracking-tight">My Floorplans</h2>
         <div className="mt-2 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {exampleFloorplans.map((floorplan) => (
+          {floorplans.map((floorplan) => (
             <Card key={floorplan.id}>
               <img
                 src="https://i.redd.it/l8w3r7t6avh21.png"
@@ -58,7 +68,6 @@ function UserDashboardHome() {
               />
               <CardContent>
                 <CardTitle>{floorplan.name}</CardTitle>
-                <CardDescription>{floorplan.description}</CardDescription>
               </CardContent>
               <CardFooter>
                 <div className="flex flex-row justify-between w-full">
