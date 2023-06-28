@@ -15,6 +15,7 @@ import WallRayCaster from "./components/RayCasters/WallRayCaster";
 import FloorRayCaster from "./components/RayCasters/FloorRaycaster";
 import RoomRayCaster from "./components/RayCasters/RoomRaycaster";
 import ItemRayCaster from "./components/RayCasters/ItemRayCaster";
+import DoorRayCaster from "./components/RayCasters/DoorRaycaster"
 import Controls from "./components/Controls";
 
 const Editor3d = () => {
@@ -90,6 +91,8 @@ const Editor3d = () => {
           <RoomRayCaster camera={is2D ? camera2D : camera3D} />
         ) : currentAction === "placeItem" ? (
           <ItemRayCaster camera={is2D ? camera2D : camera3D} />
+        ) : currentAction === "door" ? (
+          <DoorRayCaster camera={is2D ? camera2D : camera3D} />
         ) : null}
         {/* <Effects/> */}
         <Screenshots />

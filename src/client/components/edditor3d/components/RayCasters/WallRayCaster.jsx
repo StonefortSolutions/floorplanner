@@ -82,7 +82,13 @@ const WallRayCaster = ({camera}) => {
           addToScene({
             id: uuidv4(),
             itemId: "wall",
-            transform: { pt1: downPoint, pt2: { x: currentX, y: currentY }, color: selectedColor },
+            transform: { 
+              pt1: downPoint, 
+              pt2: { x: currentX, y: currentY }, 
+              color: selectedColor,
+              height:8,
+              bottom:0 
+            },
           })
         );
       }

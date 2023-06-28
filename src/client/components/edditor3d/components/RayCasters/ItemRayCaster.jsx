@@ -11,6 +11,7 @@ const ItemRayCaster = ({camera}) => {
   const currentAction = useSelector(state => state.currentAction);
   const selectedModel = useSelector(state => state.selectedModel)
   const rotation = useSelector(state => state.rotation);
+  const {GRID_VISIBLE} = useSelector(state => state.grid)
   const [model, setModel] = useState(null);
   const [data, setData] = useState("");
   const loader = new GLTFLoader();
@@ -41,12 +42,16 @@ const ItemRayCaster = ({camera}) => {
 	  pointer.y = - ( event.offsetY / size.height ) * 2 + 1;
     raycaster.setFromCamera( pointer, camera );
     const groundIntersect = raycaster.intersectObjects( scene.children ).filter(object => object.object.name === 'ground')[0];
+    let position = [groundIntersect.point.x,1.5,groundIntersect.point.z]
+    if(GRID_VISIBLE){
+      position = [Math.floor(groundIntersect.point.x),1.5,Math.floor(groundIntersect.point.z)]
+    }
     if(groundIntersect){
       setModel( 
         <primitive
           object={data.scene}
           scale={[10, 10, 10]}
-          position={[Math.floor(groundIntersect.point.x),1.5,Math.floor(groundIntersect.point.z)]}
+          position={position}
           rotation={[0,rotation,0]}
         />
       );

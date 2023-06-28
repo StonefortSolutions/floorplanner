@@ -8,6 +8,7 @@ import {
   Rotate3d,
   BoxSelect,
   Building,
+  Briefcase,
 } from "lucide-react";
 import { cn } from "../utils";
 import { Switch } from "./ui/Switch";
@@ -17,9 +18,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { setAction } from "../store/currentAction";
 import { setGridVisible } from "../store/grid";
 import { useSaveSceneAtInterval } from "../hooks/useSaveScene";
+import { useNavigate } from 'react-router-dom'
 
 export function ApplicationButtons({ className }) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const scene = useSelector((state) => state.scene);
   const currentAction = useSelector((state) => state.currentAction);
   return (
@@ -79,6 +82,15 @@ export function ApplicationButtons({ className }) {
         Furniture
       </Button>
       <Button
+        variant={currentAction === "door" ? "secondary" : "ghost"}
+        size="sm"
+        className="w-full justify-start"
+        onClick={() => dispatch(setAction("door"))}
+      >
+        <PencilIcon className="mr-2 h-4 w-4" />
+        Door
+      </Button>
+      <Button
         onClick={() => dispatch(saveScene(scene))}
         variant="ghost"
         size="sm"
@@ -86,6 +98,15 @@ export function ApplicationButtons({ className }) {
       >
         <SaveIcon className="mr-2 h-4 w-4" />
         Save
+      </Button>
+      <Button
+        onClick={()=>{navigate('/dashboard')}}
+        variant="ghost"
+        size="sm"
+        className="w-full justify-start"
+      >
+        <Briefcase className="mr-2 h-4 w-4"/>
+        Exit
       </Button>
     </>
   );

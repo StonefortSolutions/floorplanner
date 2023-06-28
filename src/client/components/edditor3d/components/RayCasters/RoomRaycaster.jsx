@@ -60,28 +60,53 @@ const RoomRayCaster = ({camera}) => {
       addToScene({
         id: uuidv4(),
         itemId: "wall",
-        transform: { pt1: pt1, pt2: { x: pt1.x, y: pt2.y }, color: selectedColor },
+        transform: { 
+          pt1: pt1, 
+          pt2: { x: pt1.x, y: pt2.y }, 
+          color: selectedColor,
+          height:8,       
+          bottom:0 
+        },
       })
     );
     dispatch(
       addToScene({
         id: uuidv4(),
         itemId: "wall",
-        transform: { pt1: pt1, pt2: { x: pt2.x, y: pt1.y }, color: selectedColor },
+        transform: { 
+          pt1: pt1, 
+          pt2: { x: pt2.x, y: pt1.y }, 
+          color: selectedColor,
+          height:8,
+          bottom:0 
+        },
       })
     );
     dispatch(
       addToScene({
         id: uuidv4(),
         itemId: "wall",
-        transform: { pt1: pt2, pt2: { x: pt1.x, y: pt2.y }, color: selectedColor },
+        transform: { 
+          pt1: 
+          pt2, 
+          pt2: { x: pt1.x, y: pt2.y }, 
+          color: selectedColor,
+          height:8,
+          bottom:0 
+        },
       })
     );
     dispatch(
       addToScene({
         id: uuidv4(),
         itemId: "wall",
-        transform: { pt1: pt2, pt2: { x: pt2.x, y: pt1.y  }, color: selectedColor },
+        transform: { 
+          pt1: pt2, 
+          pt2: { x: pt2.x, y: pt1.y  }, 
+          color: selectedColor,
+          height:8,
+          bottom:0 
+        },
       })
     );
     dispatch(

@@ -13,6 +13,8 @@ export const rebuildScene = (scene) => {
           point2={item.transform.pt2}
           id={item.id}
           color={item.transform.color}
+          height={item.transform.height}
+          bottom={item.transform.bottom}
         />
       );
     } else if(item.itemId === "floor"){
