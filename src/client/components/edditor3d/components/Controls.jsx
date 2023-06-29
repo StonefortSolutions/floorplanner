@@ -2,7 +2,6 @@ import { OrbitControls } from "@react-three/drei";
 import {useSelector} from 'react-redux'
 import * as THREE from "three";
 const Controls = ({is2D}) => {
-  const currentAction = useSelector(state => state)
   return (
     <OrbitControls 
       enableRotate={!is2D} 
