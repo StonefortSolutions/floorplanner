@@ -25,7 +25,7 @@ const RoomRayCaster = ({camera}) => {
         position={[centerX, .55, centerY]}
         rotation={[-Math.PI / 2,0,0]}
       >
-        <planeGeometry attach="geometry" args={[width + 1, depth + 1]} />
+        <planeGeometry attach="geometry" args={[width + .5, depth + .5]} />
         <meshStandardMaterial color={selectedColor} />
       </mesh>
     );
@@ -49,7 +49,7 @@ const RoomRayCaster = ({camera}) => {
         position={[centerX, 4.5, centerY]}
         rotation={[0, rotation, 0]}
       >
-        <boxGeometry attach="geometry" args={[1, 8, length]} />
+        <boxGeometry attach="geometry" args={[.5, 8, length - .5]} />
         <meshStandardMaterial color={selectedColor} />
       </mesh>
     );

@@ -42,15 +42,15 @@ const ItemRayCaster = ({camera}) => {
 	  pointer.y = - ( event.offsetY / size.height ) * 2 + 1;
     raycaster.setFromCamera( pointer, camera );
     const groundIntersect = raycaster.intersectObjects( scene.children ).filter(object => object.object.name === 'ground')[0];
-    let position = [groundIntersect.point.x,1.5,groundIntersect.point.z]
-    if(GRID_VISIBLE){
-      position = [Math.floor(groundIntersect.point.x),1.5,Math.floor(groundIntersect.point.z)]
-    }
     if(groundIntersect){
+      let position = [groundIntersect.point.x,1.5,groundIntersect.point.z]
+      if(GRID_VISIBLE){
+        position = [Math.floor(groundIntersect.point.x),1.5,Math.floor(groundIntersect.point.z)]
+      }
       setModel( 
         <primitive
           object={data.scene}
-          scale={[10, 10, 10]}
+          scale={[5, 5, 5]}
           position={position}
           rotation={[0,rotation,0]}
         />

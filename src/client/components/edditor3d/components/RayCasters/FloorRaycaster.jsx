@@ -45,7 +45,7 @@ const FloorRayCaster = ({camera}) => {
           position={[centerX, .55, centerY]}
           rotation={[-Math.PI / 2,0,0]}
         >
-          <planeGeometry attach="geometry" args={[width + 1, depth + 1]} />
+          <planeGeometry attach="geometry" args={[width + .5, depth + .5]} />
           <meshStandardMaterial color={selectedColor} />
         </mesh>
       );

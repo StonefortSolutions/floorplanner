@@ -55,7 +55,7 @@ const WallRayCaster = ({camera}) => {
           position={[centerX, 4.5, centerY]}
           rotation={[0, rotation, 0]}
         >
-          <boxGeometry attach="geometry" args={[1, 8, length + 1]} />
+          <boxGeometry attach="geometry" args={[.5, 8, length + .5]} />
           <meshStandardMaterial color={selectedColor} />
         </mesh>
       );

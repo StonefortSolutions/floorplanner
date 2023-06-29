@@ -24,7 +24,7 @@ const ModelSelector = () => {
       </h1>
       <ScrollArea className="h-[80vh] w-full">
         {furnitureObjects &&
-          furnitureObjects.map(({ name, category, previewImage, path }) => {if(category === 'doorway'){return(
+          furnitureObjects.map(({ name, category, previewImage, path }) =>(
             <Card
               className={
                 selectedModel === name
@@ -56,7 +56,7 @@ const ModelSelector = () => {
                 </Button>
               </CardFooter>
             </Card>
-          )}})}
+          ))}
       </ScrollArea>
     </div>
   );
