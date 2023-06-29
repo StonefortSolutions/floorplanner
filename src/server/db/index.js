@@ -1,13 +1,31 @@
 const conn = require("./conn");
 const Examples = require("./examples");
-const Floorplan = require("./floorplan")
+const Floorplan = require("./floorplan");
+
+const floorplans = [
+  {
+    name: "Bathroom Floorplan",
+  },
+  {
+    name: "Bedroom Floorplan",
+  },
+  {
+    name: "Kitchen Floorplan",
+  },
+];
 
 const seed = async () => {
-  return Promise.all([
-    Examples.create({ text: "foo" }),
-    Examples.create({ text: "bar" }),
-  ]);
+  // const examples = Promise.all([
+  //   Examples.create({ text: "foo" }),
+  //   Examples.create({ text: "bar" }),
+  // ])
+  const floorplan = await Promise.all(
+    floorplans.map((floorplan) => {
+      return Floorplan.create(floorplan);
+    })
+  );
 };
+
 const syncAndSeed = async () => {
   await conn.sync({ force: true });
   await seed();
@@ -17,5 +35,5 @@ const syncAndSeed = async () => {
 module.exports = {
   syncAndSeed,
   Examples,
-  Floorplan
+  Floorplan,
 };
