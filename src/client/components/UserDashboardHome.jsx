@@ -87,15 +87,16 @@ function UserDashboardHome() {
                     </DialogContent>
                   </Dialog>
 
-                  <Button
-                    variant="secondary"
-                    size="sm"
-                    // onClick={() => testToast()}
-                  >
-                    <Link to={`/editor/${floorplan.id}`} />
-                    <PencilIcon className="mr-2 h-4 w-4" />
-                    Edit
-                  </Button>
+                  <Link to={`/editor/${floorplan.id}`}>
+                    <Button
+                      variant="secondary"
+                      size="sm"
+                      // onClick={() => testToast()}
+                    >
+                      <PencilIcon className="mr-2 h-4 w-4" />
+                      Edit
+                    </Button>
+                  </Link>
                 </div>
               </CardFooter>
             </Card>
