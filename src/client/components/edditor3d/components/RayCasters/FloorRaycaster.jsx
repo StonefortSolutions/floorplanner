@@ -16,13 +16,15 @@ const FloorRayCaster = ({camera}) => {
   const dispatch = useDispatch();
     
   const onMouseDown = ( event ) => {
-    pointer.x = ( event.offsetX / size.width ) * 2 - 1;
-	  pointer.y = - ( event.offsetY / size.height ) * 2 + 1;
-    raycaster.setFromCamera( pointer, camera );
-    const groundIntersect = raycaster.intersectObjects( scene.children ).filter(object => object.object.name === 'ground')[0];
-    if (groundIntersect){
-      setDownPoint({x:Math.floor(groundIntersect.point.x), y: Math.floor(groundIntersect.point.z)})
-      setMouseUp(false);
+    if(event.button === 0){
+      pointer.x = ( event.offsetX / size.width ) * 2 - 1;
+	    pointer.y = - ( event.offsetY / size.height ) * 2 + 1;
+      raycaster.setFromCamera( pointer, camera );
+      const groundIntersect = raycaster.intersectObjects( scene.children ).filter(object => object.object.name === 'ground')[0];
+      if (groundIntersect){
+        setDownPoint({x:Math.floor(groundIntersect.point.x), y: Math.floor(groundIntersect.point.z)})
+        setMouseUp(false);
+      }
     }
   }
 
@@ -43,7 +45,7 @@ const FloorRayCaster = ({camera}) => {
           position={[centerX, .55, centerY]}
           rotation={[-Math.PI / 2,0,0]}
         >
-          <planeGeometry attach="geometry" args={[width + 1, depth + 1]} />
+          <planeGeometry attach="geometry" args={[width + .5, depth + .5]} />
           <meshStandardMaterial color={selectedColor} />
         </mesh>
       );
@@ -53,23 +55,25 @@ const FloorRayCaster = ({camera}) => {
   }
 
   const onMouseUp = (event) => {
-    pointer.x = ( event.offsetX / size.width ) * 2 - 1;
-	  pointer.y = - ( event.offsetY / size.height ) * 2 + 1;
-    raycaster.setFromCamera( pointer, camera );
-    const groundIntersect = raycaster.intersectObjects( scene.children ).filter(object => object.object.name === 'ground')[0];
-    if(groundIntersect){
-      let currentX = Math.floor(groundIntersect.point.x);
-      let currentY = Math.floor(groundIntersect.point.z);
-      dispatch(
-        addToScene({
-          id: uuidv4(),
-          itemId: "floor",
-          transform: { pt1: downPoint, pt2: { x: currentX, y: currentY }, color: selectedColor },
-        })
-      );
+    if(event.button === 0){
+      pointer.x = ( event.offsetX / size.width ) * 2 - 1;
+	    pointer.y = - ( event.offsetY / size.height ) * 2 + 1;
+      raycaster.setFromCamera( pointer, camera );
+      const groundIntersect = raycaster.intersectObjects( scene.children ).filter(object => object.object.name === 'ground')[0];
+      if(groundIntersect){
+        let currentX = Math.floor(groundIntersect.point.x);
+        let currentY = Math.floor(groundIntersect.point.z);
+        dispatch(
+          addToScene({
+            id: uuidv4(),
+            itemId: "floor",
+            transform: { pt1: downPoint, pt2: { x: currentX, y: currentY }, color: selectedColor },
+          })
+        );
+      }
+      setModel(null)
+      setMouseUp(true);
     }
-    setModel(null)
-    setMouseUp(true);
   }
 
   const canvas = document.getElementById('canvas1')

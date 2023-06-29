@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
 import Ground from "./components/Ground";
 import Grid from "./components/Grid";
 import * as THREE from "three";
@@ -16,6 +15,8 @@ import WallRayCaster from "./components/RayCasters/WallRayCaster";
 import FloorRayCaster from "./components/RayCasters/FloorRaycaster";
 import RoomRayCaster from "./components/RayCasters/RoomRaycaster";
 import ItemRayCaster from "./components/RayCasters/ItemRayCaster";
+import DoorRayCaster from "./components/RayCasters/DoorRaycaster"
+import Controls from "./components/Controls";
 
 const Editor3d = () => {
   const [is2D, setIs2D] = useState(true);
@@ -68,13 +69,9 @@ const Editor3d = () => {
           preserveDrawingBuffer: true,
         }}
       >
-        <OrbitControls
-          enabled={true}
-          enableRotate={currentAction === "orbit" && !is2D}
-          enableZoom={currentAction !== "placeItem"}
-        />
-        <Sky />
-        <Island />
+        <Controls is2D={is2D}/>
+        <Sky/>
+        <Island/>
         <ambientLight intensity={0.1} />
         <pointLight position={[10, 500, 5]} intensity={1} />
         <Ground size={GRID_SIZE} />
@@ -94,6 +91,8 @@ const Editor3d = () => {
           <RoomRayCaster camera={is2D ? camera2D : camera3D} />
         ) : currentAction === "placeItem" ? (
           <ItemRayCaster camera={is2D ? camera2D : camera3D} />
+        ) : currentAction === "door" ? (
+          <DoorRayCaster camera={is2D ? camera2D : camera3D} />
         ) : null}
         {/* <Effects/> */}
         <Screenshots />

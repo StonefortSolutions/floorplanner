@@ -25,7 +25,7 @@ const RoomRayCaster = ({camera}) => {
         position={[centerX, .55, centerY]}
         rotation={[-Math.PI / 2,0,0]}
       >
-        <planeGeometry attach="geometry" args={[width + 1, depth + 1]} />
+        <planeGeometry attach="geometry" args={[width + .5, depth + .5]} />
         <meshStandardMaterial color={selectedColor} />
       </mesh>
     );
@@ -49,7 +49,7 @@ const RoomRayCaster = ({camera}) => {
         position={[centerX, 4.5, centerY]}
         rotation={[0, rotation, 0]}
       >
-        <boxGeometry attach="geometry" args={[1, 8, length]} />
+        <boxGeometry attach="geometry" args={[.5, 8, length - .5]} />
         <meshStandardMaterial color={selectedColor} />
       </mesh>
     );
@@ -60,28 +60,53 @@ const RoomRayCaster = ({camera}) => {
       addToScene({
         id: uuidv4(),
         itemId: "wall",
-        transform: { pt1: pt1, pt2: { x: pt1.x, y: pt2.y }, color: selectedColor },
+        transform: { 
+          pt1: pt1, 
+          pt2: { x: pt1.x, y: pt2.y }, 
+          color: selectedColor,
+          height:8,       
+          bottom:0 
+        },
       })
     );
     dispatch(
       addToScene({
         id: uuidv4(),
         itemId: "wall",
-        transform: { pt1: pt1, pt2: { x: pt2.x, y: pt1.y }, color: selectedColor },
+        transform: { 
+          pt1: pt1, 
+          pt2: { x: pt2.x, y: pt1.y }, 
+          color: selectedColor,
+          height:8,
+          bottom:0 
+        },
       })
     );
     dispatch(
       addToScene({
         id: uuidv4(),
         itemId: "wall",
-        transform: { pt1: pt2, pt2: { x: pt1.x, y: pt2.y }, color: selectedColor },
+        transform: { 
+          pt1: 
+          pt2, 
+          pt2: { x: pt1.x, y: pt2.y }, 
+          color: selectedColor,
+          height:8,
+          bottom:0 
+        },
       })
     );
     dispatch(
       addToScene({
         id: uuidv4(),
         itemId: "wall",
-        transform: { pt1: pt2, pt2: { x: pt2.x, y: pt1.y  }, color: selectedColor },
+        transform: { 
+          pt1: pt2, 
+          pt2: { x: pt2.x, y: pt1.y  }, 
+          color: selectedColor,
+          height:8,
+          bottom:0 
+        },
       })
     );
     dispatch(
@@ -94,13 +119,15 @@ const RoomRayCaster = ({camera}) => {
   }
 
   const onMouseDown = ( event ) => {
-    pointer.x = ( event.offsetX / size.width ) * 2 - 1;
-	  pointer.y = - ( event.offsetY / size.height ) * 2 + 1;
-    raycaster.setFromCamera( pointer, camera );
-    const groundIntersect = raycaster.intersectObjects( scene.children ).filter(object => object.object.name === 'ground')[0];
-    if (groundIntersect){
-      setDownPoint({x:Math.floor(groundIntersect.point.x), y: Math.floor(groundIntersect.point.z)})
-      setMouseUp(false);
+    if(event.button === 0){
+      pointer.x = ( event.offsetX / size.width ) * 2 - 1;
+	    pointer.y = - ( event.offsetY / size.height ) * 2 + 1;
+      raycaster.setFromCamera( pointer, camera );
+      const groundIntersect = raycaster.intersectObjects( scene.children ).filter(object => object.object.name === 'ground')[0];
+      if (groundIntersect){
+        setDownPoint({x:Math.floor(groundIntersect.point.x), y: Math.floor(groundIntersect.point.z)})
+        setMouseUp(false);
+      }
     }
   }
 
@@ -125,17 +152,19 @@ const RoomRayCaster = ({camera}) => {
   }
 
   const onMouseUp = (event) => {
-    pointer.x = ( event.offsetX / size.width ) * 2 - 1;
-	  pointer.y = - ( event.offsetY / size.height ) * 2 + 1;
-    raycaster.setFromCamera( pointer, camera );
-    const groundIntersect = raycaster.intersectObjects( scene.children ).filter(object => object.object.name === 'ground')[0];
-    if(groundIntersect){
-      let currentX = Math.floor(groundIntersect.point.x);
-      let currentY = Math.floor(groundIntersect.point.z);
-      createRoom(downPoint,{x:currentX,y:currentY})
+    if(event.button === 0){
+      pointer.x = ( event.offsetX / size.width ) * 2 - 1;
+	    pointer.y = - ( event.offsetY / size.height ) * 2 + 1;
+      raycaster.setFromCamera( pointer, camera );
+      const groundIntersect = raycaster.intersectObjects( scene.children ).filter(object => object.object.name === 'ground')[0];
+      if(groundIntersect){
+        let currentX = Math.floor(groundIntersect.point.x);
+        let currentY = Math.floor(groundIntersect.point.z);
+        createRoom(downPoint,{x:currentX,y:currentY})
+      }
+      setModel(null)
+      setMouseUp(true);
     }
-    setModel(null)
-    setMouseUp(true);
   }
 
   const canvas = document.getElementById('canvas1')

@@ -16,13 +16,15 @@ const WallRayCaster = ({camera}) => {
   const dispatch = useDispatch();
     
   const onMouseDown = ( event ) => {
-    pointer.x = ( event.offsetX / size.width ) * 2 - 1;
-	  pointer.y = - ( event.offsetY / size.height ) * 2 + 1;
-    raycaster.setFromCamera( pointer, camera );
-    const groundIntersect = raycaster.intersectObjects( scene.children ).filter(object => object.object.name === 'ground')[0];
-    if (groundIntersect){
-      setDownPoint({x:Math.floor(groundIntersect.point.x), y: Math.floor(groundIntersect.point.z)})
-      setMouseUp(false);
+    if(event.button === 0){
+      pointer.x = ( event.offsetX / size.width ) * 2 - 1;
+	    pointer.y = - ( event.offsetY / size.height ) * 2 + 1;
+      raycaster.setFromCamera( pointer, camera );
+      const groundIntersect = raycaster.intersectObjects( scene.children ).filter(object => object.object.name === 'ground')[0];
+      if (groundIntersect){
+        setDownPoint({x:Math.floor(groundIntersect.point.x), y: Math.floor(groundIntersect.point.z)})
+        setMouseUp(false);
+      }
     }
   }
 
@@ -53,7 +55,7 @@ const WallRayCaster = ({camera}) => {
           position={[centerX, 4.5, centerY]}
           rotation={[0, rotation, 0]}
         >
-          <boxGeometry attach="geometry" args={[1, 8, length + 1]} />
+          <boxGeometry attach="geometry" args={[.5, 8, length + .5]} />
           <meshStandardMaterial color={selectedColor} />
         </mesh>
       );
@@ -63,28 +65,36 @@ const WallRayCaster = ({camera}) => {
   }
 
   const onMouseUp = (event) => {
-    pointer.x = ( event.offsetX / size.width ) * 2 - 1;
-	  pointer.y = - ( event.offsetY / size.height ) * 2 + 1;
-    raycaster.setFromCamera( pointer, camera );
-    const groundIntersect = raycaster.intersectObjects( scene.children ).filter(object => object.object.name === 'ground')[0];
-    if(groundIntersect){
-      let currentX = Math.floor(groundIntersect.point.x);
-      let currentY = Math.floor(groundIntersect.point.z);
-      if(Math.abs(downPoint.x - currentX) > Math.abs(downPoint.y - currentY)){
-        currentY = downPoint.y
-      }else{
-        currentX = downPoint.x
+    if(event.button === 0){
+      pointer.x = ( event.offsetX / size.width ) * 2 - 1;
+	    pointer.y = - ( event.offsetY / size.height ) * 2 + 1;
+      raycaster.setFromCamera( pointer, camera );
+      const groundIntersect = raycaster.intersectObjects( scene.children ).filter(object => object.object.name === 'ground')[0];
+      if(groundIntersect){
+        let currentX = Math.floor(groundIntersect.point.x);
+        let currentY = Math.floor(groundIntersect.point.z);
+        if(Math.abs(downPoint.x - currentX) > Math.abs(downPoint.y - currentY)){
+          currentY = downPoint.y
+        }else{
+          currentX = downPoint.x
+        }
+        dispatch(
+          addToScene({
+            id: uuidv4(),
+            itemId: "wall",
+            transform: { 
+              pt1: downPoint, 
+              pt2: { x: currentX, y: currentY }, 
+              color: selectedColor,
+              height:8,
+              bottom:0 
+            },
+          })
+        );
       }
-      dispatch(
-        addToScene({
-          id: uuidv4(),
-          itemId: "wall",
-          transform: { pt1: downPoint, pt2: { x: currentX, y: currentY }, color: selectedColor },
-        })
-      );
+      setModel(null)
+      setMouseUp(true);
     }
-    setModel(null)
-    setMouseUp(true);
   }
 
   const canvas = document.getElementById('canvas1')

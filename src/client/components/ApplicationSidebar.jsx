@@ -8,10 +8,12 @@ import {
   Rotate3d,
   BoxSelect,
   Building,
+  Briefcase,
   Edit,
   Save,
   X,
   XSquare,
+  DoorClosed,
 } from "lucide-react";
 import { cn } from "../utils";
 import { Switch } from "./ui/Switch";
@@ -21,9 +23,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { setAction } from "../store/currentAction";
 import { setGridVisible } from "../store/grid";
 import { useSaveSceneAtInterval } from "../hooks/useSaveScene";
+import { useNavigate } from 'react-router-dom'
 
 export function ApplicationButtons({ className }) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const scene = useSelector((state) => state.scene);
   const currentAction = useSelector((state) => state.currentAction);
   return (
@@ -83,6 +87,15 @@ export function ApplicationButtons({ className }) {
         Furniture
       </Button>
       <Button
+        variant={currentAction === "door" ? "secondary" : "ghost"}
+        size="sm"
+        className="w-full justify-start"
+        onClick={() => dispatch(setAction("door"))}
+      >
+        <DoorClosed className="mr-2 h-4 w-4" />
+        Door
+      </Button>
+      <Button
         onClick={() => dispatch(saveScene(scene))}
         variant="ghost"
         size="sm"
@@ -91,8 +104,62 @@ export function ApplicationButtons({ className }) {
         <SaveIcon className="mr-2 h-4 w-4" />
         Save
       </Button>
+      <Button
+        onClick={()=>{navigate('/dashboard')}}
+        variant="ghost"
+        size="sm"
+        className="w-full justify-start"
+      >
+        <Briefcase className="mr-2 h-4 w-4"/>
+        Exit
+      </Button>
     </>
   );
+}
+
+function ToolTips(){
+  const currentAction = useSelector(state => state.currentAction)
+  const wallFloorRoom = (
+    <p>
+      Click and Drag to add to Scene
+    </p>
+  )
+  const orbit = (
+    <>
+      <p>Scroll to zoom</p>
+      <p>Middle mouse to rotate</p>
+      <p>Right mouse to pan</p>
+    </>
+  )
+  const furniture = (
+    <p>Click to place item</p>
+  )
+  const erase = (
+    <p>click on an item to delete it</p>
+  )
+  const door = (
+    <>
+      <p>Select a Door</p>
+      <p>Click on a wall to add a door</p>
+    </>
+  )
+
+  return (
+    <div>
+      <h1>Help</h1>
+      {
+        currentAction === 'wall' || currentAction === 'floor' || currentAction === 'room'
+        ? wallFloorRoom 
+        : currentAction === 'orbit'
+        ? orbit
+        : currentAction === 'placeItem'
+        ? furniture
+        : currentAction === 'delete'
+        ? erase
+        : null
+      }
+    </div>
+  )
 }
 
 function ApplicationSidebar({ className }) {
@@ -175,6 +242,7 @@ function ApplicationSidebar({ className }) {
             </div>
           </div>
         </div>
+        <ToolTips/>
       </div>
     </div>
   );
