@@ -31,7 +31,9 @@ const DoorRayCaster = ({camera}) => {
   },[currentAction,selectedModel,data, camera, sceneState])
 
   useEffect(() => {
-    loader.load(`/${selectedModel}.glb`, (data) => setData(data));
+    if(selectedModel !== ''){
+      loader.load(`/${selectedModel}.glb`, (data) => setData(data));
+    }
   }, [selectedModel]);
 
   const onPointerMove = (event) => {
