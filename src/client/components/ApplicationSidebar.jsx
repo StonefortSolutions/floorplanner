@@ -137,6 +137,12 @@ function ToolTips(){
   const erase = (
     <p>click on an item to delete it</p>
   )
+  const door = (
+    <>
+      <p>Select a Door</p>
+      <p>Click on a wall to add a door</p>
+    </>
+  )
 
   return (
     <div>

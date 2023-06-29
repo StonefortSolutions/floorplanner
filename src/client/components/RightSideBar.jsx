@@ -6,7 +6,8 @@ const RightSideBar = () => {
   const currentAction = useSelector((state) => state.currentAction);
   return (
     <div className="w-1/5 max-h-[87vh]">
-      {currentAction === "placeItem" && <ModelSelector />}
+      {(currentAction === "placeItem" ||
+        currentAction === "door") && <ModelSelector />}
       {(currentAction === "wall" ||
         currentAction === "room" ||
         currentAction === "floor") && <ColorPicker />}
