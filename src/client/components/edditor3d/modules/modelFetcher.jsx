@@ -17,8 +17,8 @@ const ModelFetcher = ({ name, position, rotation }) => {
       setModel(
         <primitive
           object={data.scene}
-          scale={[10, 10, 10]}
-          position={[position.x, 1.5, position.y]}
+          scale={[5, 5, 5]}
+          position={[position.x, .5, position.y]}
           rotation={rotation}
         />
       );

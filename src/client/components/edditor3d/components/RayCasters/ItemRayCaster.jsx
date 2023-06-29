@@ -11,6 +11,7 @@ const ItemRayCaster = ({camera}) => {
   const currentAction = useSelector(state => state.currentAction);
   const selectedModel = useSelector(state => state.selectedModel)
   const rotation = useSelector(state => state.rotation);
+  const {GRID_VISIBLE} = useSelector(state => state.grid)
   const [model, setModel] = useState(null);
   const [data, setData] = useState("");
   const loader = new GLTFLoader();
@@ -33,7 +34,9 @@ const ItemRayCaster = ({camera}) => {
   },[currentAction,selectedModel,data, camera, rotation])
 
   useEffect(() => {
-    loader.load(`/${selectedModel}.glb`, (data) => setData(data));
+    if(selectedModel !== ''){
+      loader.load(`/${selectedModel}.glb`, (data) => setData(data));
+    }
   }, [selectedModel]);
 
   const onPointerMove = (event) => {
@@ -42,11 +45,15 @@ const ItemRayCaster = ({camera}) => {
     raycaster.setFromCamera( pointer, camera );
     const groundIntersect = raycaster.intersectObjects( scene.children ).filter(object => object.object.name === 'ground')[0];
     if(groundIntersect){
+      let position = [groundIntersect.point.x,1.5,groundIntersect.point.z]
+      if(GRID_VISIBLE){
+        position = [Math.floor(groundIntersect.point.x),1.5,Math.floor(groundIntersect.point.z)]
+      }
       setModel( 
         <primitive
           object={data.scene}
-          scale={[10, 10, 10]}
-          position={[Math.floor(groundIntersect.point.x),1.5,Math.floor(groundIntersect.point.z)]}
+          scale={[5, 5, 5]}
+          position={position}
           rotation={[0,rotation,0]}
         />
       );
@@ -64,18 +71,20 @@ const ItemRayCaster = ({camera}) => {
     }
   }
 
-  const onMouseClick = () => {
-    pointer.x = ( event.offsetX / size.width ) * 2 - 1;
-	  pointer.y = - ( event.offsetY / size.height ) * 2 + 1;
-    raycaster.setFromCamera( pointer, camera );
-    const groundIntersect = raycaster.intersectObjects( scene.children ).filter(object => object.object.name === 'ground')[0];
-    dispatch(
-      addToScene({
-        id: uuidv4(),
-        itemId: selectedModel,
-        transform: { position: {x:Math.floor(groundIntersect.point.x),y:Math.floor(groundIntersect.point.z)}, rotation: rotation },
-      })
-    );
+  const onMouseClick = (event) => {
+    if(event.button === 0){
+      pointer.x = ( event.offsetX / size.width ) * 2 - 1;
+	    pointer.y = - ( event.offsetY / size.height ) * 2 + 1;
+      raycaster.setFromCamera( pointer, camera );
+      const groundIntersect = raycaster.intersectObjects( scene.children ).filter(object => object.object.name === 'ground')[0];
+      dispatch(
+        addToScene({
+          id: uuidv4(),
+          itemId: selectedModel,
+          transform: { position: {x:Math.floor(groundIntersect.point.x),y:Math.floor(groundIntersect.point.z)}, rotation: rotation },
+        })
+      );
+    }
   }
 
   return model;

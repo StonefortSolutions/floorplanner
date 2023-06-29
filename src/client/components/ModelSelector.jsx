@@ -16,6 +16,7 @@ import { Badge } from "./ui/Badge";
 const ModelSelector = () => {
   const dispatch = useDispatch();
   const selectedModel = useSelector((store) => store.selectedModel);
+  const currentAction = useSelector(store => store.currentAction);
   return (
     <div className="w-full hidden md:block">
       <h1 className="mb-2 px-2 text-lg font-semibold tracking-tight text-center">
@@ -23,7 +24,7 @@ const ModelSelector = () => {
       </h1>
       <ScrollArea className="h-[80vh] w-full">
         {furnitureObjects &&
-          furnitureObjects.map(({ name, category, previewImage, path }) => (
+          furnitureObjects.map(({ name, category, previewImage, path }) =>(
             <Card
               className={
                 selectedModel === name

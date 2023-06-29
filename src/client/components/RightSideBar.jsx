@@ -5,8 +5,9 @@ import ModelSelector from "./ModelSelector";
 const RightSideBar = () => {
   const currentAction = useSelector((state) => state.currentAction);
   return (
-    <div className="w-1/5">
-      {currentAction === "placeItem" && <ModelSelector />}
+    <div className="w-1/5 max-h-[87vh]">
+      {(currentAction === "placeItem" ||
+        currentAction === "door") && <ModelSelector />}
       {(currentAction === "wall" ||
         currentAction === "room" ||
         currentAction === "floor") && <ColorPicker />}
