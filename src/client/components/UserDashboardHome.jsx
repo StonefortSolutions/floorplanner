@@ -37,8 +37,9 @@ function UserDashboardHome() {
     dispatch(fetchFloorplans());
   }, [dispatch]);
 
-  const handleDelete = () => {
-    dispatch(deleteSingleFloorplan());
+  const handleDelete = (id) => {
+    dispatch(deleteSingleFloorplan(id));
+    dispatch(fetchFloorplans());
   };
 
   return (
@@ -78,9 +79,7 @@ function UserDashboardHome() {
                         </DialogDescription>
                         <Button
                           variant="destructive"
-                          onClick={() =>
-                            dispatch(deleteSingleFloorplan(floorplan.id))
-                          }
+                          onClick={() => handleDelete(floorplan.id)}
                         >
                           Delete
                         </Button>
@@ -93,7 +92,7 @@ function UserDashboardHome() {
                     size="sm"
                     // onClick={() => testToast()}
                   >
-                    <Link to={`./floorplan/${floorplan.id}`} />
+                    <Link to={`/editor/${floorplan.id}`} />
                     <PencilIcon className="mr-2 h-4 w-4" />
                     Edit
                   </Button>
