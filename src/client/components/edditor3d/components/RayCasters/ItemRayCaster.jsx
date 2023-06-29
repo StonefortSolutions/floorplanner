@@ -34,7 +34,9 @@ const ItemRayCaster = ({camera}) => {
   },[currentAction,selectedModel,data, camera, rotation])
 
   useEffect(() => {
-    loader.load(`/${selectedModel}.glb`, (data) => setData(data));
+    if(selectedModel !== ''){
+      loader.load(`/${selectedModel}.glb`, (data) => setData(data));
+    }
   }, [selectedModel]);
 
   const onPointerMove = (event) => {
