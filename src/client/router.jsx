@@ -28,7 +28,7 @@ function ClerkProviderWithRoutes({ publishableKey }) {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="/" element={<Home />} />
-          <Route path="/editor" element={<Editor />} />
+          {/* <Route path="/editor" element={<Editor />} /> */}
 
           <Route
             path="/sign-in/*"
@@ -74,7 +74,7 @@ function ClerkProviderWithRoutes({ publishableKey }) {
               }
             />
           </Route>
-          {/* <Route
+          <Route
             path="/editor"
             element={
               <>
@@ -86,7 +86,20 @@ function ClerkProviderWithRoutes({ publishableKey }) {
                 </SignedOut>
               </>
             }
-          /> */}
+          />
+          <Route
+            path="/editor/:id"
+            element={
+              <>
+                <SignedIn>
+                  <Editor />
+                </SignedIn>
+                <SignedOut>
+                  <RedirectToSignIn />
+                </SignedOut>
+              </>
+            }
+          />
           <Route
             path="/profile"
             element={

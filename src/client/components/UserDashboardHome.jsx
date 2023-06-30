@@ -19,20 +19,8 @@ import {
 } from "../components/ui/Dialog";
 import { useToast } from "../hooks/useToast";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchFloorplans } from "../store/floorplan";
-
-const exampleFloorplans = [
-  {
-    id: 1,
-    name: "My First Floorplan",
-    description: "This is my first floorplan",
-  },
-  {
-    id: 2,
-    name: "My Second Floorplan",
-    description: "This is my second floorplan",
-  },
-];
+import { deleteSingleFloorplan, fetchFloorplans } from "../store/floorplan";
+import { Link } from "react-router-dom";
 
 function UserDashboardHome() {
   const { toast } = useToast();
@@ -48,6 +36,11 @@ function UserDashboardHome() {
   useEffect(() => {
     dispatch(fetchFloorplans());
   }, [dispatch]);
+
+  const handleDelete = (id) => {
+    dispatch(deleteSingleFloorplan(id));
+    dispatch(fetchFloorplans());
+  };
 
   return (
     <div>
@@ -84,18 +77,26 @@ function UserDashboardHome() {
                         <DialogDescription>
                           This action cannot be undone.
                         </DialogDescription>
+                        <Button
+                          variant="destructive"
+                          onClick={() => handleDelete(floorplan.id)}
+                        >
+                          Delete
+                        </Button>
                       </DialogHeader>
                     </DialogContent>
                   </Dialog>
 
-                  <Button
-                    variant="secondary"
-                    size="sm"
-                    onClick={() => testToast()}
-                  >
-                    <PencilIcon className="mr-2 h-4 w-4" />
-                    Edit
-                  </Button>
+                  <Link to={`/editor/${floorplan.id}`}>
+                    <Button
+                      variant="secondary"
+                      size="sm"
+                      // onClick={() => testToast()}
+                    >
+                      <PencilIcon className="mr-2 h-4 w-4" />
+                      Edit
+                    </Button>
+                  </Link>
                 </div>
               </CardFooter>
             </Card>
