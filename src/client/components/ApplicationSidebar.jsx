@@ -18,12 +18,12 @@ import {
 import { cn } from "../utils";
 import { Switch } from "./ui/Switch";
 import { Label } from "./ui/Label";
-import { saveScene } from "../store/scene";
+import { saveLocalScene } from "../store/scene";
 import { useDispatch, useSelector } from "react-redux";
 import { setAction } from "../store/currentAction";
 import { setGridVisible } from "../store/grid";
 import { useSaveSceneAtInterval } from "../hooks/useSaveScene";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 
 export function ApplicationButtons({ className }) {
   const dispatch = useDispatch();
@@ -96,7 +96,7 @@ export function ApplicationButtons({ className }) {
         Door
       </Button>
       <Button
-        onClick={() => dispatch(saveScene(scene))}
+        onClick={() => dispatch(saveLocalScene(scene))}
         variant="ghost"
         size="sm"
         className="w-full justify-start"
@@ -105,67 +105,61 @@ export function ApplicationButtons({ className }) {
         Save
       </Button>
       <Button
-        onClick={()=>{navigate('/dashboard')}}
+        onClick={() => {
+          navigate("/dashboard");
+        }}
         variant="ghost"
         size="sm"
         className="w-full justify-start"
       >
-        <Briefcase className="mr-2 h-4 w-4"/>
+        <Briefcase className="mr-2 h-4 w-4" />
         Exit
       </Button>
     </>
   );
 }
 
-function ToolTips(){
-  const currentAction = useSelector(state => state.currentAction)
-  const wallFloorRoom = (
-    <p>
-      Click and Drag to add to Scene
-    </p>
-  )
+function ToolTips() {
+  const currentAction = useSelector((state) => state.currentAction);
+  const wallFloorRoom = <p>Click and Drag to add to Scene</p>;
   const orbit = (
     <>
       <p>Scroll to zoom</p>
       <p>Middle mouse to rotate</p>
       <p>Right mouse to pan</p>
     </>
-  )
-  const furniture = (
-    <p>Click to place item</p>
-  )
-  const erase = (
-    <p>click on an item to delete it</p>
-  )
+  );
+  const furniture = <p>Click to place item</p>;
+  const erase = <p>click on an item to delete it</p>;
   const door = (
     <>
       <p>Select a Door</p>
       <p>Click on a wall to add a door</p>
     </>
-  )
+  );
 
   return (
     <div>
       <h1>Help</h1>
-      {
-        currentAction === 'wall' || currentAction === 'floor' || currentAction === 'room'
-        ? wallFloorRoom 
-        : currentAction === 'orbit'
+      {currentAction === "wall" ||
+      currentAction === "floor" ||
+      currentAction === "room"
+        ? wallFloorRoom
+        : currentAction === "orbit"
         ? orbit
-        : currentAction === 'placeItem'
+        : currentAction === "placeItem"
         ? furniture
-        : currentAction === 'delete'
+        : currentAction === "delete"
         ? erase
-        : null
-      }
+        : null}
     </div>
-  )
+  );
 }
 
 function ApplicationSidebar({ className }) {
   const dispatch = useDispatch();
   const { GRID_SIZE, GRID_VISIBLE } = useSelector((state) => state.grid);
-  const { isSaving } = useSaveSceneAtInterval(10000);
+  const { isSaving } = useSaveSceneAtInterval(3000);
   const [edit, setEdit] = useState(false);
   const [name, setName] = useState("Floorplan Name");
 
@@ -242,7 +236,7 @@ function ApplicationSidebar({ className }) {
             </div>
           </div>
         </div>
-        <ToolTips/>
+        <ToolTips />
       </div>
     </div>
   );
