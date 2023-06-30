@@ -1,5 +1,6 @@
 const express = require("express");
 const Floorplan = require("../db/floorplan");
+const { ClerkExpressRequireAuth } = require("@clerk/clerk-sdk-node");
 const app = express.Router();
 
 module.exports = app;
@@ -22,9 +23,18 @@ app.get("/:id", async (req, res, next) => {
   }
 });
 
-app.post("/", async (req, res, next) => {
+app.post("/", ClerkExpressRequireAuth({}), async (req, res, next) => {
+  //if < 3 and free tier or pro
+  //else error
   try {
-    const floorplan = await Floorplan.create(req.body);
+    if (!req.auth.userId && !req.auth.sessionId) {
+      res.status(401).send({ error: "Unauthenticated!" });
+    }
+    const floorplan = await Floorplan.create({
+      name: "untitled",
+      userId: req.auth.userId,
+    });
+    console.log("API Floorplan", floorplan);
     res.send(floorplan);
   } catch (error) {
     next(error);

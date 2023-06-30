@@ -1,11 +1,15 @@
 import React, { useEffect, useCallback, useState } from "react";
 import { useThree } from "@react-three/fiber";
+import { useDispatch } from "react-redux";
+import { updateScreenshot } from "../store/floorplan";
 
 function screenShotAtIntervals(time) {
   const [image, setImage] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const { gl } = useThree();
+  const dispatch = useDispatch();
+
   useEffect(() => {
     const interval = setInterval(() => {
       setIsLoading(true);
@@ -19,6 +23,7 @@ function screenShotAtIntervals(time) {
         setImage(img);
         setIsLoading(false);
       };
+      dispatch(updateScreenshot(img));
       testimg.onerror = (error) => {
         setError(error);
         setIsLoading(false);

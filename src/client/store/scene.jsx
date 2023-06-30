@@ -7,6 +7,7 @@ export const createScene = createAsyncThunk("createScene", async (payload) => {
 });
 
 export const saveScene = createAsyncThunk("saveScene", async (payload) => {
+  console.log("SAVING DB");
   window.localStorage.setItem("scene", JSON.stringify(payload));
 });
 
@@ -37,6 +38,10 @@ const scene = createSlice({
       addUndoItem(lastItem);
       return newScene;
     },
+    saveLocalScene(state, action) {
+      console.log("SAVING LOCAL STORAGE");
+      window.localStorage.setItem("scene", JSON.stringify(action.payload));
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(createScene.fulfilled, (state, action) => {
@@ -54,6 +59,7 @@ const scene = createSlice({
   },
 });
 
-export const { deleteFromScene, undoLastAction } = scene.actions;
+export const { deleteFromScene, undoLastAction, saveLocalScene } =
+  scene.actions;
 
 export default scene.reducer;
