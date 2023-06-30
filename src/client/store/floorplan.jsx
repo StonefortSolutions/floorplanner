@@ -3,30 +3,19 @@ import axios from "axios";
 
 const initialState = {
   floorplans: Array(0),
-  singleFloorplan: {
-    id: 0,
-    name: "",
-    scene: [],
-    createdAt: "",
-    updatedAt: "",
-    userId: 0,
-    previewImage: "",
-    isPublic: false,
-    isTemplate: false,
-  },
+  singleFloorplan: null,
 };
 
 //create floorplan
-export const createFloorplan = createAsyncThunk(
-  "createFloorplan",
-  async (payload) => {
-    console.log("CREATING NEW FLOORPLAN");
-
-    return floorplanId;
-  }
-);
+export const createFloorplan = createAsyncThunk("createFloorplan", async () => {
+  console.log("CREATING NEW FLOORPLAN");
+  const { data } = await axios.post("/api/floorplan");
+  return data;
+});
 
 //update floorplan
+
+// export const updateScene =
 
 //update scene on floorplan
 //update preview image on floorplan
@@ -69,7 +58,14 @@ export const deleteSingleFloorplan = createAsyncThunk(
 const floorplanSlice = createSlice({
   name: "floorplan",
   initialState,
-  reducers: {},
+  reducers: {
+    updateScene(state, action) {
+      state.singleFloorplan.scene = action.payload;
+    },
+    updateScreenshot(state, action) {
+      state.singleFloorplan.previewImage = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchFloorplans.fulfilled, (state, action) => {
       state.floorplans = action.payload;
@@ -78,11 +74,17 @@ const floorplanSlice = createSlice({
       state.singleFloorplan = action.payload;
     });
     builder.addCase(deleteSingleFloorplan.fulfilled, (state, action) => {
-      state.floorplans.filter(
+      state.floorplans = state.floorplans.filter(
         (floorplan) => floorplan.id !== action.payload.id
       );
     });
+    builder.addCase(createFloorplan.fulfilled, (state, action) => {
+      state.singleFloorplan = action.payload;
+      state.floorplans = [action.payload, ...state.floorplans];
+    });
   },
 });
+
+export const { updateScene, updateScreenshot } = floorplanSlice.actions;
 
 export default floorplanSlice.reducer;

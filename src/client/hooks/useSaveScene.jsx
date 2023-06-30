@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { saveLocalScene } from "../store/scene";
+import { updateScene } from "../store/floorplan";
 
 function useSaveSceneAtInterval(time) {
   const [isSaving, setIsSaving] = useState(false);
@@ -11,7 +12,7 @@ function useSaveSceneAtInterval(time) {
     const interval = setInterval(() => {
       setIsSaving(true);
       if (scene.length > 0) {
-        dispatch(saveLocalScene(scene));
+        dispatch(updateScene(scene));
       }
       setIsSaving(false);
     }, time);

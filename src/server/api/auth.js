@@ -9,7 +9,7 @@ module.exports = app;
 app.get("/", ClerkExpressRequireAuth({}), async (req, res, next) => {
   try {
     if (
-      //!req.auth.userId && !req.auth.sessionId
+      // !req.auth.userId && !req.auth.sessionId
       false
     ) {
       res.status(401).send({ error: "Unauthenticated!" });
