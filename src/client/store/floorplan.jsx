@@ -15,7 +15,17 @@ export const createFloorplan = createAsyncThunk("createFloorplan", async () => {
 
 //update floorplan
 
-// export const updateScene =
+export const saveFloorplan = createAsyncThunk(
+  "saveFloorplan",
+  async (payload) => {
+    try {
+      const { data } = await axios.put(`/api/floorplan/${payload.id}`, payload);
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
 
 //update scene on floorplan
 //update preview image on floorplan
@@ -81,6 +91,15 @@ const floorplanSlice = createSlice({
     builder.addCase(createFloorplan.fulfilled, (state, action) => {
       state.singleFloorplan = action.payload;
       state.floorplans = [action.payload, ...state.floorplans];
+    });
+    builder.addCase(saveFloorplan.fulfilled, (state, action) => {
+      state.floorplans = state.floorplans.map((floorplan) => {
+        if (floorplan.id === action.payload.id) {
+          return action.payload;
+        } else {
+          return floorplan;
+        }
+      });
     });
   },
 });
