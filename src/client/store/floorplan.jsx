@@ -3,8 +3,34 @@ import axios from "axios";
 
 const initialState = {
   floorplans: Array(0),
-  singleFloorplan: {},
+  singleFloorplan: {
+    id: 0,
+    name: "",
+    scene: [],
+    createdAt: "",
+    updatedAt: "",
+    userId: 0,
+    previewImage: "",
+    isPublic: false,
+    isTemplate: false,
+  },
 };
+
+//create floorplan
+export const createFloorplan = createAsyncThunk(
+  "createFloorplan",
+  async (payload) => {
+    console.log("CREATING NEW FLOORPLAN");
+
+    return floorplanId;
+  }
+);
+
+//update floorplan
+
+//update scene on floorplan
+//update preview image on floorplan
+//update name on floorplan
 
 export const fetchFloorplans = createAsyncThunk("fetchFloorplans", async () => {
   try {
