@@ -13,6 +13,15 @@ app.get("/", async (req, res, next) => {
   }
 });
 
+app.get("/:id", async (req, res, next) => {
+  try {
+    const floorplan = await Floorplan.findByPk(req.params.id);
+    res.send(floorplan);
+  } catch (error) {
+    next(error);
+  }
+});
+
 app.post("/", async (req, res, next) => {
   //check userId for number of plans and free tier
 
