@@ -24,11 +24,13 @@ import { setAction } from "../store/currentAction";
 import { setGridVisible } from "../store/grid";
 import { useSaveSceneAtInterval } from "../hooks/useSaveScene";
 import { useNavigate } from "react-router-dom";
+import { saveFloorplan } from "../store/floorplan";
 
 export function ApplicationButtons({ className }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const scene = useSelector((state) => state.scene);
+  const { singleFloorplan } = useSelector((state) => state.floorplan);
   const currentAction = useSelector((state) => state.currentAction);
   return (
     <>
@@ -96,7 +98,7 @@ export function ApplicationButtons({ className }) {
         Door
       </Button>
       <Button
-        onClick={() => dispatch(saveLocalScene(scene))}
+        onClick={() => dispatch(saveFloorplan(singleFloorplan))}
         variant="ghost"
         size="sm"
         className="w-full justify-start"

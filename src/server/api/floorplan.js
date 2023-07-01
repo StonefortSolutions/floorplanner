@@ -50,3 +50,15 @@ app.delete("/:id", async (req, res, next) => {
     next(error);
   }
 });
+
+app.put("/:id", async (req, res, next) => {
+  try {
+    console.log("API request", req);
+    const floorplan = await Floorplan.findByPk(req.params.id);
+    const updatedFloorplan = await floorplan.update(req.body);
+    console.log("API Save", updatedFloorplan);
+    res.send(updatedFloorplan);
+  } catch (error) {
+    next(error);
+  }
+});

@@ -55,12 +55,19 @@ function UserDashboardHome() {
           {floorplans.map((floorplan) => (
             <Card key={floorplan.id}>
               <img
-                src="https://i.redd.it/l8w3r7t6avh21.png"
-                alt="fat yoshi"
+                src={
+                  floorplan.previewImage
+                    ? floorplan.previewImage
+                    : "https://i.redd.it/l8w3r7t6avh21.png"
+                }
+                alt={floorplan.name}
                 className="rounded-lg p-4"
               />
               <CardContent>
                 <CardTitle>{floorplan.name}</CardTitle>
+                <CardDescription>
+                  Last Updated: {floorplan.updatedAt}
+                </CardDescription>
               </CardContent>
               <CardFooter>
                 <div className="flex flex-row justify-between w-full">
