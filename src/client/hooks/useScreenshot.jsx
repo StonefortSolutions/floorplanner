@@ -1,29 +1,23 @@
 import React, { useEffect, useCallback, useState } from "react";
 import { useThree } from "@react-three/fiber";
-import { useDispatch } from "react-redux";
-import { updateScreenshot } from "../store/floorplan";
 
-function screenShotAtIntervals(time) {
+function saveImageAtIntervals(time) {
   const [image, setImage] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const { gl } = useThree();
-  const dispatch = useDispatch();
 
   useEffect(() => {
     const interval = setInterval(() => {
       setIsLoading(true);
-
       const canvas = gl.domElement;
       const img = canvas.toDataURL("image/png");
-
       const testimg = new Image();
       testimg.src = img;
       testimg.onload = () => {
         setImage(img);
         setIsLoading(false);
       };
-      dispatch(updateScreenshot(img));
       testimg.onerror = (error) => {
         setError(error);
         setIsLoading(false);
@@ -70,4 +64,4 @@ function takeScreenshot() {
   return { image, error, isLoading, takeScreenshot };
 }
 
-export { screenShotAtIntervals, takeScreenshot };
+export { saveImageAtIntervals, takeScreenshot };
