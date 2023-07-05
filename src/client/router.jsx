@@ -16,6 +16,7 @@ import Editor from "./pages/Editor";
 import AdminDashboard from "./pages/AdminDashboard";
 import Pricing from "./components/Pricing";
 import UserDashboardHome from "./components/UserDashboardHome";
+import AdminHome from "./components/admin/AdminHome";
 
 function ClerkProviderWithRoutes({ publishableKey }) {
   const navigate = useNavigate();
@@ -113,19 +114,21 @@ function ClerkProviderWithRoutes({ publishableKey }) {
               </>
             }
           />
-          <Route
-            path="/admin"
-            element={
-              <>
-                <SignedIn>
-                  <AdminDashboard />
-                </SignedIn>
-                <SignedOut>
-                  <RedirectToSignIn />
-                </SignedOut>
-              </>
-            }
-          />
+        </Route>
+        <Route
+          path="/admin"
+          element={
+            <>
+              <SignedIn>
+                <AdminDashboard />
+              </SignedIn>
+              <SignedOut>
+                <RedirectToSignIn />
+              </SignedOut>
+            </>
+          }
+        >
+          <Route path="/admin" element={<AdminHome />} />
         </Route>
       </Routes>
     </ClerkProvider>
