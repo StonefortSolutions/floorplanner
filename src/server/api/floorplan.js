@@ -1,6 +1,7 @@
 const express = require("express");
 const Floorplan = require("../db/floorplan");
 const { ClerkExpressRequireAuth } = require("@clerk/clerk-sdk-node");
+const e = require("express");
 const app = express.Router();
 
 module.exports = app;
@@ -17,7 +18,11 @@ app.get("/", async (req, res, next) => {
 app.get("/:id", async (req, res, next) => {
   try {
     const floorplan = await Floorplan.findByPk(req.params.id);
-    res.send(floorplan);
+    if (!floorplan) {
+      res.status(404).send({ error: "Floorplan not found!" });
+    } else {
+      res.send(floorplan);
+    }
   } catch (error) {
     next(error);
   }

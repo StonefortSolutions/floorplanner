@@ -21,6 +21,7 @@ import { useToast } from "../hooks/useToast";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteSingleFloorplan, fetchFloorplans } from "../store/floorplan";
 import { Link } from "react-router-dom";
+import { setLoadFloorplanError } from "../store";
 
 function UserDashboardHome() {
   const { toast } = useToast();
@@ -35,6 +36,7 @@ function UserDashboardHome() {
 
   useEffect(() => {
     dispatch(fetchFloorplans());
+    dispatch(setLoadFloorplanError(false));
   }, [dispatch]);
 
   const handleDelete = (id) => {
