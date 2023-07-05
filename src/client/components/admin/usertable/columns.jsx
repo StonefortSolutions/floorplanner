@@ -81,6 +81,18 @@ export const columns = [
     header: "Username",
   },
   {
+    accessorKey: "publicMetadata",
+    header: "Admin",
+    cell: ({ row }) => {
+      const metaData = row.getValue("publicMetadata");
+      return (
+        <div className="ml-auto font-medium">
+          {metaData.isAdmin ? "Yes" : "No"}
+        </div>
+      );
+    },
+  },
+  {
     id: "actions",
     cell: ({ row }) => {
       return (
