@@ -31,10 +31,9 @@ app.post("/", ClerkExpressRequireAuth({}), async (req, res, next) => {
       res.status(401).send({ error: "Unauthenticated!" });
     }
     const floorplan = await Floorplan.create({
-      name: "untitled",
+      name: "Name Your Floorplan",
       userId: req.auth.userId,
     });
-    console.log("API Floorplan", floorplan);
     res.send(floorplan);
   } catch (error) {
     next(error);
@@ -53,10 +52,11 @@ app.delete("/:id", async (req, res, next) => {
 
 app.put("/:id", async (req, res, next) => {
   try {
-    console.log("API request", req);
     const floorplan = await Floorplan.findByPk(req.params.id);
-    const updatedFloorplan = await floorplan.update(req.body);
-    console.log("API Save", updatedFloorplan);
+    const updatedFloorplan = await floorplan.update({
+      ...floorplan,
+      name: req.body.input,
+    });
     res.send(updatedFloorplan);
   } catch (error) {
     next(error);
