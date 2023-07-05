@@ -14,7 +14,6 @@ import {
 export const columns = [
   {
     accessorKey: "emailAddresses",
-    header: "Email",
     header: ({ column }) => {
       return (
         <Button
@@ -51,7 +50,6 @@ export const columns = [
   },
   {
     accessorKey: "createdAt",
-    header: "Signed Up",
     header: ({ column }) => {
       return (
         <Button
