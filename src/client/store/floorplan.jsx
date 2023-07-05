@@ -1,9 +1,14 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { loadScene } from "./scene";
+import { setLoadFloorplanError } from "./errors";
 
 const initialState = {
   floorplans: Array(0),
   singleFloorplan: null,
+  pendingSave: false,
+  isLoaded: false,
+  error: false,
 };
 
 //create floorplan
@@ -17,9 +22,10 @@ export const createFloorplan = createAsyncThunk("createFloorplan", async () => {
 
 export const saveFloorplan = createAsyncThunk(
   "saveFloorplan",
-  async (payload) => {
+  async (payload, { dispatch }) => {
     try {
       const { data } = await axios.put(`/api/floorplan/${payload.id}`, payload);
+      dispatch(updatePendingSave(false));
       return data;
     } catch (error) {
       console.log(error);
@@ -27,9 +33,7 @@ export const saveFloorplan = createAsyncThunk(
   }
 );
 
-//update scene on floorplan
-//update preview image on floorplan
-//update name on floorplan
+//JULIAN TODO: update name on floorplan
 
 export const fetchFloorplans = createAsyncThunk("fetchFloorplans", async () => {
   try {
@@ -42,12 +46,20 @@ export const fetchFloorplans = createAsyncThunk("fetchFloorplans", async () => {
 
 export const fetchSingleFloorplan = createAsyncThunk(
   "fetchSingleFloorplan",
-  async (id) => {
+  async (id, { dispatch, rejectWithValue }) => {
     try {
       const { data } = await axios.get(`/api/floorplan/${id}`);
+      if (!data || data === null || data === undefined) {
+        dispatch(setLoadFloorplanError(true));
+        return rejectWithValue("No floorplan found");
+      }
+      if (data.scene) {
+        dispatch(loadScene(data.scene));
+      }
       return data;
     } catch (error) {
-      console.log(error);
+      dispatch(setLoadFloorplanError(true));
+      return rejectWithValue("No floorplan found");
     }
   }
 );
@@ -75,13 +87,40 @@ const floorplanSlice = createSlice({
     updateScreenshot(state, action) {
       state.singleFloorplan.previewImage = action.payload;
     },
+    updatePendingSave(state, action) {
+      state.pendingSave = action.payload;
+    },
+    updateFloorplanData(state, action) {
+      if (action.payload.scene) {
+        if (
+          state.singleFloorplan?.scene?.length < action.payload?.scene?.length
+        ) {
+          state.pendingSave = true;
+        }
+        if (state.singleFloorplan) {
+          state.singleFloorplan.scene = action.payload.scene;
+        }
+      }
+      if (action.payload.previewImage) {
+        state.singleFloorplan.previewImage = action.payload.previewImage;
+      }
+      if (action.payload.name) {
+        state.singleFloorplan.name = action.payload.name;
+      }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchFloorplans.fulfilled, (state, action) => {
       state.floorplans = action.payload;
     });
     builder.addCase(fetchSingleFloorplan.fulfilled, (state, action) => {
+      state.isLoaded = true;
       state.singleFloorplan = action.payload;
+    });
+    builder.addCase(fetchSingleFloorplan.rejected, (state, action) => {
+      state.isLoaded = false;
+      state.error = true;
+      state.singleFloorplan = null;
     });
     builder.addCase(deleteSingleFloorplan.fulfilled, (state, action) => {
       state.floorplans = state.floorplans.filter(
@@ -104,6 +143,11 @@ const floorplanSlice = createSlice({
   },
 });
 
-export const { updateScene, updateScreenshot } = floorplanSlice.actions;
+export const {
+  updateScene,
+  updateScreenshot,
+  updateFloorplanData,
+  updatePendingSave,
+} = floorplanSlice.actions;
 
 export default floorplanSlice.reducer;

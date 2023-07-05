@@ -4,15 +4,23 @@ const ViteExpress = require("vite-express");
 const app = express();
 const port = process.env.PORT || 3000;
 const { syncAndSeed } = require("./db/index");
-const path = require('path')
+const path = require("path");
 
 //Static Files
-app.use(express.static(path.join(__dirname, '..','..',"public",'furniture')));
-app.use('/ItemPictures',express.static(path.join(__dirname, "..", "..", "public", "ItemPictures")));
-app.use("/environment",express.static(path.join(__dirname, "..", "..", "public", "environment")));
+app.use(
+  express.static(path.join(__dirname, "..", "..", "public", "furniture"))
+);
+app.use(
+  "/ItemPictures",
+  express.static(path.join(__dirname, "..", "..", "public", "ItemPictures"))
+);
+app.use(
+  "/environment",
+  express.static(path.join(__dirname, "..", "..", "public", "environment"))
+);
 
 //MIDDLEWARE
-app.use(express.json());
+app.use(express.json({ limit: "50mb" }));
 
 //API
 app.use("/api/auth", require("./api/auth"));

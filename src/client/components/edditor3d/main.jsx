@@ -4,7 +4,6 @@ import Ground from "./components/Ground";
 import Grid from "./components/Grid";
 import * as THREE from "three";
 import { useDispatch, useSelector } from "react-redux";
-import { loadScene } from "../../store/scene";
 import ItemRenderer from "./components/ItemRenderer";
 import Effects from "./components/Effects";
 import EditorOverlayButtons from "../EditorOverlayButtons";
@@ -15,14 +14,30 @@ import WallRayCaster from "./components/RayCasters/WallRayCaster";
 import FloorRayCaster from "./components/RayCasters/FloorRaycaster";
 import RoomRayCaster from "./components/RayCasters/RoomRaycaster";
 import ItemRayCaster from "./components/RayCasters/ItemRayCaster";
-import DoorRayCaster from "./components/RayCasters/DoorRaycaster"
+import DoorRayCaster from "./components/RayCasters/DoorRaycaster";
 import Controls from "./components/Controls";
+import { fetchSingleFloorplan } from "../../store/floorplan";
+import { useNavigate } from "react-router-dom";
+import { setLoadFloorplanError } from "../../store";
 
-const Editor3d = () => {
+const Editor3d = ({ id }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { loadFloorplanError } = useSelector((state) => state.errors);
+
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchSingleFloorplan(id));
+    }
+  }, []);
+
+  //State
   const [is2D, setIs2D] = useState(true);
+  //Selectors
   const { GRID_SIZE, GRID_VISIBLE, COLOR_GRID, COLOR_CENTER_LINE } =
     useSelector((state) => state.grid);
   const currentAction = useSelector((state) => state.currentAction);
+
   const camera2D = new THREE.OrthographicCamera(-50, 50, -50, 50, 0.1, 100);
   camera2D.translateY(50);
   camera2D.zoom = 11.6;
@@ -30,14 +45,9 @@ const Editor3d = () => {
   camera3D.translateY(50);
   camera3D.translateZ(50);
 
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(loadScene());
-  }, []);
-
   useEffect(() => {
     const canvas = document.getElementById("canvas1");
+    if (!canvas) return;
     canvas.onpointerup = null;
     canvas.onpointerdown = null;
     canvas.onpointermove = null;
@@ -55,6 +65,14 @@ const Editor3d = () => {
       ? "cursor-pointer"
       : "cursor-crosshair";
 
+  //when loadFloorplanError is true, navigate to /dashboard
+  useEffect(() => {
+    console.log("loadFloorplanError", loadFloorplanError);
+    if (loadFloorplanError === true) {
+      navigate("/dashboard");
+    }
+  }, [loadFloorplanError]);
+
   return (
     <div
       id="edditor"
@@ -69,9 +87,9 @@ const Editor3d = () => {
           preserveDrawingBuffer: true,
         }}
       >
-        <Controls is2D={is2D}/>
-        <Sky/>
-        <Island/>
+        <Controls is2D={is2D} />
+        <Sky />
+        <Island />
         <ambientLight intensity={0.1} />
         <pointLight position={[10, 500, 5]} intensity={1} />
         <Ground size={GRID_SIZE} />
