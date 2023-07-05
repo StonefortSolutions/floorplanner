@@ -10,6 +10,7 @@ import itemHistory from "./itemHistory";
 import rotation from "./rotation";
 import selectedColor from "./selectedColor";
 import floorplan from "./floorplan";
+import errors from "./errors";
 
 const store = configureStore({
   reducer: {
@@ -23,6 +24,7 @@ const store = configureStore({
     rotation,
     selectedColor,
     floorplan,
+    errors,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 });
@@ -35,3 +37,7 @@ export * from "./selectedModel";
 export * from "./currentAction";
 export * from "./grid";
 export * from "./itemHistory";
+export * from "./rotation";
+export * from "./selectedColor";
+export * from "./floorplan";
+export * from "./errors";

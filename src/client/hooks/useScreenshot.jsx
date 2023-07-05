@@ -1,18 +1,17 @@
 import React, { useEffect, useCallback, useState } from "react";
 import { useThree } from "@react-three/fiber";
 
-function screenShotAtIntervals(time) {
+function saveImageAtIntervals(time) {
   const [image, setImage] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const { gl } = useThree();
+
   useEffect(() => {
     const interval = setInterval(() => {
       setIsLoading(true);
-
       const canvas = gl.domElement;
       const img = canvas.toDataURL("image/png");
-
       const testimg = new Image();
       testimg.src = img;
       testimg.onload = () => {
@@ -65,4 +64,4 @@ function takeScreenshot() {
   return { image, error, isLoading, takeScreenshot };
 }
 
-export { screenShotAtIntervals, takeScreenshot };
+export { saveImageAtIntervals, takeScreenshot };

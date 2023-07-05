@@ -18,17 +18,18 @@ import {
 import { cn } from "../utils";
 import { Switch } from "./ui/Switch";
 import { Label } from "./ui/Label";
-import { saveScene } from "../store/scene";
 import { useDispatch, useSelector } from "react-redux";
 import { setAction } from "../store/currentAction";
 import { setGridVisible } from "../store/grid";
-import { useSaveSceneAtInterval } from "../hooks/useSaveScene";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
+import { saveFloorplan } from "../store/floorplan";
 
 export function ApplicationButtons({ className }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const scene = useSelector((state) => state.scene);
+  const { singleFloorplan, pendingSave } = useSelector(
+    (state) => state.floorplan
+  );
   const currentAction = useSelector((state) => state.currentAction);
   return (
     <>
@@ -96,21 +97,26 @@ export function ApplicationButtons({ className }) {
         Door
       </Button>
       <Button
-        onClick={() => dispatch(saveScene(scene))}
+        onClick={() => dispatch(saveFloorplan(singleFloorplan))}
         variant="ghost"
         size="sm"
-        className="w-full justify-start hover:scale-105"
+        className="w-full justify-start hover:scale-105 relative"
       >
         <SaveIcon className="mr-2 h-4 w-4" />
         Save
+        {pendingSave && (
+          <div className="absolute inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full top-0 -left-0.5 dark:border-gray-900" />
+        )}
       </Button>
       <Button
-        onClick={()=>{navigate('/dashboard')}}
+        onClick={() => {
+          navigate("/dashboard");
+        }}
         variant="ghost"
         size="sm"
         className="w-full justify-start hover:scale-105"
       >
-        <Briefcase className="mr-2 h-4 w-4"/>
+        <Briefcase className="mr-2 h-4 w-4" />
         Exit
       </Button>
     </>
@@ -120,7 +126,7 @@ export function ApplicationButtons({ className }) {
 function ApplicationSidebar({ className }) {
   const dispatch = useDispatch();
   const { GRID_SIZE, GRID_VISIBLE } = useSelector((state) => state.grid);
-  const { isSaving } = useSaveSceneAtInterval(10000);
+  const { singleFloorplan } = useSelector((state) => state.floorplan);
   const [edit, setEdit] = useState(false);
   const [name, setName] = useState("Floorplan Name");
 
@@ -133,6 +139,8 @@ function ApplicationSidebar({ className }) {
     console.log("cancelled");
     setEdit(false);
   };
+
+  if (!singleFloorplan) return null;
 
   return (
     <div className={cn("pb-12", className)}>
@@ -185,13 +193,6 @@ function ApplicationSidebar({ className }) {
                     onClick={() => dispatch(setGridVisible(!GRID_VISIBLE))}
                   />
                   <Label htmlFor="show-grid">Show Grid</Label>
-                </div>
-              </span>
-              <span className="block px-4 py-2">
-                <div className="flex items-center space-x-2">
-                  {isSaving && (
-                    <SaveIcon className="mr-2 h-4 w-4 animate-pulse" />
-                  )}
                 </div>
               </span>
             </div>

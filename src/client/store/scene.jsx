@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { addUndoItem } from "./itemHistory";
+import { updatePendingSave } from "./floorplan";
 const initialState = [];
 
 export const createScene = createAsyncThunk("createScene", async (payload) => {
@@ -7,19 +8,24 @@ export const createScene = createAsyncThunk("createScene", async (payload) => {
 });
 
 export const saveScene = createAsyncThunk("saveScene", async (payload) => {
+  console.log("SAVING DB");
   window.localStorage.setItem("scene", JSON.stringify(payload));
 });
 
-export const addToScene = createAsyncThunk("addToScene", async (payload) => {
-  return payload;
-});
-
-export const loadScene = createAsyncThunk("loadScene", async () => {
-  const scene = window.localStorage.getItem("scene");
-  if (scene) {
-    return JSON.parse(scene);
+export const addToScene = createAsyncThunk(
+  "addToScene",
+  async (payload, { dispatch }) => {
+    dispatch(updatePendingSave(true));
+    return payload;
   }
-  return [];
+);
+
+export const loadScene = createAsyncThunk("loadScene", async (payload) => {
+  if (payload) {
+    return payload;
+  } else {
+    return [];
+  }
 });
 
 const scene = createSlice({
@@ -36,6 +42,10 @@ const scene = createSlice({
       const lastItem = newScene.pop();
       addUndoItem(lastItem);
       return newScene;
+    },
+    saveLocalScene(state, action) {
+      console.log("SAVING LOCAL STORAGE");
+      window.localStorage.setItem("scene", JSON.stringify(action.payload));
     },
   },
   extraReducers: (builder) => {
@@ -54,6 +64,11 @@ const scene = createSlice({
   },
 });
 
-export const { deleteFromScene, undoLastAction } = scene.actions;
+export const {
+  deleteFromScene,
+  undoLastAction,
+  saveLocalScene,
+  testLoadScene,
+} = scene.actions;
 
 export default scene.reducer;

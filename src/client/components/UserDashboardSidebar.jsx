@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   PencilIcon,
   ArmchairIcon,
@@ -12,24 +12,40 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Button } from "./ui/Button";
 import { Popover, PopoverTrigger, PopoverContent } from "./ui/Popover";
 import { cn } from "../utils";
+import { useDispatch, useSelector } from "react-redux";
+import { createFloorplan } from "../store/floorplan";
 
 function SidebarContent() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const location = useLocation();
+  const singleFloorplan = useSelector(
+    (state) => state.floorplan.singleFloorplan
+  );
+
+  useEffect(() => {
+    if (singleFloorplan !== null && singleFloorplan.id !== null) {
+      navigate(`/editor/${singleFloorplan.id}`);
+    }
+  }, [singleFloorplan]);
+
+  const createFloorplanHandler = () => {
+    dispatch(createFloorplan());
+  };
+
   return (
     <>
       <div className="space-y-4 py-4">
         <div className="px-4 py-2">
-          <a href="/editor">
-            <Button
-              variant="default"
-              size="sm"
-              className="w-full justify-start"
-            >
-              <PlusCircleIcon className="mr-2 h-4 w-4" />
-              Create New Floorplan
-            </Button>
-          </a>
+          <Button
+            variant="default"
+            size="sm"
+            className="w-full justify-start"
+            onClick={createFloorplanHandler}
+          >
+            <PlusCircleIcon className="mr-2 h-4 w-4" />
+            Create New Floorplan
+          </Button>
         </div>
       </div>
       <div className="py-4 space-y-4">
