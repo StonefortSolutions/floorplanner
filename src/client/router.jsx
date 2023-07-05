@@ -17,6 +17,7 @@ import AdminDashboard from "./pages/AdminDashboard";
 import Pricing from "./components/Pricing";
 import UserDashboardHome from "./components/UserDashboardHome";
 import AdminHome from "./components/admin/AdminHome";
+import AdminUsers from "./components/admin/AdminUsers";
 
 function ClerkProviderWithRoutes({ publishableKey }) {
   const navigate = useNavigate();
@@ -129,6 +130,7 @@ function ClerkProviderWithRoutes({ publishableKey }) {
           }
         >
           <Route path="/admin" element={<AdminHome />} />
+          <Route path="/admin/users" element={<AdminUsers />} />
         </Route>
       </Routes>
     </ClerkProvider>

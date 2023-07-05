@@ -7,24 +7,23 @@ import {
   CardDescription,
 } from "../ui/Card";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUsers } from "../../store/admin";
+import { fetchStats, fetchUsers } from "../../store/admin";
 import { Button } from "../ui/Button";
+import UserSliver from "./UserSliver";
+import AdminHomeLoading from "./AdminHomeLoading";
 
 function AdminHome() {
   const dispatch = useDispatch();
   const admin = useSelector((state) => state.admin);
 
   useEffect(() => {
-    dispatch(fetchUsers());
+    dispatch(fetchStats());
   }, [dispatch]);
 
   return (
     <div>
-      <Button varient="default" onClick={() => dispatch(fetchUsers())}>
-        test
-      </Button>
       {admin.loading ? (
-        <div>Loading...</div>
+        <AdminHomeLoading />
       ) : (
         <>
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-3">
@@ -72,10 +71,8 @@ function AdminHome() {
                 </svg>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">+0</div>
-                <p className="text-xs text-muted-foreground">
-                  +0% from last month
-                </p>
+                <div className="text-2xl font-bold">{admin.stats.users}</div>
+                <p className="text-xs text-muted-foreground"></p>
               </CardContent>
             </Card>
             <Card>
@@ -98,10 +95,7 @@ function AdminHome() {
                 </svg>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">+0</div>
-                <p className="text-xs text-muted-foreground">
-                  +0% from last month
-                </p>
+                <div className="text-2xl font-bold">0</div>
               </CardContent>
             </Card>
             <Card>
@@ -123,26 +117,31 @@ function AdminHome() {
                 </svg>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">+0</div>
-                <p className="text-xs text-muted-foreground">
-                  +0 since last month
-                </p>
+                <div className="text-2xl font-bold">
+                  {admin.stats.floorplans}
+                </div>
               </CardContent>
             </Card>
           </div>
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
             <Card className="col-span-4">
               <CardHeader>
-                <CardTitle>Overview</CardTitle>
+                <CardTitle>stripe stuff</CardTitle>
               </CardHeader>
-              <CardContent className="pl-2">xx</CardContent>
+              <CardContent className="pl-2">todo</CardContent>
             </Card>
             <Card className="col-span-3">
               <CardHeader>
                 <CardTitle>Recent Users</CardTitle>
-                <CardDescription>The last 5 registered users</CardDescription>
+                <CardDescription>Last 5 registered users</CardDescription>
               </CardHeader>
-              <CardContent>xx</CardContent>
+              <CardContent>
+                <div className="space-y-8">
+                  {admin.stats.last5Users.map((user) => (
+                    <UserSliver key={user.id} user={user} />
+                  ))}
+                </div>
+              </CardContent>
             </Card>
           </div>
         </>

@@ -4,6 +4,7 @@ const clerk = require("@clerk/clerk-sdk-node");
 const express = require("express");
 const app = express.Router();
 const axios = require("axios");
+const { Floorplan } = require("../db");
 
 module.exports = app;
 
@@ -28,8 +29,19 @@ app.get("/stats", ClerkExpressRequireAuth({}), async (req, res, next) => {
   try {
     if (req.auth.userId && req.auth.sessionId && publicMetadata.isAdmin) {
       const userCount = await clerk.users.getCount();
+      const last5Users = await clerk.users.getUserList({
+        limit: 5,
+        orderBy: "-created_at",
+      });
+
+      const floorplans = await Floorplan.count();
+
       const stats = {
         users: userCount,
+        last5Users,
+        subscriptions: 0,
+        floorplans,
+        templates: 0,
       };
       res.send(stats);
     } else {

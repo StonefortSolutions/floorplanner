@@ -4,6 +4,7 @@ import {
   BadgeDollarSignIcon,
   Table2Icon,
   StarIcon,
+  BarChartHorizontalIcon,
 } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Button } from "../ui/Button";
@@ -24,6 +25,15 @@ function SidebarContent() {
             Administration
           </h2>
           <div className="space-y-1">
+            <Button
+              variant={location.pathname === "/admin" ? "secondary" : "ghost"}
+              size="sm"
+              className="w-full justify-start"
+              onClick={() => navigate(`/admin`)}
+            >
+              <BarChartHorizontalIcon className="mr-2 h-4 w-4" />
+              Stats
+            </Button>
             <Button
               variant={
                 location.pathname === "/admin/users" ? "secondary" : "ghost"
