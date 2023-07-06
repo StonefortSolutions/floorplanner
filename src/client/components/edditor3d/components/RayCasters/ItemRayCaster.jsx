@@ -24,11 +24,9 @@ const ItemRayCaster = ({camera}) => {
     const canvas = document.getElementById('canvas1')
     if(currentAction === 'placeItem' && selectedModel !== ''){
       canvas.onmousemove = onPointerMove
-      canvas.onwheel = onWheel
       canvas.onclick = onMouseClick
     }else{
       canvas.onmousemove = null
-      canvas.onwheel = null
       canvas.onclick = null
     }
   },[currentAction,selectedModel,data, camera, rotation])
@@ -62,14 +60,14 @@ const ItemRayCaster = ({camera}) => {
     }
   }
 
-  const onWheel = (event) => {
-    if(event.deltaY > 0){
-      dispatch(rotate(Math.PI/2))
-      console.log(model);
-    }else{
-      dispatch(rotate(Math.PI/-2))
-    }
-  }
+  // const onWheel = (event) => {
+  //   if(event.deltaY > 0){
+  //     dispatch(rotate(Math.PI/2))
+  //     console.log(model);
+  //   }else{
+  //     dispatch(rotate(Math.PI/-2))
+  //   }
+  // }
 
   const onMouseClick = (event) => {
     if(event.button === 0){

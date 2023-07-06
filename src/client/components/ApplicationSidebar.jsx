@@ -108,17 +108,6 @@ export function ApplicationButtons({ className }) {
           <div className="absolute inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full top-0 -left-0.5 dark:border-gray-900" />
         )}
       </Button>
-      <Button
-        onClick={() => {
-          navigate("/dashboard");
-        }}
-        variant="ghost"
-        size="sm"
-        className="w-full justify-start hover:scale-105"
-      >
-        <Briefcase className="mr-2 h-4 w-4" />
-        Exit
-      </Button>
     </>
   );
 }

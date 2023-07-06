@@ -15,7 +15,11 @@ function ToolTips(){
     </>
   )
   const furniture = (
-    <p>Click to place item</p>
+    <>
+      <p>Select an Item from the right sidebar</p>
+      <p>Rotate with the Rotate button at the bottom left of the editor</p>
+      <p>Click to place item in the editor</p>
+    </>
   )
   const erase = (
     <p>click on an item to delete it</p>
@@ -28,9 +32,9 @@ function ToolTips(){
   )
 
   return (
-    <div className="">
-      <h1 className=" font-extrabold text-3xl">HELP</h1>
-      <div className="h-[10vh] rounded-md bg-secondary p-2">
+    <div className="hidden xl:block">
+      <h1 className="font-extrabold text-3xl">HELP</h1>
+      <div className="h-[15vh] 2xl:h-[10vh] rounded-md bg-secondary p-2">
         {
           currentAction === 'wall' || currentAction === 'floor' || currentAction === 'room'
           ? wallFloorRoom 
@@ -40,6 +44,8 @@ function ToolTips(){
           ? furniture
           : currentAction === 'delete'
           ? erase
+          : currentAction === 'door'
+          ? door
           : null
         }
       </div>

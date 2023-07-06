@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Button } from "./ui/Button";
-import { GlobeIcon, GridIcon, RedoIcon, UndoIcon } from "lucide-react";
+import { GlobeIcon, GridIcon, RedoIcon, UndoIcon, RefreshCw } from "lucide-react";
 import {
   Tooltip,
   TooltipProvider,
@@ -16,6 +16,7 @@ import {
   addUndoItem,
   removeLastRedoItem,
 } from "../store/itemHistory";
+import { rotate } from "../store/rotation";
 
 function EditorOverlayButtons({ is2D, setIs2D }) {
   const dispatch = useDispatch();
@@ -92,6 +93,22 @@ function EditorOverlayButtons({ is2D, setIs2D }) {
             <TooltipContent>
               <p>
                 {is2D ? "View 3D Perspective" : "View Top Down Perspective"}
+              </p>
+            </TooltipContent>
+          </Tooltip>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                variant="outline"
+                className=""
+                onClick={() => dispatch(rotate(Math.PI/2))}
+              >
+                <RefreshCw size={24}/>
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>
+                Rotate 90 Degrees
               </p>
             </TooltipContent>
           </Tooltip>

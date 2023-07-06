@@ -22,7 +22,7 @@ const ModelSelector = () => {
       <h1 className="mb-2 px-2 text-lg font-semibold tracking-tight text-center">
         Furniture
       </h1>
-      <div className="h-[80vh] w-full flex flex-row flex-wrap overflow-y-scroll">
+      <div className="max-h-[80vh] xl:max-h-[63vh] 2xl:max-h-[68vh] w-full flex flex-row flex-wrap overflow-y-scroll">
         {furnitureObjects &&
           furnitureObjects.map(({ name, category, previewImage, path }) =>{
             if(currentAction === 'door' && category !== 'doorway'){
@@ -32,8 +32,8 @@ const ModelSelector = () => {
               <div
                 className={
                   selectedModel === path
-                    ? " bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 w-full lg:w-[45%] m-2 backdrop-blur-md rounded-lg"
-                    : " w-full lg:w-[45%] m-2 hover:scale-110"
+                    ? " bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 w-full 2xl:w-[45%] m-1 2xl:m-2 backdrop-blur-md rounded-lg md:max-h-[25vh] min-h-[150px]"
+                    : " w-full 2xl:w-[45%] m-1 2xl:m-2 hover:scale-105 md:max-h-[25vh] min-h-[150px]"
                 }
               >
                 <Card
@@ -41,17 +41,19 @@ const ModelSelector = () => {
                   key={name}
                   onClick={() => dispatch(setModel(path))}
                 >
-                  <CardTitle>
-                    <h2 className="text-xl font-bold text-center">{name}</h2>
-                  </CardTitle>
-                  <CardDescription>
-                    <div className="flex justify-center my-1">
-                      Type:
-                      <Badge variant="outline" className="mx-1 ">
-                        {category}
-                      </Badge>
-                    </div>
-                  </CardDescription>
+                  <div className="h-[5em]">
+                    <CardTitle>
+                      <h2 className="text-xl font-bold text-center">{name}</h2>
+                    </CardTitle>
+                    <CardDescription>
+                      <div className="flex justify-center my-1">
+                        Type:
+                        <Badge variant="outline" className="mx-1 ">
+                          {category}
+                        </Badge>
+                      </div>
+                    </CardDescription>
+                  </div>
                   <CardContent className="flex justify-center my-1">
                     <img src={previewImage} alt={name} className="w-1/5 h-1/5" />
                   </CardContent>
