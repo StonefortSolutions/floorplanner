@@ -23,6 +23,7 @@ import { setAction } from "../store/currentAction";
 import { setGridVisible } from "../store/grid";
 import { useNavigate } from "react-router-dom";
 import { saveFloorplan } from "../store/floorplan";
+import NameEditor from "./ui/NameEditor";
 
 export function ApplicationButtons({ className }) {
   const dispatch = useDispatch();
@@ -135,26 +136,7 @@ function ApplicationSidebar({ className }) {
     <div className={cn("pb-12", className)}>
       <div className="space-y-4 py-4">
         <div className="px-4 py-2">
-          <h2 className="mb-2 px-2 text-lg font-semibold tracking-tight">
-            <div>
-              {edit ? <input placeholder={name}></input> : <h3>{name}</h3>}
-              {!edit && (
-                <Button onClick={() => setEdit(!edit)}>
-                  <Edit className="h-4 w-4" />
-                </Button>
-              )}
-              {edit && (
-                <div>
-                  <Button onClick={handleSave}>
-                    <Save className="h-4 w-4" />
-                  </Button>
-                  <Button onClick={handleCancel}>
-                    <XSquare className="h-4 w-4" />
-                  </Button>
-                </div>
-              )}
-            </div>
-          </h2>
+          <NameEditor />
           <h2 className="mb-2 px-2 text-lg font-semibold tracking-tight">
             Create
           </h2>
