@@ -2,11 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button } from "./Button";
 import { Edit, Save, XSquare } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchSingleFloorplan,
-  updateFloorplanName,
-} from "../../store/floorplan";
-import { useParams } from "react-router-dom";
+import { updateFloorplanData, saveFloorplan } from "../../store/floorplan";
 import { Input } from "./Input";
 import {
   Tooltip,
@@ -19,15 +15,20 @@ const NameEditor = () => {
   const [edit, setEdit] = useState(false);
   const [input, setInput] = useState("");
   const dispatch = useDispatch();
-  // const { id } = useParams();
   const singleFloorplan = useSelector(
     (state) => state.floorplan.singleFloorplan
   );
 
   const handleSave = (id) => {
-    dispatch(updateFloorplanName({ input, id }));
+    dispatch(updateFloorplanData({ name: input }));
     setEdit(false);
   };
+
+  useEffect(() => {
+    if (edit === false) {
+      dispatch(saveFloorplan(singleFloorplan));
+    }
+  }, [edit]);
 
   const handleCancel = () => {
     setEdit(false);

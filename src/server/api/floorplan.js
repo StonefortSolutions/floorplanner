@@ -58,10 +58,7 @@ app.delete("/:id", async (req, res, next) => {
 app.put("/:id", async (req, res, next) => {
   try {
     const floorplan = await Floorplan.findByPk(req.params.id);
-    const updatedFloorplan = await floorplan.update({
-      ...floorplan,
-      name: req.body.input,
-    });
+    const updatedFloorplan = await floorplan.update(req.body);
     res.send(updatedFloorplan);
   } catch (error) {
     next(error);
