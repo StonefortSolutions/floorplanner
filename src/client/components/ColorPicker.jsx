@@ -1,30 +1,45 @@
-import { SketchPicker } from "react-color";
+import { CustomPicker, CirclePicker, SliderPicker } from "react-color";
 import { useState } from "react";
 import { Button } from "./ui/Button";
-import {useDispatch} from 'react-redux';
-import {setColor} from '../store/selectedColor'
-import { cn } from "../utils";
+import { useDispatch } from "react-redux";
+import { setColor } from "../store/selectedColor";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+} from "./ui/DropdownMenu";
 
 function ColorPicker() {
   const [color, setPickerColor] = useState("#37d67a");
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const handleChange = (color) => {
+    setPickerColor(color.hex);
+    dispatch(setColor(color.hex));
+  };
+
   return (
-    <div className="">
-      <h6>Color Picker</h6>
-      <SketchPicker
-        color={color}
-        onChange={(color) => {
-          setPickerColor(color.hex);
-        }}
-      />
-      <Button
-        varient="outline"
-        onClick={()=>dispatch(setColor(color))}
-      >
-        Select
-      </Button>
+    <div className="m-2">
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="outline">
+            <p className="mr-1">Color: </p>
+            <div
+              className="w-6 h-6 rounded-full border border-black"
+              style={{ backgroundColor: color }}
+            />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <div className="p-2">
+            <div className="mt-2 mb-2" />
+            <CirclePicker color={color} onChange={handleChange} />
+            <div className="mt-2 mb-2" />
+            <SliderPicker color={color} onChange={handleChange} />
+          </div>
+        </DropdownMenuContent>
+      </DropdownMenu>
     </div>
   );
 }
 
-export default ColorPicker;
+export default CustomPicker(ColorPicker);
