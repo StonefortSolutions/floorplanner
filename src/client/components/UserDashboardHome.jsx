@@ -37,12 +37,10 @@ function UserDashboardHome() {
 
   useEffect(() => {
     dispatch(fetchFloorplans());
-    dispatch(setLoadFloorplanError(false));
   }, [dispatch]);
 
   const handleDelete = (id) => {
     dispatch(deleteSingleFloorplan(id));
-    dispatch(fetchFloorplans());
   };
 
   return (
@@ -64,7 +62,7 @@ function UserDashboardHome() {
                     : "https://i.redd.it/l8w3r7t6avh21.png"
                 }
                 alt={floorplan.name}
-                className="rounded-lg p-4"
+                className="rounded-lg p-4 h-72 w-full object-cover"
               />
               <CardContent>
                 <CardTitle>{floorplan.name}</CardTitle>
