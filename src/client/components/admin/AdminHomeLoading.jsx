@@ -15,7 +15,7 @@ function AdminHomeLoading() {
         <Skeleton className="col-span-4" />
         <div className="col-span-3">
           {Array.from({ length: 5 }).map((_, i) => (
-            <div className="">
+            <div className="" key={i}>
               <Skeleton className="h-12 w-12 rounded-full" />
               <div className="space-y-2">
                 <Skeleton className="h-4 w-[250px]" />
