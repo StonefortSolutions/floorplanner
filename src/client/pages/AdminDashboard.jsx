@@ -1,16 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useClerk } from "@clerk/clerk-react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import AdminSidebar from "../components/admin/AdminSidebar";
 import Navbar from "../components/Navbar";
 import { Toaster } from "../components/ui/Toaster";
+import NotAuthorized from "./NotAuthorized";
 
 function AdminDashboard() {
   const { user } = useClerk();
   const isUserAdmin = user?.publicMetadata?.isAdmin;
-  if (!isUserAdmin) {
-    return <div>Not Authorized</div>;
-  }
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isUserAdmin) {
+      return navigate("/notauthorized");
+    }
+  }, []);
+
   return (
     <div className="flex flex-col h-[98vh]">
       <Navbar className="flex" />
