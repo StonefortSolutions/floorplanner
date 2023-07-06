@@ -67,7 +67,6 @@ const Editor3d = ({ id }) => {
 
   //when loadFloorplanError is true, navigate to /dashboard
   useEffect(() => {
-    console.log("loadFloorplanError", loadFloorplanError);
     if (loadFloorplanError === true) {
       navigate("/dashboard");
     }
@@ -91,7 +90,7 @@ const Editor3d = ({ id }) => {
         <Sky />
         <Island />
         <ambientLight intensity={0.2} />
-        <pointLight position={[10, 500, 5]} intensity={.7} />
+        <pointLight position={[10, 500, 5]} intensity={0.7} />
         <Ground size={GRID_SIZE} />
         {GRID_VISIBLE && (
           <Grid

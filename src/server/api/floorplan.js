@@ -6,9 +6,16 @@ const app = express.Router();
 
 module.exports = app;
 
-app.get("/", async (req, res, next) => {
+app.get("/", ClerkExpressRequireAuth({}), async (req, res, next) => {
   try {
-    const floorplan = await Floorplan.findAll();
+    if (!req.auth.userId && !req.auth.sessionId) {
+      res.status(401).send({ error: "Unauthenticated!" });
+    }
+    const floorplan = await Floorplan.findAll({
+      where: {
+        userId: req.auth.userId,
+      },
+    });
     res.send(floorplan);
   } catch (error) {
     next(error);
