@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Button } from "./ui/Button";
-import { GlobeIcon, GridIcon, RedoIcon, UndoIcon } from "lucide-react";
+import { GlobeIcon, GridIcon, RedoIcon, UndoIcon, RefreshCw } from "lucide-react";
 import {
   Tooltip,
   TooltipProvider,
@@ -16,10 +16,12 @@ import {
   addUndoItem,
   removeLastRedoItem,
 } from "../store/itemHistory";
+import { rotate } from "../store/rotation";
 
 function EditorOverlayButtons({ is2D, setIs2D }) {
   const dispatch = useDispatch();
   const { undoItems, redoItems } = useSelector((state) => state.itemHistory);
+  const currentAction = useSelector(state => state.currentAction)
   const scene = useSelector((state) => state.scene);
 
   //todo refactor for only undo items after load, not entire scene
@@ -95,6 +97,26 @@ function EditorOverlayButtons({ is2D, setIs2D }) {
               </p>
             </TooltipContent>
           </Tooltip>
+          {(currentAction === 'door' || currentAction === 'placeItem') ? 
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant="outline"
+                  className=""
+                  onClick={() => dispatch(rotate(Math.PI/2))}
+                >
+                  <RefreshCw size={24}/>
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>
+                  Rotate 90 Degrees
+                </p>
+              </TooltipContent>
+            </Tooltip> :
+            null
+          }
+          
           <span></span>
         </div>
       </div>

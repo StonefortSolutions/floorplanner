@@ -37,7 +37,7 @@ export function ApplicationButtons({ className }) {
       <Button
         variant={currentAction === "orbit" ? "secondary" : "ghost"}
         size="sm"
-        className="w-full justify-start"
+        className={currentAction === "orbit" ? "w-full justify-start bg-gradient-to-br from-red-600 to-orange-500" : "w-full justify-start hover:scale-105"}
         onClick={() => dispatch(setAction("orbit"))}
       >
         <Rotate3d className="mr-2 h-4 w-4" />
@@ -46,7 +46,7 @@ export function ApplicationButtons({ className }) {
       <Button
         variant={currentAction === "room" ? "secondary" : "ghost"}
         size="sm"
-        className="w-full justify-start"
+        className={currentAction === "room" ? "w-full justify-start bg-gradient-to-br from-red-600 to-orange-500" : "w-full justify-start hover:scale-105"}
         onClick={() => dispatch(setAction("room"))}
       >
         <Building className="mr-2 h-4 w-4" />
@@ -55,7 +55,7 @@ export function ApplicationButtons({ className }) {
       <Button
         variant={currentAction === "wall" ? "secondary" : "ghost"}
         size="sm"
-        className="w-full justify-start"
+        className={currentAction === "wall" ? "w-full justify-start bg-gradient-to-br from-red-600 to-orange-500" : "w-full justify-start hover:scale-105"}
         onClick={() => dispatch(setAction("wall"))}
       >
         <PencilIcon className="mr-2 h-4 w-4" />
@@ -64,7 +64,7 @@ export function ApplicationButtons({ className }) {
       <Button
         variant={currentAction === "floor" ? "secondary" : "ghost"}
         size="sm"
-        className="w-full justify-start"
+        className={currentAction === "floor" ? "w-full justify-start bg-gradient-to-br from-red-600 to-orange-500" : "w-full justify-start hover:scale-105"}
         onClick={() => dispatch(setAction("floor"))}
       >
         <BoxSelect className="mr-2 h-4 w-4" />
@@ -73,7 +73,7 @@ export function ApplicationButtons({ className }) {
       <Button
         variant={currentAction === "delete" ? "secondary" : "ghost"}
         size="sm"
-        className="w-full justify-start"
+        className={currentAction === "delete" ? "w-full justify-start bg-gradient-to-br from-red-600 to-orange-500" : "w-full justify-start hover:scale-105"}
         onClick={() => dispatch(setAction("delete"))}
       >
         <EraserIcon className="mr-2 h-4 w-4" />
@@ -82,7 +82,7 @@ export function ApplicationButtons({ className }) {
       <Button
         variant={currentAction === "placeItem" ? "secondary" : "ghost"}
         size="sm"
-        className="w-full justify-start"
+        className={currentAction === "placeItem" ? "w-full justify-start bg-gradient-to-br from-red-600 to-orange-500" : "w-full justify-start hover:scale-105"}
         onClick={() => dispatch(setAction("placeItem"))}
       >
         <ArmchairIcon className="mr-2 h-4 w-4" />
@@ -91,7 +91,7 @@ export function ApplicationButtons({ className }) {
       <Button
         variant={currentAction === "door" ? "secondary" : "ghost"}
         size="sm"
-        className="w-full justify-start"
+        className={currentAction === "door" ? "w-full justify-start bg-gradient-to-br from-red-600 to-orange-500" : "w-full justify-start hover:scale-105"}
         onClick={() => dispatch(setAction("door"))}
       >
         <DoorClosed className="mr-2 h-4 w-4" />
@@ -101,7 +101,7 @@ export function ApplicationButtons({ className }) {
         onClick={() => dispatch(saveFloorplan(singleFloorplan))}
         variant="ghost"
         size="sm"
-        className="w-full justify-start relative"
+        className="w-full justify-start hover:scale-105 relative"
       >
         <SaveIcon className="mr-2 h-4 w-4" />
         Save
@@ -109,55 +109,7 @@ export function ApplicationButtons({ className }) {
           <div className="absolute inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full top-0 -left-0.5 dark:border-gray-900" />
         )}
       </Button>
-      <Button
-        onClick={() => {
-          navigate("/dashboard");
-        }}
-        variant="ghost"
-        size="sm"
-        className="w-full justify-start"
-      >
-        <Briefcase className="mr-2 h-4 w-4" />
-        Exit
-      </Button>
     </>
-  );
-}
-
-function ToolTips() {
-  const currentAction = useSelector((state) => state.currentAction);
-  const wallFloorRoom = <p>Click and Drag to add to Scene</p>;
-  const orbit = (
-    <>
-      <p>Scroll to zoom</p>
-      <p>Middle mouse to rotate</p>
-      <p>Right mouse to pan</p>
-    </>
-  );
-  const furniture = <p>Click to place item</p>;
-  const erase = <p>click on an item to delete it</p>;
-  const door = (
-    <>
-      <p>Select a Door</p>
-      <p>Click on a wall to add a door</p>
-    </>
-  );
-
-  return (
-    <div>
-      <h1>Help</h1>
-      {currentAction === "wall" ||
-      currentAction === "floor" ||
-      currentAction === "room"
-        ? wallFloorRoom
-        : currentAction === "orbit"
-        ? orbit
-        : currentAction === "placeItem"
-        ? furniture
-        : currentAction === "delete"
-        ? erase
-        : null}
-    </div>
   );
 }
 
@@ -217,7 +169,6 @@ function ApplicationSidebar({ className }) {
             </div>
           </div>
         </div>
-        <ToolTips />
       </div>
     </div>
   );
