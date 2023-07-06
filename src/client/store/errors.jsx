@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 const initialState = {
   loadFloorplanError: false,
+  loadedFloorplan: false,
 };
 
 const errorsSlice = createSlice({
@@ -11,10 +12,14 @@ const errorsSlice = createSlice({
     setLoadFloorplanError(state, action) {
       state.loadFloorplanError = action.payload;
     },
+    setLoadedFloorplan(state, action) {
+      state.loadedFloorplan = action.payload;
+    },
   },
   extraReducers: (builder) => {},
 });
 
-export const { setLoadFloorplanError } = errorsSlice.actions;
+export const { setLoadFloorplanError, setLoadedFloorplan } =
+  errorsSlice.actions;
 
 export default errorsSlice.reducer;

@@ -13,7 +13,7 @@ function Screenshots() {
     dispatch(updateFloorplanData({ scene, previewImage: image }));
   }, [image, error, isLoading]);
 
-  return <></>;
+  return null;
 }
 
 export default Screenshots;

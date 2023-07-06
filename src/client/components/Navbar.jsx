@@ -11,12 +11,7 @@ import imgUrl from "../assets/logo.png";
 import AccountButton from "./ui/AccountButton";
 import { Button } from "./ui/Button";
 
-const navItems = [
-  {
-    name: "Testing",
-    href: "/profile",
-  },
-];
+const navItems = [];
 
 function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
