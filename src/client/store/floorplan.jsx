@@ -57,8 +57,8 @@ export const fetchSingleFloorplan = createAsyncThunk(
       }
       if (data.scene) {
         dispatch(loadScene(data.scene));
-        dispatch(setLoadedFloorplan(true));
       }
+      dispatch(setLoadedFloorplan(true));
       return data;
     } catch (error) {
       dispatch(setLoadFloorplanError(true));
@@ -136,6 +136,7 @@ const floorplanSlice = createSlice({
     });
     builder.addCase(createFloorplan.fulfilled, (state, action) => {
       state.singleFloorplan = action.payload;
+      state.isLoaded = true;
       state.floorplans = [action.payload, ...state.floorplans];
     });
     builder.addCase(saveFloorplan.fulfilled, (state, action) => {
