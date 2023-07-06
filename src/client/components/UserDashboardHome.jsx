@@ -22,6 +22,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteSingleFloorplan, fetchFloorplans } from "../store/floorplan";
 import { Link } from "react-router-dom";
 import { setLoadFloorplanError } from "../store";
+import NameEditor from "./ui/NameEditor";
 
 function UserDashboardHome() {
   const { toast } = useToast();
@@ -68,7 +69,8 @@ function UserDashboardHome() {
               <CardContent>
                 <CardTitle>{floorplan.name}</CardTitle>
                 <CardDescription>
-                  Last Updated: {floorplan.updatedAt}
+                  Last Updated:{" "}
+                  {new Date(floorplan.updatedAt).toLocaleDateString()}
                 </CardDescription>
               </CardContent>
               <CardFooter>

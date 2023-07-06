@@ -7,21 +7,24 @@ import {
   updateFloorplanName,
 } from "../../store/floorplan";
 import { useParams } from "react-router-dom";
+import { Input } from "./Input";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "./Tooltip";
 
 const NameEditor = () => {
   const [edit, setEdit] = useState(false);
   const [input, setInput] = useState("");
   const dispatch = useDispatch();
-  const { id } = useParams();
+  // const { id } = useParams();
   const singleFloorplan = useSelector(
     (state) => state.floorplan.singleFloorplan
-  ) || { name: "Loading" };
+  );
 
-  useEffect(() => {
-    dispatch(fetchSingleFloorplan(id));
-  }, []);
-
-  const handleSave = () => {
+  const handleSave = (id) => {
     dispatch(updateFloorplanName({ input, id }));
     setEdit(false);
   };
@@ -31,35 +34,67 @@ const NameEditor = () => {
   };
 
   return (
-    <div>
-      <h2 className="mb-2 px-2 text-lg font-semibold tracking-tight">
-        <div>
-          {edit ? (
-            <input
-              placeholder={singleFloorplan.name}
-              onChange={(event) => setInput(event.target.value)}
-            ></input>
-          ) : (
-            <h3>{singleFloorplan.name}</h3>
-          )}
-          {!edit && (
-            <Button onClick={() => setEdit(!edit)}>
-              <Edit className="h-4 w-4" />
-            </Button>
-          )}
-          {edit && (
-            <div>
-              <Button onClick={handleSave}>
-                <Save className="h-4 w-4" />
-              </Button>
-              <Button onClick={handleCancel}>
-                <XSquare className="h-4 w-4" />
-              </Button>
-            </div>
-          )}
-        </div>
-      </h2>
-    </div>
+    <TooltipProvider>
+      <div>
+        <h2 className="mb-2 px-2 text-lg font-semibold tracking-tight">
+          <div className="flex w-full max-w-sm items-center space-x-2">
+            {edit ? (
+              <Input
+                placeholder={singleFloorplan.name}
+                onChange={(event) => setInput(event.target.value)}
+              />
+            ) : (
+              <h3>{singleFloorplan.name}</h3>
+            )}
+            {!edit && (
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => setEdit(!edit)}
+                  >
+                    <Edit className="h-4 w-4" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Edit</p>
+                </TooltipContent>
+              </Tooltip>
+            )}
+            {edit && (
+              <div className="">
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => handleSave(singleFloorplan.id)}
+                      disabled={input.length < 1}
+                    >
+                      <Save className="h-4 w-4" />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Save</p>
+                  </TooltipContent>
+                </Tooltip>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button variant="ghost" size="icon" onClick={handleCancel}>
+                      <XSquare className="h-4 w-4" />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent sideOffest={-10}>
+                    <p>Cancel</p>
+                  </TooltipContent>
+                </Tooltip>
+              </div>
+            )}
+          </div>
+        </h2>
+      </div>
+    </TooltipProvider>
   );
 };
 
