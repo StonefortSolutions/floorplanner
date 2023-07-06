@@ -1,14 +1,20 @@
 const express = require("express");
 const Floorplan = require("../db/floorplan");
 const { ClerkExpressRequireAuth } = require("@clerk/clerk-sdk-node");
-const e = require("express");
 const app = express.Router();
 
 module.exports = app;
 
-app.get("/", async (req, res, next) => {
+app.get("/", ClerkExpressRequireAuth({}), async (req, res, next) => {
   try {
-    const floorplan = await Floorplan.findAll();
+    if (!req.auth.userId && !req.auth.sessionId) {
+      res.status(401).send({ error: "Unauthenticated!" });
+    }
+    const floorplan = await Floorplan.findAll({
+      where: {
+        userId: req.auth.userId,
+      },
+    });
     res.send(floorplan);
   } catch (error) {
     next(error);
@@ -29,8 +35,6 @@ app.get("/:id", async (req, res, next) => {
 });
 
 app.post("/", ClerkExpressRequireAuth({}), async (req, res, next) => {
-  //if < 3 and free tier or pro
-  //else error
   try {
     if (!req.auth.userId && !req.auth.sessionId) {
       res.status(401).send({ error: "Unauthenticated!" });

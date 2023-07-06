@@ -19,17 +19,20 @@ import Controls from "./components/Controls";
 import { fetchSingleFloorplan } from "../../store/floorplan";
 import { useNavigate } from "react-router-dom";
 import { setLoadFloorplanError } from "../../store";
+import { Skeleton } from "../ui/Skeleton";
 
 const Editor3d = ({ id }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { loadFloorplanError } = useSelector((state) => state.errors);
+  const { loadFloorplanError, loadedFloorplan } = useSelector(
+    (state) => state.errors
+  );
 
   useEffect(() => {
     if (id) {
       dispatch(fetchSingleFloorplan(id));
     }
-  }, []);
+  }, [id]);
 
   //State
   const [is2D, setIs2D] = useState(true);
@@ -67,13 +70,12 @@ const Editor3d = ({ id }) => {
 
   //when loadFloorplanError is true, navigate to /dashboard
   useEffect(() => {
-    console.log("loadFloorplanError", loadFloorplanError);
     if (loadFloorplanError === true) {
       navigate("/dashboard");
     }
   }, [loadFloorplanError]);
 
-  return (
+  return loadedFloorplan ? (
     <div
       id="edditor"
       className={`leading-none h-[90%] md:h-[98%] relative ${currentCursor}`}
@@ -91,7 +93,7 @@ const Editor3d = ({ id }) => {
         <Sky />
         <Island />
         <ambientLight intensity={0.2} />
-        <pointLight position={[10, 500, 5]} intensity={.7} />
+        <pointLight position={[10, 500, 5]} intensity={0.7} />
         <Ground size={GRID_SIZE} />
         {GRID_VISIBLE && (
           <Grid
@@ -117,6 +119,8 @@ const Editor3d = ({ id }) => {
       </Canvas>
       <EditorOverlayButtons is2D={is2D} setIs2D={setIs2D} />
     </div>
+  ) : (
+    <Skeleton className=" h-[90%] md:h-[98%]" />
   );
 };
 
