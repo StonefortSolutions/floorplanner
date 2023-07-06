@@ -1,7 +1,6 @@
 const express = require("express");
 const Floorplan = require("../db/floorplan");
 const { ClerkExpressRequireAuth } = require("@clerk/clerk-sdk-node");
-const e = require("express");
 const app = express.Router();
 
 module.exports = app;
@@ -36,8 +35,6 @@ app.get("/:id", async (req, res, next) => {
 });
 
 app.post("/", ClerkExpressRequireAuth({}), async (req, res, next) => {
-  //if < 3 and free tier or pro
-  //else error
   try {
     if (!req.auth.userId && !req.auth.sessionId) {
       res.status(401).send({ error: "Unauthenticated!" });

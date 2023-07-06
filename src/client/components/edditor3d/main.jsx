@@ -19,17 +19,20 @@ import Controls from "./components/Controls";
 import { fetchSingleFloorplan } from "../../store/floorplan";
 import { useNavigate } from "react-router-dom";
 import { setLoadFloorplanError } from "../../store";
+import { Skeleton } from "../ui/Skeleton";
 
 const Editor3d = ({ id }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { loadFloorplanError } = useSelector((state) => state.errors);
+  const { loadFloorplanError, loadedFloorplan } = useSelector(
+    (state) => state.errors
+  );
 
   useEffect(() => {
     if (id) {
       dispatch(fetchSingleFloorplan(id));
     }
-  }, []);
+  }, [id]);
 
   //State
   const [is2D, setIs2D] = useState(true);
@@ -72,7 +75,7 @@ const Editor3d = ({ id }) => {
     }
   }, [loadFloorplanError]);
 
-  return (
+  return loadedFloorplan ? (
     <div
       id="edditor"
       className={`leading-none h-[90%] md:h-[98%] relative ${currentCursor}`}
@@ -116,6 +119,8 @@ const Editor3d = ({ id }) => {
       </Canvas>
       <EditorOverlayButtons is2D={is2D} setIs2D={setIs2D} />
     </div>
+  ) : (
+    <Skeleton className=" h-[90%] md:h-[98%]" />
   );
 };
 
