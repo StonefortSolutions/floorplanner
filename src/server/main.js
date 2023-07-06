@@ -18,6 +18,10 @@ app.use(
   "/environment",
   express.static(path.join(__dirname, "..", "..", "public", "environment"))
 );
+app.use(
+  "/normals",
+  express.static(path.join(__dirname, "..", "..", "public", "normals"))
+);
 
 //MIDDLEWARE
 app.use(express.json({ limit: "50mb" }));

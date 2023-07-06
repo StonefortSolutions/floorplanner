@@ -90,8 +90,8 @@ const Editor3d = ({ id }) => {
         <Controls is2D={is2D} />
         <Sky />
         <Island />
-        <ambientLight intensity={0.1} />
-        <pointLight position={[10, 500, 5]} intensity={1} />
+        <ambientLight intensity={0.2} />
+        <pointLight position={[10, 500, 5]} intensity={.7} />
         <Ground size={GRID_SIZE} />
         {GRID_VISIBLE && (
           <Grid
