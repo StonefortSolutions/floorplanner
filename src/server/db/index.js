@@ -27,7 +27,7 @@ const seed = async () => {
 };
 
 const syncAndSeed = async () => {
-  await conn.sync({ force: true });
+  await conn.sync({ force: false });
   await seed();
   console.log("DATABASE: Synced and Seeded");
 };

@@ -1,13 +1,14 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { loadScene } from "./scene";
-import { setLoadFloorplanError } from "./errors";
+import { setLoadFloorplanError, setLoadedFloorplan } from "./errors";
 
 const initialState = {
   floorplans: Array(0),
   singleFloorplan: null,
   pendingSave: false,
   isLoaded: false,
+  floorplansIsLoaded: false,
   error: false,
 };
 
@@ -36,25 +37,6 @@ export const saveFloorplan = createAsyncThunk(
   }
 );
 
-//update scene on floorplan
-//update preview image on floorplan
-
-//update name on floorplan
-export const updateFloorplanName = createAsyncThunk(
-  "updateFloorplanName",
-  async (floorplan) => {
-    try {
-      const { data } = await axios.put(
-        `/api/floorplan/${floorplan.id}`,
-        floorplan
-      );
-      return data;
-    } catch (error) {
-      console.log(error);
-    }
-  }
-);
-
 export const fetchFloorplans = createAsyncThunk("fetchFloorplans", async () => {
   try {
     const { data } = await axios.get("/api/floorplan");
@@ -76,6 +58,7 @@ export const fetchSingleFloorplan = createAsyncThunk(
       if (data.scene) {
         dispatch(loadScene(data.scene));
       }
+      dispatch(setLoadedFloorplan(true));
       return data;
     } catch (error) {
       dispatch(setLoadFloorplanError(true));
@@ -130,8 +113,12 @@ const floorplanSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    builder.addCase(fetchFloorplans.pending, (state, action) => {
+      state.floorplansIsLoaded = false;
+    });
     builder.addCase(fetchFloorplans.fulfilled, (state, action) => {
       state.floorplans = action.payload;
+      state.floorplansIsLoaded = true;
     });
     builder.addCase(fetchSingleFloorplan.fulfilled, (state, action) => {
       state.isLoaded = true;
@@ -149,6 +136,7 @@ const floorplanSlice = createSlice({
     });
     builder.addCase(createFloorplan.fulfilled, (state, action) => {
       state.singleFloorplan = action.payload;
+      state.isLoaded = true;
       state.floorplans = [action.payload, ...state.floorplans];
     });
     builder.addCase(saveFloorplan.fulfilled, (state, action) => {
@@ -159,9 +147,6 @@ const floorplanSlice = createSlice({
           return floorplan;
         }
       });
-    });
-    builder.addCase(updateFloorplanName.fulfilled, (state, action) => {
-      state.singleFloorplan = action.payload;
     });
   },
 });

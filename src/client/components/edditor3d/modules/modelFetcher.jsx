@@ -18,12 +18,13 @@ const ModelFetcher = ({ name, position, rotation }) => {
         <primitive
           object={data.scene}
           scale={[5, 5, 5]}
-          position={[position.x, .5, position.y]}
+          position={[position.x, 0.5, position.y]}
           rotation={rotation}
         />
       );
     }
   }, [data]);
+  if (data === "") return null;
   return model;
 };
 

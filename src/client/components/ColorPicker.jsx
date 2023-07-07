@@ -10,7 +10,7 @@ import {
 } from "./ui/DropdownMenu";
 
 function ColorPicker() {
-  const [color, setPickerColor] = useState("#37d67a");
+  const [color, setPickerColor] = useState("#5e461f");
   const dispatch = useDispatch();
   const handleChange = (color) => {
     setPickerColor(color.hex);

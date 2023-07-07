@@ -23,6 +23,7 @@ import { deleteSingleFloorplan, fetchFloorplans } from "../store/floorplan";
 import { Link } from "react-router-dom";
 import { setLoadFloorplanError } from "../store";
 import NameEditor from "./ui/NameEditor";
+import FloorPlanPreviewLoading from "./ui/FloorPlanPreviewLoading";
 
 function UserDashboardHome() {
   const { toast } = useToast();
@@ -32,17 +33,17 @@ function UserDashboardHome() {
     });
   };
 
-  const { floorplans } = useSelector((state) => state.floorplan);
+  const { floorplans, floorplansIsLoaded } = useSelector(
+    (state) => state.floorplan
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchFloorplans());
-    dispatch(setLoadFloorplanError(false));
   }, [dispatch]);
 
   const handleDelete = (id) => {
     dispatch(deleteSingleFloorplan(id));
-    dispatch(fetchFloorplans());
   };
 
   return (
@@ -55,63 +56,69 @@ function UserDashboardHome() {
       <div className="mt-4">
         <h2 className="text-lg font-semibold tracking-tight">My Floorplans</h2>
         <div className="mt-2 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {floorplans.map((floorplan) => (
-            <Card key={floorplan.id}>
-              <img
-                src={
-                  floorplan.previewImage
-                    ? floorplan.previewImage
-                    : "https://i.redd.it/l8w3r7t6avh21.png"
-                }
-                alt={floorplan.name}
-                className="rounded-lg p-4"
-              />
-              <CardContent>
-                <CardTitle>{floorplan.name}</CardTitle>
-                <CardDescription>
-                  Last Updated:{" "}
-                  {new Date(floorplan.updatedAt).toLocaleDateString()}
-                </CardDescription>
-              </CardContent>
-              <CardFooter>
-                <div className="flex flex-row justify-between w-full">
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <Button variant="destructive" size="sm">
-                        <XCircleIcon className="mr-2 h-4 w-4" />
-                        Delete
-                      </Button>
-                    </DialogTrigger>
-                    <DialogContent>
-                      <DialogHeader>
-                        <DialogTitle>Are you sure absolutely sure?</DialogTitle>
-                        <DialogDescription>
-                          This action cannot be undone.
-                        </DialogDescription>
-                        <Button
-                          variant="destructive"
-                          onClick={() => handleDelete(floorplan.id)}
-                        >
+          {!floorplansIsLoaded ? (
+            <FloorPlanPreviewLoading />
+          ) : (
+            floorplans.map((floorplan) => (
+              <Card key={floorplan.id}>
+                <img
+                  src={
+                    floorplan.previewImage
+                      ? floorplan.previewImage
+                      : "https://i.redd.it/l8w3r7t6avh21.png"
+                  }
+                  alt={floorplan.name}
+                  className="rounded-lg p-4 h-72 w-full object-cover"
+                />
+                <CardContent>
+                  <CardTitle>{floorplan.name}</CardTitle>
+                  <CardDescription>
+                    Last Updated:{" "}
+                    {new Date(floorplan.updatedAt).toLocaleDateString()}
+                  </CardDescription>
+                </CardContent>
+                <CardFooter>
+                  <div className="flex flex-row justify-between w-full">
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <Button variant="destructive" size="sm">
+                          <XCircleIcon className="mr-2 h-4 w-4" />
                           Delete
                         </Button>
-                      </DialogHeader>
-                    </DialogContent>
-                  </Dialog>
+                      </DialogTrigger>
+                      <DialogContent>
+                        <DialogHeader>
+                          <DialogTitle>
+                            Are you sure absolutely sure?
+                          </DialogTitle>
+                          <DialogDescription>
+                            This action cannot be undone.
+                          </DialogDescription>
+                          <Button
+                            variant="destructive"
+                            onClick={() => handleDelete(floorplan.id)}
+                          >
+                            Delete
+                          </Button>
+                        </DialogHeader>
+                      </DialogContent>
+                    </Dialog>
 
-                  <Link to={`/editor/${floorplan.id}`}>
-                    <Button
-                      variant="secondary"
-                      size="sm"
-                      // onClick={() => testToast()}
-                    >
-                      <PencilIcon className="mr-2 h-4 w-4" />
-                      Edit
-                    </Button>
-                  </Link>
-                </div>
-              </CardFooter>
-            </Card>
-          ))}
+                    <Link to={`/editor/${floorplan.id}`}>
+                      <Button
+                        variant="secondary"
+                        size="sm"
+                        // onClick={() => testToast()}
+                      >
+                        <PencilIcon className="mr-2 h-4 w-4" />
+                        Edit
+                      </Button>
+                    </Link>
+                  </div>
+                </CardFooter>
+              </Card>
+            ))
+          )}
         </div>
       </div>
     </div>

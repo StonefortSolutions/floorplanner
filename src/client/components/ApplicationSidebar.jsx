@@ -8,11 +8,6 @@ import {
   Rotate3d,
   BoxSelect,
   Building,
-  Briefcase,
-  Edit,
-  Save,
-  X,
-  XSquare,
   DoorClosed,
 } from "lucide-react";
 import { cn } from "../utils";
@@ -21,23 +16,26 @@ import { Label } from "./ui/Label";
 import { useDispatch, useSelector } from "react-redux";
 import { setAction } from "../store/currentAction";
 import { setGridVisible } from "../store/grid";
-import { useNavigate } from "react-router-dom";
 import { saveFloorplan } from "../store/floorplan";
 import NameEditor from "./ui/NameEditor";
+import { Skeleton } from "./ui/Skeleton";
 
 export function ApplicationButtons({ className }) {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { singleFloorplan, pendingSave } = useSelector(
+  const { singleFloorplan, pendingSave, isLoaded } = useSelector(
     (state) => state.floorplan
   );
   const currentAction = useSelector((state) => state.currentAction);
-  return (
+  return isLoaded ? (
     <>
       <Button
         variant={currentAction === "orbit" ? "secondary" : "ghost"}
         size="sm"
-        className={currentAction === "orbit" ? "w-full justify-start bg-gradient-to-br from-red-600 to-orange-500" : "w-full justify-start hover:scale-105"}
+        className={
+          currentAction === "orbit"
+            ? "w-full justify-start bg-gradient-to-br from-red-600 to-orange-500"
+            : "w-full justify-start hover:scale-105"
+        }
         onClick={() => dispatch(setAction("orbit"))}
       >
         <Rotate3d className="mr-2 h-4 w-4" />
@@ -46,7 +44,11 @@ export function ApplicationButtons({ className }) {
       <Button
         variant={currentAction === "room" ? "secondary" : "ghost"}
         size="sm"
-        className={currentAction === "room" ? "w-full justify-start bg-gradient-to-br from-red-600 to-orange-500" : "w-full justify-start hover:scale-105"}
+        className={
+          currentAction === "room"
+            ? "w-full justify-start bg-gradient-to-br from-red-600 to-orange-500"
+            : "w-full justify-start hover:scale-105"
+        }
         onClick={() => dispatch(setAction("room"))}
       >
         <Building className="mr-2 h-4 w-4" />
@@ -55,7 +57,11 @@ export function ApplicationButtons({ className }) {
       <Button
         variant={currentAction === "wall" ? "secondary" : "ghost"}
         size="sm"
-        className={currentAction === "wall" ? "w-full justify-start bg-gradient-to-br from-red-600 to-orange-500" : "w-full justify-start hover:scale-105"}
+        className={
+          currentAction === "wall"
+            ? "w-full justify-start bg-gradient-to-br from-red-600 to-orange-500"
+            : "w-full justify-start hover:scale-105"
+        }
         onClick={() => dispatch(setAction("wall"))}
       >
         <PencilIcon className="mr-2 h-4 w-4" />
@@ -64,7 +70,11 @@ export function ApplicationButtons({ className }) {
       <Button
         variant={currentAction === "floor" ? "secondary" : "ghost"}
         size="sm"
-        className={currentAction === "floor" ? "w-full justify-start bg-gradient-to-br from-red-600 to-orange-500" : "w-full justify-start hover:scale-105"}
+        className={
+          currentAction === "floor"
+            ? "w-full justify-start bg-gradient-to-br from-red-600 to-orange-500"
+            : "w-full justify-start hover:scale-105"
+        }
         onClick={() => dispatch(setAction("floor"))}
       >
         <BoxSelect className="mr-2 h-4 w-4" />
@@ -73,7 +83,11 @@ export function ApplicationButtons({ className }) {
       <Button
         variant={currentAction === "delete" ? "secondary" : "ghost"}
         size="sm"
-        className={currentAction === "delete" ? "w-full justify-start bg-gradient-to-br from-red-600 to-orange-500" : "w-full justify-start hover:scale-105"}
+        className={
+          currentAction === "delete"
+            ? "w-full justify-start bg-gradient-to-br from-red-600 to-orange-500"
+            : "w-full justify-start hover:scale-105"
+        }
         onClick={() => dispatch(setAction("delete"))}
       >
         <EraserIcon className="mr-2 h-4 w-4" />
@@ -91,7 +105,11 @@ export function ApplicationButtons({ className }) {
       <Button
         variant={currentAction === "placeItem" ? "secondary" : "ghost"}
         size="sm"
-        className={currentAction === "placeItem" ? "w-full justify-start bg-gradient-to-br from-red-600 to-orange-500" : "w-full justify-start hover:scale-105"}
+        className={
+          currentAction === "placeItem"
+            ? "w-full justify-start bg-gradient-to-br from-red-600 to-orange-500"
+            : "w-full justify-start hover:scale-105"
+        }
         onClick={() => dispatch(setAction("placeItem"))}
       >
         <ArmchairIcon className="mr-2 h-4 w-4" />
@@ -100,7 +118,11 @@ export function ApplicationButtons({ className }) {
       <Button
         variant={currentAction === "door" ? "secondary" : "ghost"}
         size="sm"
-        className={currentAction === "door" ? "w-full justify-start bg-gradient-to-br from-red-600 to-orange-500" : "w-full justify-start hover:scale-105"}
+        className={
+          currentAction === "door"
+            ? "w-full justify-start bg-gradient-to-br from-red-600 to-orange-500"
+            : "w-full justify-start hover:scale-105"
+        }
         onClick={() => dispatch(setAction("door"))}
       >
         <DoorClosed className="mr-2 h-4 w-4" />
@@ -128,29 +150,17 @@ export function ApplicationButtons({ className }) {
         )}
       </Button>
     </>
+  ) : (
+    <Skeleton className="p-4 h-full w-full rounded-lg" />
   );
 }
 
 function ApplicationSidebar({ className }) {
   const dispatch = useDispatch();
   const { GRID_SIZE, GRID_VISIBLE } = useSelector((state) => state.grid);
-  const { singleFloorplan } = useSelector((state) => state.floorplan);
-  const [edit, setEdit] = useState(false);
-  const [name, setName] = useState("Floorplan Name");
+  const { isLoaded } = useSelector((state) => state.floorplan);
 
-  const handleSave = () => {
-    console.log("saved");
-    setEdit(false);
-  };
-
-  const handleCancel = () => {
-    console.log("cancelled");
-    setEdit(false);
-  };
-
-  if (!singleFloorplan) return null;
-
-  return (
+  return isLoaded ? (
     <div className={cn("pb-12", className)}>
       <div className="space-y-4 py-4">
         <div className="px-4 py-2">
@@ -189,6 +199,8 @@ function ApplicationSidebar({ className }) {
         </div>
       </div>
     </div>
+  ) : (
+    <Skeleton className="p-4 h-full w-full rounded-lg" />
   );
 }
 
