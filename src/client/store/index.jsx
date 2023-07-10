@@ -28,7 +28,7 @@ const store = configureStore({
     errors,
     admin,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+  //middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 });
 
 export default store;

@@ -15,10 +15,12 @@ import FloorRayCaster from "./components/RayCasters/FloorRaycaster";
 import RoomRayCaster from "./components/RayCasters/RoomRaycaster";
 import ItemRayCaster from "./components/RayCasters/ItemRayCaster";
 import DoorRayCaster from "./components/RayCasters/DoorRaycaster";
+import EditRaycaster from "./components/RayCasters/EditRaycaster";
 import Controls from "./components/Controls";
 import { fetchSingleFloorplan } from "../../store/floorplan";
 import { useNavigate } from "react-router-dom";
 import { setLoadFloorplanError } from "../../store";
+import {FirstPersonControls} from "@react-three/drei"
 import { Skeleton } from "../ui/Skeleton";
 
 const Editor3d = ({ id }) => {
@@ -55,6 +57,9 @@ const Editor3d = ({ id }) => {
     canvas.onpointerdown = null;
     canvas.onpointermove = null;
     canvas.onclick = null;
+    if(currentAction === 'firstPerson'){
+      canvas.requestPointerLock({unadjustedMovement: true,})
+    }
   }, [currentAction]);
 
   const currentCursor =
@@ -84,12 +89,12 @@ const Editor3d = ({ id }) => {
         id="canvas1"
         camera={is2D ? camera2D : camera3D}
         className="border-8 border-primary-forground"
-        frameloop="demand"
+        frameloop={currentAction === "firstPerson" ? "always" : "demand"}
         gl={{
           preserveDrawingBuffer: true,
         }}
       >
-        <Controls is2D={is2D} />
+        {currentAction !== "firstPerson" && <Controls is2D={is2D} camera={is2D ? camera2D : camera3D}/>}
         <Sky />
         <Island />
         <ambientLight intensity={0.2} />
@@ -113,6 +118,14 @@ const Editor3d = ({ id }) => {
           <ItemRayCaster camera={is2D ? camera2D : camera3D} />
         ) : currentAction === "door" ? (
           <DoorRayCaster camera={is2D ? camera2D : camera3D} />
+        ) : currentAction === "edit" ? (
+          <EditRaycaster camera={is2D ? camera2D : camera3D} />
+        ) : currentAction === "firstPerson" ? (
+          <FirstPersonControls 
+            camera={camera3D} 
+            lookSpeed={.25}
+            position={[0,4,0]}
+          />
         ) : null}
         {/* <Effects/> */}
         <Screenshots />

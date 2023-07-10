@@ -94,6 +94,15 @@ export function ApplicationButtons({ className }) {
         Eraser
       </Button>
       <Button
+        variant={currentAction === "edit" ? "secondary" : "ghost"}
+        size="sm"
+        className={currentAction === "edit" ? "w-full justify-start bg-gradient-to-br from-red-600 to-orange-500" : "w-full justify-start hover:scale-105"}
+        onClick={() => dispatch(setAction("edit"))}
+      >
+        <EraserIcon className="mr-2 h-4 w-4" />
+        Edit !!! In Progress !!!
+      </Button>
+      <Button
         variant={currentAction === "placeItem" ? "secondary" : "ghost"}
         size="sm"
         className={
@@ -118,6 +127,15 @@ export function ApplicationButtons({ className }) {
       >
         <DoorClosed className="mr-2 h-4 w-4" />
         Door
+      </Button>
+      <Button
+        variant={currentAction === "firstPerson" ? "secondary" : "ghost"}
+        size="sm"
+        className={currentAction === "firstPerson" ? "w-full justify-start bg-gradient-to-br from-red-600 to-orange-500" : "w-full justify-start hover:scale-105"}
+        onClick={() => dispatch(setAction("firstPerson"))}
+      >
+        <DoorClosed className="mr-2 h-4 w-4" />
+        First Person !Dont click!
       </Button>
       <Button
         onClick={() => dispatch(saveFloorplan(singleFloorplan))}
