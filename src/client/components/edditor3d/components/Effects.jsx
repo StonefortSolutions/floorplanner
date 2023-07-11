@@ -3,7 +3,6 @@ import { useThree } from '@react-three/fiber';
 
 const Effects = ({is2D}) => {
   const {scene} = useThree()
-  console.log(scene.children)
   return(
     <EffectComposer multisampling={0} disableNormalPass={true}>
       <Bloom

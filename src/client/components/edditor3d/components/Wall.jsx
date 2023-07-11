@@ -1,11 +1,8 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteFromScene } from "../../../store/scene";
-import * as THREE from "three";
-import { useLoader } from '@react-three/fiber';
 
 function Wall({ point1, point2, id, color, height, bottom }) {
-  const normals = useLoader(THREE.TextureLoader, "/normals/wallNormal.jpg");
   const currentAction = useSelector((state) => state.currentAction);
   const dispatch = useDispatch();
   const onClick = (e) => {
@@ -34,7 +31,7 @@ function Wall({ point1, point2, id, color, height, bottom }) {
       name="wall"
     >
       <boxGeometry attach="geometry" args={[.5, height, depth]} />
-      <meshStandardMaterial color={color} normalMap={normals}/>
+      <meshStandardMaterial color={color}/>
     </mesh>
   );
 }
