@@ -20,7 +20,6 @@ import AdminHome from "./components/admin/AdminHome";
 import AdminUsers from "./components/admin/AdminUsers";
 import NotAuthorized from "./pages/NotAuthorized";
 import NotFound from "./pages/NotFound";
-import Checkout from "./pages/Checkout";
 
 function ClerkProviderWithRoutes({ publishableKey }) {
   const navigate = useNavigate();
