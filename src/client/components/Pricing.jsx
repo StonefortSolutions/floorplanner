@@ -9,6 +9,7 @@ import {
 import { CheckCircle2 } from "lucide-react";
 import { Button } from "./ui/Button";
 import axios from "axios";
+import UpgradeButton from "./ui/UpgradeButton";
 
 const tempPlans = [
   {
@@ -47,14 +48,6 @@ function Pricing({ isDashboard }) {
 }
 
 function PricingCard({ plan, isDashboard }) {
-  const checkoutHandler = async () => {
-    try {
-      const { data } = await axios.post("/api/stripe");
-      window.location = data.url;
-    } catch (error) {
-      console.log(error);
-    }
-  };
   return (
     <Card className="border-white border-2 rounded-lg shadow-lg">
       <CardHeader>
@@ -74,16 +67,7 @@ function PricingCard({ plan, isDashboard }) {
         ))}
       </ul>
       <div className="px-6 pb-6 w-full">
-        {isDashboard && plan.name === "Premium" && (
-          <Button
-            variant="default"
-            size="lg"
-            className=""
-            onClick={checkoutHandler}
-          >
-            Upgrade
-          </Button>
-        )}
+        {isDashboard && plan.name === "Premium" && <UpgradeButton />}
       </div>
     </Card>
   );
