@@ -29,6 +29,7 @@
     "@react-three/fiber": "^8.13.3",
     "@react-three/postprocessing": "^2.14.11",
     "@reduxjs/toolkit": "^1.9.5",
+    "@stripe/stripe-js": "^1.54.1",
     "@tanstack/react-table": "^8.9.3",
     "axios": "^1.4.0",
     "class-variance-authority": "^0.6.0",
@@ -45,6 +46,7 @@
     "react-router-dom": "^6.13.0",
     "redux-logger": "^3.0.6",
     "sequelize": "^6.32.1",
+    "stripe": "^12.12.0",
     "tailwind-merge": "^1.13.2",
     "tailwindcss-animate": "^1.0.6",
     "vite-express": "^0.9.1"
