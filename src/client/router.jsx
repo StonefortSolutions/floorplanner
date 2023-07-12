@@ -20,6 +20,8 @@ import AdminHome from "./components/admin/AdminHome";
 import AdminUsers from "./components/admin/AdminUsers";
 import NotAuthorized from "./pages/NotAuthorized";
 import NotFound from "./pages/NotFound";
+import Confirmed from "./pages/Confirmed";
+import Declined from "./pages/Declined";
 
 function ClerkProviderWithRoutes({ publishableKey }) {
   const navigate = useNavigate();
@@ -32,8 +34,8 @@ function ClerkProviderWithRoutes({ publishableKey }) {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="/notauthorized" element={<NotAuthorized />} />
-          <Route path="/confirmation" element={""} />
-          <Route path="/declined" element={""} />
+          <Route path="/confirmation" element={<Confirmed />} />
+          <Route path="/declined" element={<Declined />} />
           <Route path="/" element={<Home />} />
           {/* <Route path="/editor" element={<Editor />} /> */}
 
