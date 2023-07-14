@@ -1,6 +1,7 @@
 const conn = require("./conn");
 const Examples = require("./examples");
 const Floorplan = require("./floorplan");
+const Subscription = require("./subscription");
 
 // const floorplans = [
 //   {
@@ -36,4 +37,5 @@ module.exports = {
   syncAndSeed,
   Examples,
   Floorplan,
+  Subscription,
 };
