@@ -1,8 +1,24 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import { Button } from "../components/ui/Button";
+import axios from "axios";
 
 const Confirmed = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const sessionId = searchParams.get("session_id");
+
+  const onLoad = async () => {
+    try {
+      await axios.post("/api/subscription", { sessionId });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    onLoad();
+  }, []);
+
   return (
     <div>
       <div className="flex items-center flex-col space-y-10">

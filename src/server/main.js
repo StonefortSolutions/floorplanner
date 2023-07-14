@@ -27,6 +27,7 @@ app.use("/api/auth", require("./api/auth"));
 app.use("/api/floorplan", require("./api/floorplan"));
 app.use("/api/admin", require("./api/admin"));
 app.use("/api/stripe", require("./api/stripe"));
+app.use("/api/subscription", require("./api/subscription"));
 
 ViteExpress.listen(app, port, async () => {
   try {
