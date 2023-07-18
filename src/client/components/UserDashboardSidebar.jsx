@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   PencilIcon,
   ArmchairIcon,
@@ -14,6 +14,9 @@ import { Popover, PopoverTrigger, PopoverContent } from "./ui/Popover";
 import { cn } from "../utils";
 import { useDispatch, useSelector } from "react-redux";
 import { createFloorplan } from "../store/floorplan";
+import { useToast } from "../hooks/useToast";
+import { useClerk } from "@clerk/clerk-react";
+import axios from "axios";
 
 function SidebarContent() {
   const navigate = useNavigate();
@@ -22,6 +25,37 @@ function SidebarContent() {
   const singleFloorplan = useSelector(
     (state) => state.floorplan.singleFloorplan
   );
+  const { user } = useClerk();
+  // const userId = user?.id;
+  const [subs, setSubs] = useState(false);
+  const [floorplans, setFloorplans] = useState([]);
+  const { toast } = useToast();
+
+  const subscriptionToast = () => {
+    toast({
+      description:
+        "Please Upgrade Your Subscription To Premium To Build More Floorplans",
+    });
+  };
+
+  const getFloorplans = async () => {
+    const { data } = await axios.get("/api/floorplan");
+    setFloorplans(data);
+  };
+
+  const getSubscription = async () => {
+    const { data } = await axios.get("/api/subscription/user");
+    if (data.length === 0) {
+      setSubs(false);
+    } else {
+      setSubs(true);
+    }
+  };
+
+  useEffect(() => {
+    getSubscription();
+    getFloorplans();
+  }, []);
 
   useEffect(() => {
     if (singleFloorplan !== null && singleFloorplan.id !== null) {
@@ -30,7 +64,11 @@ function SidebarContent() {
   }, [singleFloorplan]);
 
   const createFloorplanHandler = () => {
-    dispatch(createFloorplan());
+    if (subs === false && floorplans.length >= 3) {
+      subscriptionToast();
+    } else {
+      dispatch(createFloorplan());
+    }
   };
 
   return (
