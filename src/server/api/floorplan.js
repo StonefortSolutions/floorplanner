@@ -14,6 +14,7 @@ app.get("/", ClerkExpressRequireAuth({}), async (req, res, next) => {
       where: {
         userId: req.auth.userId,
       },
+      order: [["updatedAt", "DESC"]],
     });
     res.send(floorplan);
   } catch (error) {

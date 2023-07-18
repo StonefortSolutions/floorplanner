@@ -40,7 +40,7 @@ function Landing() {
           </h3>
           {/* Tailwind Grid 2x4 on large, single column on mobile */}
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 mt-4">
-            <div className="flex flex-col items-center justify-center bg-secondary p-2 rounded-lg border">
+            <div className="flex flex-col items-center justify-center bg-secondary p-2 rounded-lg border animate-gradient bg-gradient-to-br dark:from-gray-700 via-background dark:via-background dark:to-slate-700 from-gray-200 to-slate-300">
               <div className="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-gradient-to-tr from-orange-400 to-pink-500">
                 <PencilIcon className="h-8 w-8 text-white" />
               </div>
@@ -55,7 +55,7 @@ function Landing() {
             <div className="relative lg:max-w-5xl lg:mx-auto">
               <div className="absolute -inset-2">
                 <div
-                  className="w-full h-full mx-auto opacity-30 blur-lg filter"
+                  className="w-full h-full mx-auto opacity-30 blur-lg filter animate-gradient"
                   style={{
                     background:
                       "linear-gradient(90deg, #44ff9a -0.55%, #44b0ff 22.86%, #8b44ff 48.36%, #ff6644 73.33%, #ebff70 99.34%)",
@@ -63,24 +63,25 @@ function Landing() {
                 />
               </div>
               <div className="flex flex-col items-center justify-center bg-secondary p-2 rounded-lg border">
-                <div className="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-gradient-to-tr from-orange-400 to-pink-500">
+                <div className="flex items-center justify-center w-16 h-16 mb-4 rounded-full  bg-gradient-to-tr from-orange-400 to-pink-500">
                   <SparklesIcon className="h-8 w-8 text-white" />
                 </div>
                 <h4 className="text-xl font-semibold tracking-tight">Fancy</h4>
                 <p className="leading-7 font-thin p-2">
-                  FloorPlanner is designed to be intuitive and user-friendly, so
-                  you can get started right away.
+                  Create beautiful 2d and 3d floor plans with ease. Color the
+                  floors or the walls, add furniture and decorations, and more.
                 </p>
               </div>
             </div>
-            <div className="flex flex-col items-center justify-center bg-secondary p-2 rounded-lg border">
+            <div className="flex flex-col items-center justify-center bg-secondary p-2 rounded-lg border animate-gradient bg-gradient-to-br dark:from-gray-700 via-background dark:via-background dark:to-slate-700 from-gray-200 to-slate-300">
               <div className="flex items-center justify-center w-16 h-16 mb-4 rounded-full bg-gradient-to-tr from-orange-400 to-pink-500">
                 <StarIcon className="h-8 w-8 text-white" />
               </div>
               <h4 className="text-xl font-semibold tracking-tight">Powerful</h4>
               <p className="leading-7 font-thin p-2">
-                FloorPlanner is designed to be intuitive and user-friendly, so
-                you can get started right away.
+                FloorPlanner is trusted by thousands of professionals around the
+                world. Floorplanner is packed with features that enable you to
+                create detailed and precise floor plans.
               </p>
             </div>
           </div>

@@ -126,9 +126,16 @@ function AdminHome() {
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
             <Card className="col-span-4">
               <CardHeader>
-                <CardTitle>stripe stuff</CardTitle>
+                <CardTitle>Floorplanner Admin</CardTitle>
               </CardHeader>
-              <CardContent className="pl-2">todo</CardContent>
+              <CardContent className="pl-2">
+                <div className="space-y-4">
+                  <p className="text-sm text-muted-foreground">
+                    Welcome to the Floorplanner Admin Dashboard. Here you can
+                    view and manage all of your users and their floorplans.
+                  </p>
+                </div>
+              </CardContent>
             </Card>
             <Card className="col-span-3">
               <CardHeader>
