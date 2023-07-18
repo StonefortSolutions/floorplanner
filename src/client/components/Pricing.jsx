@@ -1,14 +1,6 @@
 import React from "react";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-} from "./ui/Card";
+import { Card, CardHeader, CardTitle, CardDescription } from "./ui/Card";
 import { CheckCircle2 } from "lucide-react";
-import { Button } from "./ui/Button";
-import axios from "axios";
 import UpgradeButton from "./ui/UpgradeButton";
 
 const tempPlans = [
@@ -49,7 +41,7 @@ function Pricing({ isDashboard }) {
 
 function PricingCard({ plan, isDashboard }) {
   return (
-    <Card className="border-white border-2 rounded-lg shadow-lg">
+    <Card className="border-white border-2 rounded-lg shadow-lg ">
       <CardHeader>
         <CardTitle>{plan.name}</CardTitle>
         <div className="text-2xl font-bold">
