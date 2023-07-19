@@ -3,7 +3,6 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { Button } from "../components/ui/Button";
 import axios from "axios";
 import { Loader2 } from "lucide-react";
-import { ClerkLoading } from "@clerk/clerk-react";
 
 const Confirmed = () => {
   const navigate = useNavigate();
@@ -12,7 +11,9 @@ const Confirmed = () => {
   const [subs, setSubs] = useState([]);
 
   const getSubscription = async () => {
-    const { data } = await axios.post("/api/subscription", { sessionId });
+    const { data } = await axios.post("/api/subscription/session", {
+      sessionId,
+    });
     setSubs(data);
     if (data.length === 0) {
       navigate("/notauthorized");
